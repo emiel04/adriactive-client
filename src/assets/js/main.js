@@ -9,7 +9,7 @@ function init() {
 }
 
 function loadConfig() {
-    fetch("config.json")
+    fetch("/src/config.json")
         .then(resp => resp.json())
         .then(config => {
             api = `${config.host ? config.host + '/': ''}${config.year ? config.year + '/' : ''}${config.group ? config.group + '/' : ''}api/`;

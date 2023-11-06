@@ -5,7 +5,8 @@ import AdriActive from "./AdriActive";
 function App() {
   return (
       <Routes>
-          <Route path="/" element={AdriActive} />
+          <Route path="/app/*" element={AdriActive} />
+          <Route path="*" element={<p>404 not found</p>} />
       </Routes>
   )
 }

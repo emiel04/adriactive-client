@@ -1,3 +1,24 @@
-
+.navbar {
+  position: fixed;
+  display: block;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1rem;
+  background: white;
+}
+.navbar li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+.navbar li a {
+  display: inline-block;
+  background: #56c1ae;
+  border-radius: 20px;
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 /*# sourceMappingURL=app.css.map */
