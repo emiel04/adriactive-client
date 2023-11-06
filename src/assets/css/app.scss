@@ -1,0 +1,44 @@
+@use "var";
+
+.navbar{
+    position: fixed;
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 1rem;
+    background: white;
+    li{
+        display: inline-block;
+        margin-right: 1rem;
+        text-align: center;
+       a{
+           display: inline-block;
+           background: var.$primary-color;
+           border-radius: 20px;
+           padding: 1rem;
+           color: white;
+           text-decoration: none;
+           font-weight: bold;
+           min-width: 6rem;
+       }
+        a.active{
+           outline: 3px solid var.$dark-color;
+        }
+
+    }
+}
+
+button, a{
+    font-size: 1em;
+    padding: .6em;
+    background: var.$primary-color;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    &:hover{
+        outline: 3px solid var.$light-color;
+    }
+
+}
+
