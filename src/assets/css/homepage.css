@@ -1,0 +1,20 @@
+header {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 0.5rem;
+}
+header ul {
+  display: flex;
+  gap: 1em;
+  margin: 0 0.5rem;
+}
+header li {
+  display: inline-block;
+}
+header button {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=homepage.css.map */
