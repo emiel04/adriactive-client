@@ -1,8 +1,8 @@
 
 function AdriActive () {
-    return (<main>
+    return <main>
         <h1>AdriActive</h1>
-    </main>)
+    </main>
 }
 
 export default AdriActive();
