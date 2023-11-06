@@ -7,15 +7,15 @@ import evApi from "../services/api-events";
 export default function EventBlock() {
 
     const [events, setEvents] = useState<TEvents[]>([]);
-    const [isLoading, setLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApi.getEvents(evReq.token).then(data => {
             setEvents(data);
-            setLoading(false);
+            setIsLoading(false);
         }).catch(() => {
-            setLoading(false);
+            setIsLoading(false);
         });
 
         return () => {
