@@ -10,15 +10,32 @@
 .navbar li {
   display: inline-block;
   margin-right: 1rem;
+  text-align: center;
 }
 .navbar li a {
   display: inline-block;
-  background: #56c1ae;
+  background: #89d0c1;
   border-radius: 20px;
   padding: 1rem;
   color: white;
   text-decoration: none;
   font-weight: bold;
+  min-width: 6rem;
+}
+.navbar li a.active {
+  outline: 3px solid #4e766c;
+}
+
+button, a {
+  font-size: 1em;
+  padding: 0.6em;
+  background: #89d0c1;
+  border: none;
+  border-radius: 20px;
+  color: white;
+}
+button:hover, a:hover {
+  outline: 3px solid #d8fff7;
 }
 
 /*# sourceMappingURL=app.css.map */
