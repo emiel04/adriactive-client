@@ -1,0 +1,14 @@
+.error-container, .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.error {
+    color: white;
+    font-weight: bold;
+    background: red;
+    padding: 0.5rem;
+    border-radius: 15px;
+}

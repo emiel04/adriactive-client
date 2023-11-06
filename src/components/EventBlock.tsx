@@ -4,7 +4,6 @@ import axios, {CancelTokenSource} from "axios";
 import evApi from "../services/api-events";
 
 
-
 export default function EventBlock() {
 
     const [events, setEvents] = useState<TEvents[]>([]);
@@ -45,6 +44,8 @@ function renderEventBlock(events: TEvents[]) {
             ))}
         </ul>
     ) : (
-        <p>No events found!</p>
+        <div className={"error-container"}>
+            <p className={"error"}>No events found!</p>
+        </div>
     )
 }
