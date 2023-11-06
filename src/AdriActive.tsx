@@ -3,9 +3,6 @@ import Navbar from "./components/common/navbar";
 import HomePage from "./components/pages/HomePage";
 import "./assets/css/homepage.css";
 
-
-
-
 function AdriActive () {
     return <>
         <Routes>
