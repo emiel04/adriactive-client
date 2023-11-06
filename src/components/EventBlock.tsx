@@ -44,7 +44,7 @@ function renderEventBlock(events: TEvents[]) {
             ))}
         </ul>
     ) : (
-        <div className={"error-container"}>
+        <div>
             <p className={"error"}>No events found!</p>
         </div>
     )
