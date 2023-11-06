@@ -9,10 +9,8 @@ const handleError = (error: Error) => {
     throw error;
 };
 
-
 export default {
     getCategories: (cancelToken: CancelToken) => {
-        console.log(URI);
         return axios.get(URI + "category", {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
