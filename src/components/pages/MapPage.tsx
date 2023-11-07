@@ -6,15 +6,6 @@ import {useState} from "react";
 
 function MapPage(){
 
-    const testLocations = [
-        {
-            coordinates : [12.060, 45.0528]
-        },
-        {
-            coordinates : [11.000, 45.0000]
-        }
-    ]
-
     const [visible, setVisible] = useState(true);
 
     function eventHandler(){
