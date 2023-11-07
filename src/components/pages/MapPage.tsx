@@ -1,12 +1,8 @@
 import * as ol from "ol"
 import {fromLonLat} from "ol/proj";
 import {OSM} from "ol/source";
-import {Tile, Vector} from "ol/layer";
+import {Tile} from "ol/layer";
 import {useState} from "react";
-import {Feature} from "ol";
-import {Point} from "ol/geom";
-import {Icon, Style} from "ol/style";
-
 
 function MapPage(){
 
