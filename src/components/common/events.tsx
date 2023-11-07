@@ -1,3 +1,4 @@
-export type TEvents ={
+export type TEvent ={
+    id: number;
     name: string;
 }
