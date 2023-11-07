@@ -8,11 +8,9 @@ function MapPage(){
 
     const [visible, setVisible] = useState(true);
 
-    function eventHandler(){
-
-    setVisible((prev) => !prev);
-
-    new ol.Map({
+    function showMapHandler(){
+        setVisible((prev) => !prev);
+        new ol.Map({
         target: 'map',
         layers: [
             new Tile({
@@ -23,10 +21,10 @@ function MapPage(){
             center: fromLonLat([12.060, 45.0528]),
             zoom: 15
         })
-    });
+        });
     }
     return <>
-        {visible && <button onClick={eventHandler}>show map</button>}
+        {visible && <button onClick={showMapHandler}>show map</button>}
         <div id="map" style={{ width: '100%', height: '40rem' }}></div>;
     </>
 
