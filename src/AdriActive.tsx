@@ -2,6 +2,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Navbar from "./components/common/navbar";
 import HomePage from "./components/pages/HomePage";
 import "./assets/css/homepage.css";
+import "./assets/css/map.css"
 import MapPage from "./components/pages/MapPage";
 
 function AdriActive () {
