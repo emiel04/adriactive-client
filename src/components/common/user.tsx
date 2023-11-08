@@ -1,4 +1,4 @@
-export type TOrganiser = {
+export type TUser = {
     id: string;
     firstName: string;
     lastName: string;
