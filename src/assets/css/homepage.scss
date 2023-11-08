@@ -1,20 +1,28 @@
-header{
-    background: white;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    padding: .5rem;
-    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.30);
+@use "var";
 
-    ul{
-        display: flex;
-        gap: 1em;
-        margin: 0 .5rem;
-    }
-    li{
-        display: inline-block;
-    }
-    button{
-        cursor: pointer;
-    }
+header {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: .5rem;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.30);
+
+  ul {
+    display: flex;
+    gap: 1em;
+    margin: 0 .5rem;
+  }
+
+  li {
+    display: inline-block;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+.pressed {
+    outline: 3px solid var.$dark-color;
 }

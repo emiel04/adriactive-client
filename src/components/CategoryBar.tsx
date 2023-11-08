@@ -1,11 +1,9 @@
 import {TCategory} from "./common/category";
-import {useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import catApi from "../services/api-catergory";
 
-
-
-export default function CategoryBar() {
+export default function CategoryBar({filters, setFilters} : {filters: Set<number> ,setFilters:  Dispatch<SetStateAction<Set<number>>>}) {
 
     const [categories, setCategories] = useState<TCategory[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -24,6 +22,34 @@ export default function CategoryBar() {
         }
     }, [])
 
+
+    function handleFilterClick(e: React.MouseEvent<HTMLButtonElement>, c: number) {
+        e.preventDefault();
+        setFilters(prev => {
+            const updatedFilters = new Set(prev);
+            if (updatedFilters.has(c)) {
+                updatedFilters.delete(c);
+            } else {
+                updatedFilters.add(c);
+            }
+            return updatedFilters;
+        });
+    }
+
+    function renderCategorybar(categories: TCategory[]) {
+        return categories && categories.length > 0 ? (
+            <ul>
+                {categories.map((c) => (
+                    <li key={c.name}>
+                        <button className={`capitalize ${filters.has(c.categoryId) ? 'pressed' : ""}`} onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>No categories found!</p>
+        );
+    }
+
     return <header>
         {loading ? (
             <p>Loading...</p>
@@ -33,16 +59,3 @@ export default function CategoryBar() {
     </header>
 }
 
-function renderCategorybar(categories: TCategory[]) {
-    return categories && categories.length > 0 ? (
-        <ul>
-            {categories.map((c) => (
-                <li key={c.name} >
-                    <button className={"capitalize"}>{c.name}</button>
-                </li>
-            ))}
-        </ul>
-    ) : (
-        <p>No categories found!</p>
-    )
-}
