@@ -1,22 +1,14 @@
-import {useState, useEffect} from "react";
+import {useEffect, useMemo, useRef} from "react";
 import * as ol from "ol";
 import {fromLonLat} from "ol/proj";
 import {OSM} from "ol/source";
 import {Tile} from "ol/layer";
+import "../../assets/css/map.css"
 
 function MapPage() {
-    const [visible, setVisible] = useState(true);
-
+    const mapDiv = useRef(null);
     useEffect(() => {
-        showMapHandler();
-    }, []);
-
-    function showMapHandler() {
-        removeMap();
-
-        setVisible((prev) => !prev);
-        new ol.Map({
-            target: 'map',
+        const mapObject = new ol.Map({
             layers: [
                 new Tile({
                     source: new OSM()
@@ -27,16 +19,20 @@ function MapPage() {
                 zoom: 15
             })
         });
-    }
+
+        if (mapDiv.current) {
+            mapObject.setTarget(mapDiv.current);
+        }
+
+        return () => {
+            mapObject.setTarget();
+        };
+    }, []);
 
     return (
-        <div id="map" style={{width: '100%', height: '40rem', display: visible ? 'block' : 'none'}} />
+        <div ref={mapDiv} id="map" className={"ol-map"} />
     );
 
 }
-
-    function removeMap() {
-        return <div/>
-    }
 
 export default MapPage;
