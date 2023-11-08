@@ -2,8 +2,6 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Navbar from "./components/common/navbar";
 import HomePage from "./components/pages/HomePage";
 import "./assets/css/homepage.css";
-import "./assets/css/map.css"
-import MapPage from "./components/pages/MapPage";
 
 function AdriActive () {
     return <>
@@ -14,6 +12,7 @@ function AdriActive () {
             <Route path={"/map"} element={<MapPage/>}></Route>
             <Route path={"/events"} element={<p>Events</p>}></Route>
             <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
+            <Route path={"*"} element={<NotFound/>}></Route>
         </Routes>
         <Navbar></Navbar>
     </>
