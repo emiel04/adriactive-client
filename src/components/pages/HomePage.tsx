@@ -5,6 +5,10 @@ import {TEvent} from "../common/events.tsx";
 import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-events.ts";
 
+type TEventBlockProps = {
+    event: TEvent;
+}
+
 export default function HomePage() {
 
     const [events, setEvents] = useState<TEvent[]>([]);
@@ -47,4 +51,11 @@ function renderEvents(events: TEvent[]) {
         </div>
     )
 
+}
+
+export function filterEvents(categoryName: string, events: TEventBlockProps[]) {
+    const newEvents = events.filter((prop) => prop.event.category.name === categoryName);
+    console.log(newEvents);
+    setFilteredEvents(newEvents);
+    return filteredEvents;
 }
