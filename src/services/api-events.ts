@@ -12,7 +12,6 @@ const handleError = (error: Error) => {
 
 export default {
     getEvents: (cancelToken: CancelToken) => {
-        console.log(URI);
         return axios.get(URI + "events", {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);

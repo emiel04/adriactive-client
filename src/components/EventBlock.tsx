@@ -1,17 +1,19 @@
 import {TEvent} from "./common/events";
+import Image from "../assets/img/kaas.jpg";
 
 type TEventBlockProps = {
     event: TEvent;
 }
 
-export default function EventBlock({event}: TEventBlockProps) {
-    return <div className={"event"}>
-            <h2>{event.title}</h2>
-            <ul>
-                <li><p>{event.category}</p></li>
-                <li><p>{event.organiser}</p></li>
-                <li><p>{event.location}</p></li>
-            </ul>
-        <p>{event.id}</p>
-        </div>;
+export default function EventBlock(prop: TEventBlockProps) {
+
+    return <div className="event" id={prop.event.id.toString()}>
+                <h2>{prop.event.title}</h2>
+                <ul>
+                    <li>{prop.event.category}</li>
+                    <li>{prop.event.organiser}</li>
+                    <li>{prop.event.sector}</li>
+                    <li><img src={Image} alt={"kaas"}/></li>
+                    </ul>
+            </div>;
 }

@@ -1,6 +1,5 @@
 import {TUser} from "./user.tsx";
-/*import {TCategory} from "./category.tsx";
-import {TLocation} from "./location.tsx";*/
+//import {TCategory} from "./category.tsx";
 
 export type TEvent ={
     id: number;
@@ -9,5 +8,5 @@ export type TEvent ={
     category: string;
     organiser: string;
     attendees: TUser[];
-    location: string;
+    sector: number;
 }

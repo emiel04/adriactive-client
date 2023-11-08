@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-events";
-import EventBlock from "../EventBlock";
-import {TEvent} from "../common/events";
-export default function Events() {
+import {TEvent} from "../common/events.tsx";
+import EventBlock from "../EventBlock.tsx";
 
+export default function Events() {
     const [events, setEvents] = useState<TEvent[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -33,9 +33,9 @@ export default function Events() {
 
 function renderEvents(events: TEvent[]) {
     return events && events.length > 0 ? (
-            events.map((e) => (
-                <EventBlock key={e.id} event={e}></EventBlock>
-            ))
+        events.map((e) => (
+            <EventBlock key={e.id} event={e}></EventBlock>
+        ))
     ) : (
         <div>
             <p className={"error"}>No events found!</p>
