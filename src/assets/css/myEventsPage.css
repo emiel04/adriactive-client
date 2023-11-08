@@ -1,43 +1,44 @@
 #myEvents {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 35rem;
 }
 #myEvents #joinedEvents {
   display: flex;
   flex-direction: column;
-  height: 42rem;
+  height: 35rem;
 }
 #myEvents #joinedEvents h1 {
   position: sticky;
   top: 0;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   background-color: #cffcf2;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 #myEvents #joinedEvents p {
-  padding: 2rem;
+  padding: 1rem;
   background-color: #89d0c1;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 #myEvents #joinedEvents .sideScroll {
   overflow: auto;
   white-space: nowrap;
 }
 #myEvents #joinedEvents #ongoingEvents {
-  height: 50%;
+  height: 45%;
   max-width: 100%;
   overflow: auto;
   white-space: nowrap;
 }
 #myEvents #joinedEvents #upcomingEvents {
-  height: 50%;
+  height: 45%;
   max-width: 100%;
   overflow: auto;
   white-space: nowrap;
 }
 #myEvents #createdEvents {
-  height: 42rem;
+  height: 100%;
   overflow: auto;
   white-space: nowrap;
 }
@@ -45,14 +46,14 @@
   position: sticky;
   top: 0;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   background-color: #cffcf2;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 #myEvents #createdEvents p {
-  padding: 2rem;
+  padding: 0.5rem;
   background-color: #89d0c1;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 /*# sourceMappingURL=myEventsPage.css.map */
