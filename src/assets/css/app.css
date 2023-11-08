@@ -38,4 +38,8 @@ button:hover, a:hover {
   outline: 3px solid #d8fff7;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 /*# sourceMappingURL=app.css.map */

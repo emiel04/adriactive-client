@@ -1,0 +1,56 @@
+$primary-bg: #56C1AE;
+$white: #fff;
+$border-radius: 40px;
+$rem: 1rem;
+$margin-bottom: 2rem;
+$margin-right: 1rem;
+$margin-left: 1rem;
+$margin-top: 1rem;
+
+.loading {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.error {
+    color: white;
+    font-weight: bold;
+    background: red;
+    padding: 0.5rem;
+    border-radius: 15px;
+}
+
+#allEvents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.event {
+    margin: $margin-top $margin-right $margin-bottom $margin-left;
+    background: $primary-bg;
+    border-radius: $border-radius;
+    max-width: 20%;
+    height: auto;
+    color: $white;
+}
+
+.event h2, .event ul, .event p {
+    text-align: center;
+}
+
+.event h2 {
+    padding-top: 0.5rem;
+}
+
+.event ul li {
+    margin-top: 0.25rem;
+}
+
+.event img {
+    max-width: 80%;
+    height: auto;
+    margin: 0 $rem $rem $rem;
+    border-radius: $border-radius;
+}

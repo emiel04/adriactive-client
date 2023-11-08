@@ -1,12 +1,10 @@
-import CategoryBar from "../CategoryBar";
-import EventBlock from "../EventBlock.tsx";
 import {useEffect, useState} from "react";
-import {TEvent} from "../common/events.tsx";
 import axios, {CancelTokenSource} from "axios";
-import evApi from "../../services/api-events.ts";
+import evApi from "../../services/api-events";
+import {TEvent} from "../common/events.tsx";
+import EventBlock from "../EventBlock.tsx";
 
-export default function HomePage() {
-
+export default function Events() {
     const [events, setEvents] = useState<TEvent[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -24,16 +22,13 @@ export default function HomePage() {
         }
     }, [])
 
-    return <>
-        <CategoryBar></CategoryBar>
-        <div className={"loading"}>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                renderEvents(events)
-            )}
-        </div>
-    </>
+    return <div className={"loading"}>
+        {isLoading ? (
+            <p>Loading...</p>
+        ) : (
+            renderEvents(events)
+        )}
+    </div>
 }
 
 function renderEvents(events: TEvent[]) {
@@ -46,5 +41,4 @@ function renderEvents(events: TEvent[]) {
             <p className={"error"}>No events found!</p>
         </div>
     )
-
 }
