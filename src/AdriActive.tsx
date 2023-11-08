@@ -6,6 +6,7 @@ import "./assets/css/interestspage.scss";
 import MapPage from "./components/pages/MapPage.tsx";
 import NotFound from "./components/common/404.tsx";
 import InterestsPage from "./components/pages/InterestPage.tsx";
+import "./assets/css/events.scss";
 
 function AdriActive () {
     return <>

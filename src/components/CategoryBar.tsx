@@ -8,7 +8,7 @@ import catApi from "../services/api-catergory";
 export default function CategoryBar() {
 
     const [categories, setCategories] = useState<TCategory[]>([]);
-    const [isLoading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const catReq: CancelTokenSource = axios.CancelToken.source();
@@ -25,7 +25,7 @@ export default function CategoryBar() {
     }, [])
 
     return <header>
-        {isLoading ? (
+        {loading ? (
             <p>Loading...</p>
         ) : (
             renderCategorybar(categories)
@@ -37,8 +37,8 @@ function renderCategorybar(categories: TCategory[]) {
     return categories && categories.length > 0 ? (
         <ul>
             {categories.map((c) => (
-                <li key={c.name}>
-                    <button>{c.name}</button>
+                <li key={c.name} >
+                    <button className={"capitalize"}>{c.name}</button>
                 </li>
             ))}
         </ul>

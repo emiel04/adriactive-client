@@ -1,0 +1,15 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.error {
+  color: white;
+  font-weight: bold;
+  background: red;
+  padding: 0.5rem;
+  border-radius: 15px;
+}
+
+/*# sourceMappingURL=events.css.map */
