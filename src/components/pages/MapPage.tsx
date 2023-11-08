@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef} from "react";
+import {useEffect, useRef} from "react";
 import * as ol from "ol";
 import {fromLonLat} from "ol/proj";
 import {OSM} from "ol/source";
