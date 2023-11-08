@@ -25,7 +25,7 @@ function MapPage(){
     }
     return <>
         {visible && <button onClick={showMapHandler}>show map</button>}
-        <div id="map" />
+        <div id="map" style={{width: '100%', height:'40rem'}}/>
     </>
 
 

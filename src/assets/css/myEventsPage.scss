@@ -1,5 +1,65 @@
-#joinedEvents{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+#myEvents {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  #joinedEvents{
+    h1{
+      position: sticky;
+      top: 0;
+      text-align: center;
+      margin-bottom: 2rem;
+      background-color: #cffcf2;
+      padding: 1rem;
+    }
+
+    display: flex;
+    flex-direction: column;
+    height: 42rem;
+
+    p{
+      padding: 2rem;
+      background-color: #89d0c1;
+      margin: 1rem;
+    }
+
+    .sideScroll{
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    #ongoingEvents{
+      height: 50%;
+      max-width: 100%;
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    #upcomingEvents{
+      height: 50%;
+      max-width: 100%;
+      overflow: auto;
+      white-space: nowrap;
+    }
+  }
+
+
+  #createdEvents{
+    height: 42rem;
+    overflow: auto;
+    white-space: nowrap;
+    h1{
+      position: sticky;
+      top: 0;
+      text-align: center;
+      margin-bottom: 2rem;
+      background-color: #cffcf2;
+      padding: 1rem;
+    }
+    p{
+      padding: 2rem;
+      background-color: #89d0c1;
+      margin: 1rem;
+    }
+  }
 }
+
