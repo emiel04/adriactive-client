@@ -21,4 +21,4 @@ function AdriActive () {
     </>
 }
 
-export default AdriActive();
+export default AdriActive;
