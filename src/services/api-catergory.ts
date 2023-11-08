@@ -1,17 +1,8 @@
-import axios, {CancelToken} from "axios";
-import URI from "../api";
-
-const handleError = (error: Error) => {
-    if (axios.isCancel(error)) {
-        return null;
-    }
-    console.error(error);
-    throw error;
-};
-
+import {CancelToken} from "axios";
+import axiosInstance, {handleError} from "../helpers/axioshelper";
 export default {
     getCategories: (cancelToken: CancelToken) => {
-        return axios.get(URI + "category", {cancelToken: cancelToken}).then(res => {
+        return axiosInstance.get("api/category", {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
