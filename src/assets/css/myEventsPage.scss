@@ -1,10 +1,13 @@
 #myEvents {
+
+
   display: grid;
   grid-template-columns: 70% 30%;
   height: 35rem;
   max-width: 100%;
 
   #joinedEvents{
+
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -71,4 +74,3 @@
     }
   }
 }
-
