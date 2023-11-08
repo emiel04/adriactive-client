@@ -28,6 +28,11 @@ export default function Navbar() {
             Notifications
             </NavLink>
         </li>
+            <li>
+                <NavLink to={"/app/interests"} className={({isActive}) => isActive ? "active" : ""}>
+                    Interests
+                </NavLink>
+            </li>
         </ul>
     </nav>;
 }
