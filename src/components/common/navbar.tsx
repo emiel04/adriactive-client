@@ -29,8 +29,8 @@ export default function Navbar() {
             </NavLink>
         </li>
             <li>
-                <NavLink to={"/app/interests"} className={({isActive}) => isActive ? "active" : ""}>
-                    Interests
+                <NavLink to={"/app/start"} className={({isActive}) => isActive ? "active" : ""}>
+                    Start
                 </NavLink>
             </li>
         </ul>

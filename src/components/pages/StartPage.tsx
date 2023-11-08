@@ -29,12 +29,12 @@ export default function StartPage() {
                 <p>Loading...</p>
             ) : <>
             <div className="interests-page">
-                <div className="interests-grid">
                 <h2>Select Interests</h2>
                 <h3>Select at least 3 categories or skip and finish later</h3>
+                <div className="interests-grid">
                 {renderInterests(interests)}
-                <button className="skip-button">Skip</button>
             </div>
+                <button className="skip-button">Skip</button>
             </div>
             </>}
         </div>
