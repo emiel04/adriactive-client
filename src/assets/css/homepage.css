@@ -18,4 +18,8 @@ header button {
   cursor: pointer;
 }
 
+.pressed {
+  outline: 3px solid #4e766c;
+}
+
 /*# sourceMappingURL=homepage.css.map */

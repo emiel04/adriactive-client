@@ -5,10 +5,6 @@ import {TEvent} from "../common/events.tsx";
 import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-events.ts";
 
-// type TEventBlockProps = {
-//     event: TEvent;
-// }
-
 export default function HomePage() {
 
     const [events, setEvents] = useState<TEvent[]>([]);
@@ -30,7 +26,7 @@ export default function HomePage() {
     }, [])
 
     return <>
-        <CategoryBar setFilters={setFilters}></CategoryBar>
+        <CategoryBar filters={filters} setFilters={setFilters}></CategoryBar>
         <div className={"loading"}>
             {isLoading ? (
                 <p>Loading...</p>
@@ -43,7 +39,7 @@ export default function HomePage() {
 
 function renderEvents(events: TEvent[], filters: Set<number>) {
     console.log(filters);
-    if (events && filters.size > 0){
+    if (events && filters.size > 0) {
         events = events.filter(e => {
             console.log(e.category);
             return filters.has(e.category.categoryId)
@@ -61,10 +57,3 @@ function renderEvents(events: TEvent[], filters: Set<number>) {
     )
 
 }
-
-// export function filterEvents(categoryName: string, events: TEventBlockProps[]) {
-//     const newEvents = events.filter((prop) => prop.event.category.name === categoryName);
-//     console.log(newEvents);
-//     setFilteredEvents(newEvents);
-//     return filteredEvents;
-// }

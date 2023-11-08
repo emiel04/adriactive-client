@@ -25,7 +25,9 @@
         a.active{
            outline: 3px solid var.$dark-color;
         }
-
+        a:hover {
+            background: var.$hover-color;
+        }
     }
 }
 
@@ -37,9 +39,8 @@ button, a{
     border-radius: 20px;
     color: white;
     &:hover{
-        outline: 3px solid var.$light-color;
+        background: var.$hover-color;
     }
-
 }
 
 .capitalize{

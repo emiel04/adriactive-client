@@ -3,7 +3,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import catApi from "../services/api-catergory";
 
-export default function CategoryBar({setFilters} : { setFilters:  Dispatch<SetStateAction<Set<number>>>}) {
+export default function CategoryBar({filters, setFilters} : {filters: Set<number> ,setFilters:  Dispatch<SetStateAction<Set<number>>>}) {
 
     const [categories, setCategories] = useState<TCategory[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -41,7 +41,7 @@ export default function CategoryBar({setFilters} : { setFilters:  Dispatch<SetSt
             <ul>
                 {categories.map((c) => (
                     <li key={c.name}>
-                        <button className="capitalize" onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
+                        <button className={`capitalize ${filters.has(c.categoryId) ? 'pressed' : ""}`} onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
                     </li>
                 ))}
             </ul>
