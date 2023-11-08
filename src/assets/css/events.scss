@@ -1,4 +1,5 @@
-$primary-bg: #56C1AE;
+@use "var";
+
 $white: #fff;
 $border-radius: 40px;
 $rem: 1rem;
@@ -9,7 +10,8 @@ $margin-top: 1rem;
 
 .loading {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
     margin-top: 1rem;
 }
 
@@ -21,15 +23,9 @@ $margin-top: 1rem;
     border-radius: 15px;
 }
 
-#allEvents {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
 .event {
     margin: $margin-top $margin-right $margin-bottom $margin-left;
-    background: $primary-bg;
+    background: var.$primary-color;
     border-radius: $border-radius;
     max-width: 20%;
     height: auto;
@@ -41,6 +37,7 @@ $margin-top: 1rem;
 }
 
 .event h2 {
+    font-size: 1.25rem;
     padding-top: 0.5rem;
 }
 
