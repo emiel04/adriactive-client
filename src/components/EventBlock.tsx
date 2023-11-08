@@ -6,7 +6,6 @@ type TEventBlockProps = {
 }
 
 export default function EventBlock(prop: TEventBlockProps) {
-    console.log(prop.event)
     return <div className="event" id={prop.event.id.toString()}>
                 <h2>{prop.event.name}</h2>
                 <ul>
