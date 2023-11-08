@@ -14,7 +14,7 @@
 }
 .navbar li a {
   display: inline-block;
-  background: #89d0c1;
+  background: #56C1AE;
   border-radius: 20px;
   padding: 1rem;
   color: white;
@@ -29,7 +29,7 @@
 button, a {
   font-size: 1em;
   padding: 0.6em;
-  background: #89d0c1;
+  background: #56C1AE;
   border: none;
   border-radius: 20px;
   color: white;

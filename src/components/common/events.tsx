@@ -1,13 +1,13 @@
-//import {TUser} from "./user.tsx";
 import {TCategory} from "./category.tsx";
-import {TOrganiser} from "./organiser.tsx";
+import {TUser} from "./user.tsx";
 
 export type TEvent ={
     id: number;
-    title: string;
+    name: string;
     eventType: string;
     category: TCategory;
-    organiser: TOrganiser;
-    //attendees: TUser[];
+    organiser: TUser;
+    amountOfPeople: number;
     sector: number;
+    description: string;
 }

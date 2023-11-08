@@ -8,14 +8,13 @@ type TEventBlockProps = {
 export default function EventBlock(prop: TEventBlockProps) {
     console.log(prop.event)
     return <div className="event" id={prop.event.id.toString()}>
-                <h2>{prop.event.title}</h2>
+                <h2>{prop.event.name}</h2>
                 <ul>
-                    <li>{prop.event.category.name}</li>
-                    <li>{prop.event.organiser.firstName}</li>
-                    <li>{prop.event.organiser.lastName}</li>
-                    <li>{prop.event.sector}</li>
-                    <li>{prop.event.eventType}</li>
+                    <li>Organised by: {prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
+                    <li>Located in sector: {prop.event.sector}</li>
+                    <li>Spots left: {prop.event.amountOfPeople}</li>
+                    <li>{prop.event.description}</li>
                     <li><img src={Kaas} alt={"kaas"}/></li>
-                    </ul>
+                </ul>
             </div>;
 }
