@@ -27,9 +27,16 @@ export default function StartPage() {
         <div className={"loading"}>
             {isLoading ? (
                 <p>Loading...</p>
-            ) : (
-                renderInterests(interests)
-            )}
+            ) : <>
+            <div className="interests-page">
+                <div className="interests-grid">
+                <h2>Select Interests</h2>
+                <h3>Select at least 3 categories or skip and finish later</h3>
+                {renderInterests(interests)}
+                <button className="skip-button">Skip</button>
+            </div>
+            </div>
+            </>}
         </div>
     </>
 }
@@ -37,7 +44,7 @@ export default function StartPage() {
 function renderInterests(interests: TInterest[]) {
     return interests && interests.length > 0 ? (
         interests.map((e) => (
-            <InterestBlock key={e.id} interest={e}></InterestBlock>
+            <InterestBlock key={e.id} interest={e}></InterestBlock> //key to order the Block by their id
         ))
     ) : (
         <div>
