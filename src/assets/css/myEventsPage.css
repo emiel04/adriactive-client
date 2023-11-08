@@ -1,54 +1,61 @@
 #myEvents {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 70% 30%;
   height: 35rem;
+  max-width: 100%;
 }
 #myEvents #joinedEvents {
   display: flex;
   flex-direction: column;
-  height: 35rem;
+  gap: 0.5rem;
+  height: 32rem;
+  padding: 0.5rem;
+  max-width: 100%;
 }
 #myEvents #joinedEvents h1 {
   position: sticky;
   top: 0;
   text-align: center;
   margin-bottom: 1rem;
-  background-color: #cffcf2;
+  background-color: #b9f6ec;
   padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 #myEvents #joinedEvents p {
   padding: 1rem;
   background-color: #89d0c1;
   margin: 0.5rem;
 }
-#myEvents #joinedEvents .sideScroll {
-  overflow: auto;
+#myEvents #joinedEvents .horizontal {
+  background-color: black;
+  overflow-x: scroll;
   white-space: nowrap;
+  display: flex;
+  height: 10rem;
 }
 #myEvents #joinedEvents #ongoingEvents {
   height: 45%;
-  max-width: 100%;
-  overflow: auto;
+  overflow-x: scroll;
   white-space: nowrap;
 }
 #myEvents #joinedEvents #upcomingEvents {
   height: 45%;
-  max-width: 100%;
-  overflow: auto;
-  white-space: nowrap;
 }
 #myEvents #createdEvents {
-  height: 100%;
+  height: 80%;
+  width: 90%;
   overflow: auto;
   white-space: nowrap;
+  padding: 0.5rem;
 }
 #myEvents #createdEvents h1 {
   position: sticky;
   top: 0;
   text-align: center;
   margin-bottom: 1rem;
-  background-color: #cffcf2;
+  background-color: #b9f6ec;
   padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 #myEvents #createdEvents p {
   padding: 0.5rem;
