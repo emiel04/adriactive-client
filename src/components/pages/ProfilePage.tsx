@@ -5,11 +5,13 @@ import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-user.ts";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {TUser} from "../common/user.tsx";
+import {useNavigate} from "react-router";
 
 function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [user, setUser] = useState<TUser[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -32,7 +34,7 @@ function ProfilePage() {
         }
     }, [])
 
-    function renderInterests(interests: TInterest[]) {
+    function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
             interests.map((e) => (
                     e.name
@@ -49,11 +51,11 @@ function ProfilePage() {
     function renderUser(user: TUser[]) {
         return user && user.length > 0 ? (
             user.map((e) => (
-                e.firstName
+                <><p>{e.firstName}</p><p>{e.lastName}</p></>
             ))
         ) : (
             <div>
-                <p className={"error"}>No interests found!</p>
+                <p className={"error"}>No User found!</p>
             </div>
         )
 
@@ -78,8 +80,9 @@ function ProfilePage() {
             <div className="interests-list">
                 <h2>Interest List</h2>
                 <div className="list-container">
-                    {renderInterests(interests)}
+                    {renderUserInterests(interests)}
                 </div>
+                <button className="edit-interests" onClick={() => navigate('')}>Edit interests</button>
             </div>
         </div>
             </>}

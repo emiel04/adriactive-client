@@ -3,11 +3,13 @@ import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-interests.ts";
 import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
+import {useNavigate} from "react-router";
 
 export default function StartPage() {
 
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -34,7 +36,7 @@ export default function StartPage() {
                 <div className="interests-grid">
                 {renderInterests(interests)}
             </div>
-                <button className="skip-button">Skip</button>
+                <button className="skip-button" onClick={() => navigate('/app/home')}>Skip</button>
             </div>
             </>}
         </div>

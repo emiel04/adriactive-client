@@ -11,5 +11,10 @@ export default {
         return axiosInstance.get("api/user", {cancelToken: cancelToken}).then(res => {
             return res.data.interests;
         }).catch(handleError);
+    },
+    updateUserInterests: (cancelToken: CancelToken) => {
+        return axiosInstance.post("api/user", {cancelToken: cancelToken}).then(res => {
+            return res.data.interests;
+        }).catch(handleError);
     }
 };
