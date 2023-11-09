@@ -53,6 +53,7 @@
     "jest-sonar-reporter": "^2.0.0",
     "jsdom": "^22.1.0",
     "react-openlayers": "^0.1.5",
+    "sass": "^1.69.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
