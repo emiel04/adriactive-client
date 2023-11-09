@@ -5,7 +5,7 @@ import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
 import {useNavigate} from "react-router";
 
-export default function StartPage() {
+export default function StartPage({isEditing} : {isEditing: boolean}) {
 
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -31,12 +31,12 @@ export default function StartPage() {
                 <p>Loading...</p>
             ) : <>
             <div className="interests-page">
-                <h2>Select Interests</h2>
-                <h3>Select at least 3 categories or skip and finish later</h3>
+                <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
+                <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
                 <div className="interests-grid">
                 {renderInterests(interests)}
             </div>
-                <button className="skip-button" onClick={() => navigate('/app/home')}>Skip</button>
+                <button className="skip-button" onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</button>
             </div>
             </>}
         </div>

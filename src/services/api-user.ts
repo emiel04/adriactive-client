@@ -8,13 +8,13 @@ export default {
         }).catch(handleError);
     },
     getUserInterests: (cancelToken: CancelToken) => {
-        return axiosInstance.get("api/user", {cancelToken: cancelToken}).then(res => {
-            return res.data.interests;
+        return axiosInstance.get("api/user/interests", {cancelToken: cancelToken}).then(res => {
+            return res.data;
         }).catch(handleError);
     },
     updateUserInterests: (cancelToken: CancelToken) => {
         return axiosInstance.post("api/user", {cancelToken: cancelToken}).then(res => {
-            return res.data.interests;
+            return res.data;
         }).catch(handleError);
     }
 };

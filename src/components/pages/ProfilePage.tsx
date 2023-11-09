@@ -6,6 +6,7 @@ import evApi from "../../services/api-user.ts";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {TUser} from "../common/user.tsx";
 import {useNavigate} from "react-router";
+import UserBlock from "../UserBlock.tsx";
 
 function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
@@ -37,23 +38,20 @@ function ProfilePage() {
     function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
             interests.map((e) => (
-                    e.name
+                    <p key={e.name}>{e.name}</p>
             ))
         ) : (
             <div>
                 <p className={"error"}>No interests found!</p>
             </div>
         )
-
-
     }
 
-    function renderUser(user: TUser[]) {
-        return user && user.length > 0 ? (
-            user.map((e) => (
-                <><p>{e.firstName}</p><p>{e.lastName}</p></>
-            ))
-        ) : (
+    function renderUser(user: TUser[] | null) {
+        return user ? (
+                <UserBlock user={user}></UserBlock>
+        )
+         : (
             <div>
                 <p className={"error"}>No User found!</p>
             </div>
