@@ -10,7 +10,7 @@ import UserBlock from "../UserBlock.tsx";
 
 function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
-    const [user, setUser] = useState<TUser[]>([]);
+    const [user, setUser] = useState<TUser>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function ProfilePage() {
         )
     }
 
-    function renderUser(user: TUser | null) {
+    function renderUser(user: TUser | undefined) {
         return user ? (
                 <UserBlock user={user}></UserBlock>
         )
