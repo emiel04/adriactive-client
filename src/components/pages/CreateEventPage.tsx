@@ -2,6 +2,7 @@ import Autocomplete from '@mui/joy/Autocomplete';
 import Slider from '@mui/joy/Slider';
 import Input from '@mui/joy/Input';
 import Textarea from '@mui/joy/Textarea';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import evApi from "../../services/api-interests.ts";
 import React, {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
@@ -36,6 +37,8 @@ export default function HomePage() {
 
     return (
         <form className="form-group" onSubmit={handleSubmit}>
+            <ArrowBackIosIcon></ArrowBackIosIcon>
+            <h1>Create Event</h1>
             <label>Event Name</label>
             <Input placeholder="Type in here…" />
 
@@ -60,7 +63,7 @@ export default function HomePage() {
                 onChange={handleChange}
                 valueLabelDisplay="auto"
             />
-            <button type="submit">Submit</button>
+            <button type="submit">Create</button>
         </form>
     );
 }
