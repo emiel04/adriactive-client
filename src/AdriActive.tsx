@@ -13,7 +13,7 @@ function AdriActive () {
             <Route path={"/home"} element={<HomePage/>}></Route>
             <Route path={"/search"} element={<p>Search</p>}></Route>
             <Route path={"/map"} element={<MapPage/>}></Route>
-            <Route path={"/events"} element={<MyEventsPage/>}></Route>
+            <Route path={"/myEvents"} element={<MyEventsPage/>}></Route>
             <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
         </Routes>
         <Navbar></Navbar>
