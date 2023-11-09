@@ -27,7 +27,6 @@
   margin: 0.5rem;
 }
 #myEvents #joinedEvents .horizontal {
-  background-color: black;
   overflow-x: scroll;
   white-space: nowrap;
   display: flex;

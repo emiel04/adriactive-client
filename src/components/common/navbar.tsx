@@ -28,6 +28,11 @@ export default function Navbar() {
             Notifications
             </NavLink>
         </li>
+            <li>
+                <NavLink to={"/app/start"} className={({isActive}) => isActive ? "active" : ""}>
+                    Start
+                </NavLink>
+            </li>
         </ul>
     </nav>;
 }
