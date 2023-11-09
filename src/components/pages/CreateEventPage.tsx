@@ -53,7 +53,7 @@ export default function HomePage() {
 
                 <label>Sector</label>
                 <Autocomplete
-                    options={}
+                    //options={}
                 />
             </div>
             <label>Number of People</label>
