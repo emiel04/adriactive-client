@@ -25,6 +25,9 @@
 .navbar li a.active {
   outline: 3px solid #4e766c;
 }
+.navbar li a:hover {
+  background: #77ccbf;
+}
 
 button, a {
   font-size: 1em;
@@ -35,7 +38,11 @@ button, a {
   color: white;
 }
 button:hover, a:hover {
-  outline: 3px solid #d8fff7;
+  background: #77ccbf;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 ::-webkit-scrollbar {
