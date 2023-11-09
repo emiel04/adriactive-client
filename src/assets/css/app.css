@@ -14,7 +14,7 @@
 }
 .navbar li a {
   display: inline-block;
-  background: #89d0c1;
+  background: #56C1AE;
   border-radius: 20px;
   padding: 1rem;
   color: white;
@@ -25,17 +25,42 @@
 .navbar li a.active {
   outline: 3px solid #4e766c;
 }
+.navbar li a:hover {
+  background: #77ccbf;
+}
 
 button, a {
   font-size: 1em;
   padding: 0.6em;
-  background: #89d0c1;
+  background: #56C1AE;
   border: none;
   border-radius: 20px;
   color: white;
 }
 button:hover, a:hover {
-  outline: 3px solid #d8fff7;
+  background: #77ccbf;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }
 
 /*# sourceMappingURL=app.css.map */

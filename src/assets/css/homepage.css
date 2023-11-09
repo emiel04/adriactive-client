@@ -1,20 +1,27 @@
-header {
+.homepage {
+  margin-bottom: 4rem;
+}
+.homepage header {
   background: white;
   position: sticky;
   top: 0;
   z-index: 999;
   padding: 0.5rem;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
 }
-header ul {
+.homepage header ul {
   display: flex;
   gap: 1em;
   margin: 0 0.5rem;
 }
-header li {
+.homepage header li {
   display: inline-block;
 }
-header button {
+.homepage header button {
   cursor: pointer;
+}
+.homepage .pressed {
+  outline: 3px solid #4e766c;
 }
 
 /*# sourceMappingURL=homepage.css.map */
