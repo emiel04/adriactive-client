@@ -47,7 +47,7 @@ function ProfilePage() {
         )
     }
 
-    function renderUser(user: TUser[] | null) {
+    function renderUser(user: TUser | null) {
         return user ? (
                 <UserBlock user={user}></UserBlock>
         )
@@ -56,7 +56,6 @@ function ProfilePage() {
                 <p className={"error"}>No User found!</p>
             </div>
         )
-
 
     }
 
@@ -77,9 +76,9 @@ function ProfilePage() {
             </div>
             <div className="interests-list">
                 <h2>Interest List</h2>
-                <div className="list-container">
+                <form className="list-container">
                     {renderUserInterests(interests)}
-                </div>
+                </form>
                 <button className="edit-interests" onClick={() => navigate('')}>Edit interests</button>
             </div>
         </div>
