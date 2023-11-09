@@ -14,7 +14,7 @@ export default function EventBlock(prop: TEventBlockProps) {
                     <li>Located in sector: {prop.event.sector}</li>
                     <li>Spots left: {prop.event.amountOfPeople}</li>
                     <li>{prop.event.description}</li>
-                    <li><img src={`../../src/assets/img/${imgByCat}.jpg`} alt={imgByCat.toString()}/></li>
+                    <li><img src={`../../src/assets/img/${imgByCat}.png`} alt={imgByCat.toString()}/></li>
                 </ul>
             </div>;
 }
