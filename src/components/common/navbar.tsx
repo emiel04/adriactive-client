@@ -19,7 +19,7 @@ export default function Navbar() {
             </NavLink>
         </li>
         <li>
-            <NavLink to={"/app/events"} className={({isActive}) => isActive ? "active" : ""}>
+            <NavLink to={"/app/myEvents"} className={({isActive}) => isActive ? "active" : ""}>
             Events
             </NavLink>
         </li>
@@ -28,6 +28,11 @@ export default function Navbar() {
             Notifications
             </NavLink>
         </li>
+            <li>
+                <NavLink to={"/app/start"} className={({isActive}) => isActive ? "active" : ""}>
+                    Start
+                </NavLink>
+            </li>
         </ul>
     </nav>;
 }
