@@ -5,7 +5,7 @@ type TEventBlockProps = {
 }
 
 export default function EventBlock(prop: TEventBlockProps) {
-    const imgByCat = prop.event.category.name;
+    const imgByCat = prop.event.category.categoryId;
 
     return <div className="event" id={prop.event.id.toString()}>
                 <h2>{prop.event.name}</h2>
@@ -14,7 +14,7 @@ export default function EventBlock(prop: TEventBlockProps) {
                     <li>Located in sector: {prop.event.sector}</li>
                     <li>Spots left: {prop.event.amountOfPeople}</li>
                     <li>{prop.event.description}</li>
-                    <li><img src={`../../src/assets/img/${imgByCat}.jpg`} alt={imgByCat}/></li>
+                    <li><img src={`../../src/assets/img/${imgByCat}.jpg`} alt={imgByCat.toString()}/></li>
                 </ul>
             </div>;
 }
