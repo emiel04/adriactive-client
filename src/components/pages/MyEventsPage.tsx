@@ -49,9 +49,6 @@ function MyEventsPage(){
 }
 
 function renderEvents(events : TEvent[]){
-
-
-
     return <>
         {
             events ? (events.map(event => (
