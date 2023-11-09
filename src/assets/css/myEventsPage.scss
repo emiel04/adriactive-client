@@ -1,0 +1,76 @@
+#myEvents {
+
+
+  display: grid;
+  grid-template-columns: 70% 30%;
+  height: 35rem;
+  max-width: 100%;
+
+  #joinedEvents{
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 32rem;
+    padding: 0.5rem;
+    max-width: 100%;
+
+    h1{
+      position: sticky;
+      top: 0;
+      text-align: center;
+      margin-bottom: 1rem;
+      background-color: #b9f6ec;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    p{
+      padding: 1rem;
+      background-color: #89d0c1;
+      margin: 0.5rem;
+    }
+
+    .horizontal {
+      background-color: black;
+      overflow-x: scroll;
+      white-space: nowrap;
+      display: flex;
+      height: 10rem;
+    }
+    #ongoingEvents{
+      height: 45%;
+      overflow-x: scroll;
+      white-space: nowrap;
+    }
+
+    #upcomingEvents{
+      height: 45%;
+    }
+  }
+
+
+
+  #createdEvents{
+    height: 80%;
+    width: 90%;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
+
+    h1{
+      position: sticky;
+      top: 0;
+      text-align: center;
+      margin-bottom: 1rem;
+      background-color: #b9f6ec;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    p{
+      padding: 0.5rem;
+      background-color: #89d0c1;
+      margin: 0.5rem;
+    }
+  }
+}
