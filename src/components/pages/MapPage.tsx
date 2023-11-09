@@ -1,36 +1,38 @@
-import * as ol from "ol"
+import {useEffect, useRef} from "react";
+import * as ol from "ol";
 import {fromLonLat} from "ol/proj";
 import {OSM} from "ol/source";
 import {Tile} from "ol/layer";
-import {useState} from "react";
+import "../../assets/css/map.css"
 
-function MapPage(){
-
-    const [visible, setVisible] = useState(true);
-
-    function showMapHandler(){
-        setVisible((prev) => !prev);
-        new ol.Map({
-        target: 'map',
-        layers: [
-            new Tile({
-                source: new OSM()
-            })
-        ],
-        view: new ol.View({
-            center: fromLonLat([12.060, 45.0528]),
-            zoom: 15
-        })
+function MapPage() {
+    const mapDiv = useRef(null);
+    useEffect(() => {
+        const mapObject = new ol.Map({
+            layers: [
+                new Tile({
+                    source: new OSM()
+                })
+            ],
+            view: new ol.View({
+                center: fromLonLat([12.060, 45.0528]),
+                zoom: 15,
+            }),
+            controls: []
         });
-    }
-    return <>
-        {visible && <button onClick={showMapHandler}>show map</button>}
-        <div id="map" style={{width: '100%', height: '40rem'}}/>
-    </>
 
+        if (mapDiv.current) {
+            mapObject.setTarget(mapDiv.current);
+        }
+        return () => {
+            mapObject.setTarget();
+        };
+    }, []);
+
+    return (
+        <div ref={mapDiv} id="map" className={"ol-map"} />
+    );
 
 }
 
 export default MapPage;
-
-
