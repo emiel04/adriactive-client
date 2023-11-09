@@ -1,6 +1,6 @@
 import axios from "axios";
 import URI from "../api"
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import {jwtDecode} from "jwt-decode";
 export const handleError = (error: Error) => {
     if (axios.isCancel(error)) {

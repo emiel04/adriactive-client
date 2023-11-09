@@ -25,7 +25,7 @@ export default function HomePage() {
         }
     }, [])
 
-    return <>
+    return <div className={"homepage"}>
         <CategoryBar filters={filters} setFilters={setFilters}></CategoryBar>
         <div className={"loading"}>
             {isLoading ? (
@@ -34,7 +34,7 @@ export default function HomePage() {
                 renderEvents(events, filters)
             )}
         </div>
-    </>
+    </div>
 }
 
 function renderEvents(events: TEvent[], filters: Set<number>) {
