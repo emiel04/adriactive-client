@@ -1,44 +1,83 @@
 import './assets/css/app.css'
 import {Navigate, Route, Routes} from "react-router-dom";
 import AdriActive from "./AdriActive";
-
-import {ReactNode, useEffect, useState} from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
 import NotFound from "./components/common/404";
+import {PrivateRoute} from "./components/PrivateRoute";
 
+const mantineTheme = extendTheme({
+    colorSchemes: {
+        light: {
+            palette: {
+                primary: {
+                    solidBg: '#56c1ae',
+                    solidHoverBg: '#77ccbf',
+                    solidActiveBg: undefined,
+                    softColor: '#228be6',
+                    softBg: 'rgba(231, 245, 255, 1)',
+                    softHoverBg: 'rgba(208, 235, 255, 0.65)',
+                    softActiveBg: undefined,
+                    outlinedColor: '#228be6',
+                    outlinedBorder: '#228be6',
+                    outlinedHoverBg: 'rgba(231, 245, 255, 0.35)',
+                    outlinedHoverBorder: undefined,
+                    outlinedActiveBg: undefined,
+                },
+            },
+        },
+    },
+    fontFamily: {
+        body: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+    },
+    focus: {
+        default: {
+            outlineWidth: '2px',
+            outlineOffset: '2px',
+            outlineColor: '#339af0',
+        },
+    },
+    components: {
+        JoyButton: {
+            styleOverrides: {
+                root: ({ ownerState }) => ({
+                    transition: 'initial',
+                    borderRadius: '4px',
+                    fontWeight: 600,
+                    // padding: "14px",
+                    borderBottomLeftRadius: "12px",
+                    borderBottomRightRadius: "12px",
+                    borderTopLeftRadius: "12px",
+                    borderTopRightRadius: "12px",
+                    ...(ownerState.size === 'md' && {
+                        minHeight: '36px',
+                        fontSize: '14px',
+                        paddingInline: '26px',
+                    }),
+                    '&:active': {
+                        transform: 'translateY(1px)',
+                    },
+                }),
+            },
+        },
+    },
+});
 
-
-function PrivateRoute({ children } : {children: ReactNode}) {
-
-    const [authenticated, setAuthenticated] = useState(false);
-    //set the adriaId
-    let adriaId = localStorage.getItem("adriaId");
-    if (!adriaId){
-        adriaId = uuidv4();
-        localStorage.setItem("adriaId", adriaId);
-        setAuthenticated(true);
-    }
-    useEffect(() => {
-        if (localStorage.getItem("adriaId")){
-            setAuthenticated(true);
-        }
-    }, [authenticated])
-
-    return authenticated ? children : <p>Logging in...</p>;
-}
 
 function App() {
   return (
       <>
-          <Routes>
-              <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
-                  <Route path="/app/*" element={
-                      <PrivateRoute>
-                        <AdriActive></AdriActive>
-                      </PrivateRoute>
-                  } />
-              <Route path="*" element={<NotFound/>} />
-          </Routes>
+          <CssVarsProvider theme={mantineTheme}>
+              <Routes>
+                  <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
+                      <Route path="/app/*" element={
+                          <PrivateRoute>
+                            <AdriActive></AdriActive>
+                          </PrivateRoute>
+                      } />
+                  <Route path="*" element={<NotFound/>} />
+              </Routes>
+          </CssVarsProvider>
+
       </>
   )
 }

@@ -3,6 +3,7 @@ import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-interests.ts";
 import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
+import {Button} from "@mui/joy";
 
 export default function StartPage() {
 
@@ -34,7 +35,7 @@ export default function StartPage() {
                 <div className="interests-grid">
                 {renderInterests(interests)}
             </div>
-                <button className="skip-button">Skip</button>
+                <Button size={"lg"}>Skip</Button>
             </div>
             </>}
         </div>
