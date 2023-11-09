@@ -1,8 +1,14 @@
 import {NavLink} from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Navbar() {
     return <nav className={"navbar"}>
         <ul>
+        <li>
+            <NavLink to={"/app/profile"} className={({isActive}) => isActive ? "active" : ""}>
+                <AccountCircleIcon></AccountCircleIcon>
+            </NavLink>
+        </li>
         <li>
             <NavLink to={"/app/home"} className={({isActive}) => isActive ? "active" : ""}>
             Home
