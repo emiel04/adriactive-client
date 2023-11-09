@@ -14,7 +14,7 @@
 }
 .navbar li a {
   display: inline-block;
-  background: #6be3cc;
+  background: #56C1AE;
   border-radius: 20px;
   padding: 1rem;
   color: white;
@@ -29,7 +29,7 @@
 button, a {
   font-size: 1em;
   padding: 0.6em;
-  background: #6be3cc;
+  background: #56C1AE;
   border: none;
   border-radius: 20px;
   color: white;
@@ -50,7 +50,7 @@ button:hover, a:hover {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #6be3cc;
+  background: #56C1AE;
   border-radius: 1rem;
 }
 
