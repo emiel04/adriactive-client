@@ -16,7 +16,7 @@ function MapPage() {
             ],
             view: new ol.View({
                 center: fromLonLat([12.060, 45.0528]),
-                zoom: 15,
+                zoom: 15
             }),
             controls: []
         });

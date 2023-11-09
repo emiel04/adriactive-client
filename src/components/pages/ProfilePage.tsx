@@ -65,10 +65,9 @@ function ProfilePage() {
                 <p>Loading...</p>
             ) : <>
         <div className="profile-page">
-            <button className="edit-button">Edit</button>
             <div className="profile-info">
                 <div className="profile-picture">
-                    <AccountCircleIcon></AccountCircleIcon>
+                    <AccountCircleIcon id={"profilePic"}}></AccountCircleIcon>
                 </div>
                 <div className="name">
                     {renderUser(user)}
