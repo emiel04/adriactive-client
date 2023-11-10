@@ -9,10 +9,12 @@ import "./assets/css/interestspage.scss";
 import NotFound from "./components/common/404.tsx";
 import "./assets/css/events.scss";
 import StartPage from "./components/pages/StartPage.tsx";
+import ProfilePage from "./components/pages/ProfilePage.tsx";
 
 function AdriActive () {
     return <>
         <Routes>
+            <Route path={"/profile"} element={<ProfilePage/>}></Route>
             <Route path={"/"} element={<Navigate to={"/app/home"}/>}></Route>
             <Route path={"/home"} element={<HomePage/>}></Route>
             <Route path={"/search"} element={<p>Search</p>}></Route>
