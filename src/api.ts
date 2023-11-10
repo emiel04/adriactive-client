@@ -2,9 +2,9 @@ import config from "./config.json";
 
 const getApi = () => {
     if (process.env.NODE_ENV === 'development') {
-        return `${config.host ? config.host + '/' : ''}`;
+        return `${config.devHost}`;
     } else {
-        return `${config.host ? config.host + '/' : ''}${config.year ? config.year + '/' : ''}${config.group ? config.group + '/' : ''}`;;
+        return `${config.host}`;
     }
 }
 
