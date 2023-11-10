@@ -6,6 +6,7 @@ import Button from '@mui/joy/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import evApiInterests from "../../services/api-interests.ts";
 import evApiSectors from "../../services/api-sectors.ts";
+import evApiEvents from "../../services/api-events.ts";
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
@@ -17,9 +18,9 @@ export default function HomePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
+    const evReq: CancelTokenSource = axios.CancelToken.source();
 
     useEffect(() => {
-        const evReq: CancelTokenSource = axios.CancelToken.source();
         evApiInterests.getInterests(evReq.token).then(data => {
             setInterests(data);
         }).catch(() => {
@@ -40,6 +41,16 @@ export default function HomePage() {
     };
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
+        const eventData = {
+            "name": eventName,
+            "eventType": "TODO", //TODO
+            "description": description,
+            "amountOfPeople": value,
+            "categoryId": category,
+            "organiserId": "TODO", //TODO
+            "sectorId": loadSectors
+        };
+        evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
         console.log(eventName, description, category, loadSectors, value);
     }
     const [eventName, setEventName] = useState("");

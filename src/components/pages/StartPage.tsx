@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
-import evApi from "../../services/api-interests.ts";
+import Api from "../../services/api-interests.ts";
 import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
 import {useNavigate} from "react-router";
@@ -13,7 +13,7 @@ export default function StartPage({isEditing} : {isEditing: boolean}) {
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        evApi.getInterests(evReq.token).then(data => {
+        Api.getInterests(evReq.token).then(data => {
             setInterests(data);
             setIsLoading(false);
         }).catch(() => {

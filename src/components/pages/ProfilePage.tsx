@@ -2,7 +2,7 @@ import "../../assets/css/profilepage.scss"
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
-import evApi from "../../services/api-user.ts";
+import Api from "../../services/api-user.ts";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {TUser} from "../common/user.tsx";
 import {useNavigate} from "react-router";
@@ -16,14 +16,14 @@ function ProfilePage() {
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        evApi.getUserInterests(evReq.token).then(data => {
+        Api.getUserInterests(evReq.token).then(data => {
             setInterests(data);
             setIsLoading(false);
         }).catch(() => {
             setIsLoading(false);
         });
 
-        evApi.getUser(evReq.token).then(data => {
+        Api.getUser(evReq.token).then(data => {
             setUser(data);
             setIsLoading(false);
         }).catch(() => {

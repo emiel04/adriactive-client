@@ -3,9 +3,13 @@ import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-events.ts";
 import EventBlock from "../EventBlock.tsx";
+import Button from "@mui/joy/Button";
+import {useNavigate} from "react-router";
+
 function MyEventsPage(){
     const [events, setEvents] = useState<TEvent[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -50,6 +54,7 @@ function MyEventsPage(){
             <div id={"createdEvents"}>
                 <h1>Created Events</h1>
                 {renderEvents(events)}
+                <Button onClick={() => navigate("/app/event/create")}>Create</Button>
             </div>
         </div>
             </>}
@@ -59,10 +64,11 @@ function MyEventsPage(){
 }
 
 function renderEvents(events : TEvent[]){
+    const navigate = useNavigate();
     return <>
         {
             events ? (events.map(event => (
-                <EventBlock event={event} key={event.id}/>
+                <EventBlock event={event} key={event.id} onClick={() => navigate(`/app/event/view/${event.id}`)}/>
             ))) : <p>no events found</p>
         }
     </>

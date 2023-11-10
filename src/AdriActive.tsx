@@ -11,6 +11,7 @@ import "./assets/css/events.scss";
 import StartPage from "./components/pages/StartPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
+import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 
 function AdriActive () {
     return <>
@@ -24,6 +25,7 @@ function AdriActive () {
             <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
             <Route path={"/start"} element={<StartPage isEditing={false}/>}></Route>
             <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
+            <Route path={"/event/view/:id"} element={<ViewEventPage/>}></Route>
             <Route path={"*"} element={<NotFound/>}></Route>
         </Routes>
         <Navbar></Navbar>

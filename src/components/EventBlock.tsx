@@ -2,6 +2,7 @@ import {TEvent} from "./common/events";
 
 type TEventBlockProps = {
     event: TEvent;
+    onClick: () => void;
 }
 
 export default function EventBlock(prop: TEventBlockProps) {
