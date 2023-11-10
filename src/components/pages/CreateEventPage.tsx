@@ -4,20 +4,29 @@ import Input from '@mui/joy/Input';
 import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import evApi from "../../services/api-interests.ts";
+import evApiInterests from "../../services/api-interests.ts";
+import evApiSectors from "../../services/api-sectors.ts";
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
+import {useNavigate} from "react-router";
+import {TSector} from "../common/sector.tsx";
 
 
 export default function HomePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
-
+    const [sectors, setSectors] = useState<TSector[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        evApi.getInterests(evReq.token).then(data => {
+        evApiInterests.getInterests(evReq.token).then(data => {
             setInterests(data);
+        }).catch(() => {
+        });
+
+        evApiSectors.getSectors(evReq.token).then(data => {
+            setSectors(data);
         }).catch(() => {
         });
 
@@ -31,16 +40,17 @@ export default function HomePage() {
     };
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
-        console.log(eventName, description, category, value);
+        console.log(eventName, description, category, loadSectors, value);
     }
     const [eventName, setEventName] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<TInterest | null>(null);
+    const [loadSectors, setLoadSectors] = useState<TSector | null>(null);
     const [value, setValue] = useState<number[]>([12, 24]);
 
     return (
         <form className="form-group" onSubmit={handleSubmit}>
-            <ArrowBackIosIcon></ArrowBackIosIcon>
+            <ArrowBackIosIcon onClick={() => navigate("")}></ArrowBackIosIcon>
             <h1>Create Event</h1>
             <label>Event Name</label>
             <Input placeholder="Type in here…" onChange={e   => setEventName(e.target.value)}
@@ -57,7 +67,15 @@ export default function HomePage() {
                 <Autocomplete
                     options={interests}
                     onChange={(_event, newValue) => setCategory(newValue)}
-                    getOptionLabel={(option) => option.name}
+                    getOptionLabel={(option) => option.name ?? option}
+                    required
+                />
+
+                <label>Sectors</label>
+                <Autocomplete
+                    options={sectors}
+                    onChange={(_event, newValue) => setLoadSectors(newValue)}
+                    getOptionLabel={(option) => option.name ?? option}
                     required
                 />
 
