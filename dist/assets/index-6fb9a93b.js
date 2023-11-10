@@ -32312,7 +32312,12 @@ function App() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "*", element: /* @__PURE__ */ jsxRuntimeExports.jsx(NotFound, {}) })
   ] }) }) });
 }
+const getBaseName = () => {
+  {
+    return "/2023-2024/group-10/";
+  }
+};
 client.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
+  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: getBaseName(), children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
 );
 const reset = "";
