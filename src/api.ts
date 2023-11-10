@@ -10,11 +10,7 @@ const getApi = () => {
 
 export const getBaseName = () => {
     // Check if the app is running locally or on the server
-    if (process.env.NODE_ENV === 'development') {
         return '/';
-    } else {
-        return '/2023-2024/group-10/';
-    }
 };
 
 
