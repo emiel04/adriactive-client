@@ -64,6 +64,7 @@ const mantineTheme = extendTheme({
 
 
 function App() {
+
   return (
       <>
           <CssVarsProvider theme={mantineTheme}>
