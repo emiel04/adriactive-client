@@ -12,12 +12,20 @@ import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
 import {TSector} from "../common/sector.tsx";
+import {useSearchParams} from "react-router-dom";
 
 
 export default function HomePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
+    const [eventName, setEventName] = useState("");
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState<TInterest | null>(null);
+    const [loadSectors, setLoadSectors] = useState<TSector | null>(null);
+    const [value, setValue] = useState<number[]>([12, 24]);
+    const [searchParams] = useSearchParams();
+    const [isEditing, setIsEditing] = useState<boolean>(false);
     const evReq: CancelTokenSource = axios.CancelToken.source();
 
     useEffect(() => {
@@ -35,6 +43,11 @@ export default function HomePage() {
             evReq.cancel();
         }
     }, [])
+
+    useEffect(() => {
+        const editing = searchParams.get('editing');
+        setIsEditing(editing === "true")
+    }, [searchParams]);
 
     const handleChange = (_event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -55,11 +68,8 @@ export default function HomePage() {
         }
         navigate('/app/home');
     }
-    const [eventName, setEventName] = useState("");
-    const [description, setDescription] = useState("");
-    const [category, setCategory] = useState<TInterest | null>(null);
-    const [loadSectors, setLoadSectors] = useState<TSector | null>(null);
-    const [value, setValue] = useState<number[]>([12, 24]);
+
+
 
     return (
         <form className="form-group" onSubmit={handleSubmit}>

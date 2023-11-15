@@ -7,11 +7,14 @@ import EventBlock from "../EventBlock.tsx";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Button from '@mui/joy/Button';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {useSearchParams} from "react-router-dom";
 function ViewEventPage() {
 
     const [event, setEvent] = useState<TEvent | null>(null);
     const { eventId} = useParams();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const [isJoined, setIsJoined] = useState<boolean>(false);
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -26,6 +29,11 @@ function ViewEventPage() {
             evReq.cancel();
         }
     }, [])
+
+    useEffect(() => {
+        const isJoined = searchParams.get('joined');
+        setIsJoined(isJoined === "true")
+    }, [searchParams]);
 
     return <>
         <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
