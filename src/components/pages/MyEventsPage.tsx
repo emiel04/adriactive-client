@@ -29,19 +29,19 @@ function MyEventsPage(){
                 ) : <>
         <div id={"myEvents"}>
             <article id={"joinedEvents"}>
+                <div className={'eventTypeHeader'}>
+                    <h1>Ongoing Events</h1>
+                </div>
                 <div id={"ongoingEvents"} className={"sideScroll"}>
-                    <div className={'eventTypeHeader'}>
-                        <h1>Ongoing Events</h1>
-                    </div>
                     <div className={"horizontal"}>
                         {renderMyEvents(events)}
                     </div>
 
                 </div>
+                <div className={'eventTypeHeader'}>
+                    <h1>Upcoming Events</h1>
+                </div>
                 <div id={"upcomingEvents"} className={"sideScroll"}>
-                    <div className={'eventTypeHeader'}>
-                        <h1>Upcoming Events</h1>
-                    </div>
                     <div className={"horizontal"}>
                         {renderMyEvents(events)}
                     </div>

@@ -11,6 +11,8 @@
     max-width: 100%;
 
     h1{
+      position: sticky;
+      top: 0;
       text-align: center;
       background-color: #89d0c1;
       padding: 0.25rem;
@@ -18,10 +20,12 @@
       max-width: fit-content;
     }
 
-    //.eventTypeHeader{
-    //  display: flex;
-    //  justify-content: center;
-    //}
+    .eventTypeHeader{
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: center;
+    }
 
     .event{
       min-width: 12rem;
