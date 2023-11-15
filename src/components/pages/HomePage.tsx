@@ -48,7 +48,7 @@ function renderEvents(events: TEvent[], filters: Set<number>) {
 
     return events && events.length > 0 ? (
         events.map((e) => (
-            <EventBlock key={e.id} event={e}></EventBlock>
+            <EventBlock key={e.id} event={e} onClick={() => null}></EventBlock>
         ))
     ) : (
         <div>

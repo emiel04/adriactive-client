@@ -5,6 +5,8 @@ import Box from '@mui/joy/Box';
 
 type TInterestBlockProps = {
     interest: TInterest;
+    onClick: () => void;
+    isSelected: boolean;
 }
 
 export default function InterestBlock(prop: TInterestBlockProps) {

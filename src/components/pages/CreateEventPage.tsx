@@ -14,7 +14,7 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/sector.tsx";
 
 
-export default function HomePage() {
+export default function HomePage({isEditing} : {isEditing: boolean}) {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
@@ -48,8 +48,12 @@ export default function HomePage() {
             "categoryId": category,
             "sectorId": loadSectors
         };
-        evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
-        console.log(eventName, description, category, loadSectors, value);
+        if (isEditing) {
+            evApiEvents.editEvent(eventData, evReq.token).then(r => console.log(r));
+        } else {
+            evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
+        }
+        navigate('/app/home');
     }
     const [eventName, setEventName] = useState("");
     const [description, setDescription] = useState("");
@@ -60,7 +64,7 @@ export default function HomePage() {
     return (
         <form className="form-group" onSubmit={handleSubmit}>
             <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
-            <h1>Create Event</h1>
+            <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
             <label>Event Name</label>
             <Input placeholder="Type in here…" onChange={e   => setEventName(e.target.value)}
                    required/>
@@ -96,7 +100,7 @@ export default function HomePage() {
                 onChange={handleChange}
                 valueLabelDisplay="auto"
             />
-            <Button type="submit">Create</Button>
+            <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
         </form>
     );
 }

@@ -1,4 +1,4 @@
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import evApi from "../../services/api-events.ts";
 import axios, {CancelTokenSource} from "axios";
@@ -10,6 +10,7 @@ function ViewEventPage() {
     const [event, setEvent] = useState<TEvent | null>(null);
     {/* const [joined, setJoined] = useState(false); */}
     const { eventId} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -26,7 +27,7 @@ function ViewEventPage() {
     }, [])
 
     return <>
-        <ArrowBackIosIcon></ArrowBackIosIcon>
+        <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
         {/* joined : <p>Leave event</p> ? <p>Join event</p> */}
 
         {event && <EventBlock event={event} key={eventId} onClick={() => null}></EventBlock>}

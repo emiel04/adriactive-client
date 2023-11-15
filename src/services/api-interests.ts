@@ -7,4 +7,14 @@ export default {
             return res.data;
         }).catch(handleError);
     },
+    addInterests: (data: any, cancelToken: CancelToken) => {
+        return axiosInstance.post("user/interests", data,{cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+    editInterests: (data: any, cancelToken: CancelToken) => {
+        return axiosInstance.put("user/interests", data,{cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
 };

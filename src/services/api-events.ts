@@ -8,12 +8,17 @@ export default {
         }).catch(handleError);
     },
     getEventFromId: (eventId: any, cancelToken: CancelToken) => {
-        return axiosInstance.get(`api/event/${eventId}`, {cancelToken: cancelToken}).then(res => {
+        return axiosInstance.get(`event/${eventId}`, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
     createEvent: (data: any, cancelToken: CancelToken) => {
-        return axiosInstance.post("api/event", data,{cancelToken: cancelToken}).then(res => {
+        return axiosInstance.post("event", data,{cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+    editEvent: (data: any, cancelToken: CancelToken) => {
+        return axiosInstance.put("event", data,{cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
