@@ -23,6 +23,10 @@ function MyEventsPage(){
 
 
     return <>
+        <div className={"loading"}>
+            {isLoading ? (
+                    <p>Loading...</p>
+                ) : <>
         <div id={"myEvents"}>
             <article id={"joinedEvents"}>
                 <div id={"ongoingEvents"} className={"sideScroll"}>
@@ -47,6 +51,8 @@ function MyEventsPage(){
                 <h1>Created Events</h1>
                 {renderEvents(events)}
             </div>
+        </div>
+            </>}
         </div>
     </>
 
