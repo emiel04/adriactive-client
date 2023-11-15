@@ -8,6 +8,7 @@ import MyEventsPage from "./components/pages/MyEventsPage.tsx";
 import "./assets/css/interestspage.scss";
 import NotFound from "./components/common/404.tsx";
 import "./assets/css/events.scss";
+import "./assets/css/profilepage.scss";
 import StartPage from "./components/pages/StartPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
@@ -22,8 +23,8 @@ function AdriActive () {
             <Route path={"/map"} element={<MapPage/>}></Route>
             <Route path={"/events"} element={<MyEventsPage/>}></Route>
             <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
-            <Route path={"/start"} element={<StartPage isEditing={false}/>}></Route>
             <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
+            <Route path={"/start"} element={<StartPage isEditing/>}></Route>
             <Route path={"*"} element={<NotFound/>}></Route>
         </Routes>
         <Navbar></Navbar>

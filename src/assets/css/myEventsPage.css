@@ -1,8 +1,7 @@
 #myEvents {
-  overflow: hidden;
   display: grid;
   grid-template-columns: 70% 30%;
-  height: 35rem;
+  height: 30rem;
   max-width: 98%;
 }
 #myEvents #joinedEvents {
@@ -40,25 +39,25 @@
   max-width: 6rem;
 }
 #myEvents #joinedEvents .horizontal {
-  overflow-x: scroll;
   white-space: nowrap;
   display: flex;
   height: 12rem;
 }
 #myEvents #joinedEvents #ongoingEvents {
   height: 45%;
-  overflow: auto;
+  overflow-x: scroll;
   white-space: nowrap;
   margin-bottom: 0.5rem;
   border-bottom: #89d0c1 solid;
 }
 #myEvents #joinedEvents #upcomingEvents {
+  overflow-x: scroll;
   height: 45%;
   border-bottom: #89d0c1 solid;
 }
 #myEvents #createdEvents {
   height: 80%;
-  width: 100%;
+  width: 90%;
   overflow: auto;
   white-space: nowrap;
   padding: 0.5rem;
