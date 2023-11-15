@@ -5,10 +5,11 @@ import axios, {CancelTokenSource} from "axios";
 import {TEvent} from "../common/events.tsx";
 import EventBlock from "../EventBlock.tsx";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-function ViewEventPage() {
+import Button from '@mui/joy/Button';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+function ViewEventPage({isJoined} : {isJoined: boolean}) {
 
     const [event, setEvent] = useState<TEvent | null>(null);
-    {/* const [joined, setJoined] = useState(false); */}
     const { eventId} = useParams();
     const navigate = useNavigate();
 
@@ -28,9 +29,12 @@ function ViewEventPage() {
 
     return <>
         <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
-        {/* joined : <p>Leave event</p> ? <p>Join event</p> */}
-
+        <h1>{isJoined ? 'Leave event' : 'Join event'}</h1>
+        <AccountCircleIcon></AccountCircleIcon>
+        <p>Event Details</p>
         {event && <EventBlock event={event} key={eventId} onClick={() => null}></EventBlock>}
+
+        <Button type="submit" onClick={() => navigate('/app/home')}>{isJoined !== undefined && isJoined !== null ? (isJoined ? 'Leave' : 'Join') : 'Return to Homepage'}</Button>
     </>
 
 
