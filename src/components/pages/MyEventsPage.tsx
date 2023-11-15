@@ -34,7 +34,7 @@ function MyEventsPage(){
                         <h1>Ongoing Events</h1>
                     </div>
                     <div className={"horizontal"}>
-                        {renderEvents(events)}
+                        {renderMyEvents(events)}
                     </div>
 
                 </div>
@@ -43,13 +43,13 @@ function MyEventsPage(){
                         <h1>Upcoming Events</h1>
                     </div>
                     <div className={"horizontal"}>
-                        {renderEvents(events)}
+                        {renderMyEvents(events)}
                     </div>
                 </div>
             </article>
             <div id={"createdEvents"}>
                 <h1>Created Events</h1>
-                {renderEvents(events)}
+                {renderMyEvents(events)}
             </div>
         </div>
             </>}
@@ -58,7 +58,7 @@ function MyEventsPage(){
 
 }
 
-function renderEvents(events : TEvent[]){
+function renderMyEvents(events : TEvent[]){
     return <>
         {
             events ? (events.map(event => (

@@ -1,7 +1,7 @@
 @use "var";
 
 $white: #fff;
-$border-radius: 40px;
+$border-radius: 20px;
 $rem: 1rem;
 $margin-bottom: 2rem;
 $margin-right: 1rem;
@@ -48,6 +48,5 @@ $margin-top: 1rem;
 .event img {
     max-width: 80%;
     height: auto;
-    margin: 0 $rem $rem $rem;
-    border-radius: $border-radius;
+    border-radius: 10px;
 }
