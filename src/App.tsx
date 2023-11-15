@@ -1,88 +1,55 @@
 import './assets/css/app.css'
 import {Navigate, Route, Routes} from "react-router-dom";
 import AdriActive from "./AdriActive";
-import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
+import { CssVarsProvider } from '@mui/joy/styles';
 import NotFound from "./components/common/404";
 import {PrivateRoute} from "./components/PrivateRoute";
+import {useEffect} from "react";
+import EventBus from "@vertx/eventbus-bridge-client.js";
+import URI from "./api";
+import theme from "./assets/theme";
 
-const mantineTheme = extendTheme({
-    colorSchemes: {
-        light: {
-            palette: {
-                primary: {
-                    solidBg: '#56c1ae',
-                    solidHoverBg: '#77ccbf',
-                    solidActiveBg: undefined,
-                    softColor: '#228be6',
-                    softBg: 'rgba(231, 245, 255, 1)',
-                    softHoverBg: 'rgba(208, 235, 255, 0.65)',
-                    softActiveBg: undefined,
-                    outlinedColor: '#228be6',
-                    outlinedBorder: '#228be6',
-                    outlinedHoverBg: 'rgba(231, 245, 255, 0.35)',
-                    outlinedHoverBorder: undefined,
-                    outlinedActiveBg: undefined,
-                },
-            },
-        },
-    },
-    fontFamily: {
-        body: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
-    },
-    focus: {
-        default: {
-            outlineWidth: '2px',
-            outlineOffset: '2px',
-            outlineColor: '#339af0',
-        },
-    },
-    components: {
-        JoyButton: {
-            styleOverrides: {
-                root: ({ ownerState }) => ({
-                    transition: 'initial',
-                    borderRadius: '4px',
-                    fontWeight: 600,
-                    // padding: "14px",
-                    borderBottomLeftRadius: "12px",
-                    borderBottomRightRadius: "12px",
-                    borderTopLeftRadius: "12px",
-                    borderTopRightRadius: "12px",
-                    ...(ownerState.size === 'md' && {
-                        minHeight: '36px',
-                        fontSize: '14px',
-                        paddingInline: '26px',
-                    }),
-                    '&:active': {
-                        transform: 'translateY(1px)',
-                    },
-                }),
-            },
-        },
-    },
-});
 
+const CHNL_TO_CLIENTS_BROADCAST = "events.to.users";
 
 function App() {
 
-  return (
-      <>
-          <CssVarsProvider theme={mantineTheme}>
-              <Routes>
-                  <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
-                      <Route path="/app/*" element={
-                          <PrivateRoute>
+    useEffect(() => {
+        const eb = new EventBus(URI + "/events");
+
+        eb.onopen = () => {
+            console.log("Opening");
+            eb.registerHandler(CHNL_TO_CLIENTS_BROADCAST, onMessage);
+        }
+
+        function onMessage(error: Error, message: any) {
+            if(error){
+                console.error(error);
+            }
+            console.log(message.body);
+        }
+        return () =>{
+            eb.close();
+        }
+    })
+
+
+    return (
+        <>
+            <CssVarsProvider theme={theme}>
+                <Routes>
+                    <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
+                    <Route path="/app/*" element={
+                        <PrivateRoute>
                             <AdriActive></AdriActive>
-                          </PrivateRoute>
-                      } />
-                  <Route path="*" element={<NotFound/>} />
-              </Routes>
-          </CssVarsProvider>
+                        </PrivateRoute>
+                    } />
+                    <Route path="*" element={<NotFound/>} />
+                </Routes>
+            </CssVarsProvider>
 
-      </>
-  )
+        </>
+    )
 }
-
-
 
 export default App
