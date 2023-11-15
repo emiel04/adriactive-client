@@ -32,7 +32,7 @@ axiosInstance.interceptors.request.use(async (config) => {
     }
     // if the jwt is missing or expired, get a new token
     const adriaId = localStorage.getItem('adriaId');
-    const response = await axios.post(`${URI}/auth/login`, { adriaId: adriaId });
+    const response = await axios.post(`${URI}api/auth/login`, { adriaId: adriaId });
     localStorage.setItem("jwt", response.data.jwt);
     config.headers.Authorization = `Bearer ${response.data.jwt}`;
 

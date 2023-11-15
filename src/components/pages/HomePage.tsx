@@ -38,7 +38,6 @@ export default function HomePage() {
 }
 
 function renderEvents(events: TEvent[], filters: Set<number>) {
-    console.log(filters);
     if (events && filters.size > 0) {
         events = events.filter(e => {
             console.log(e.category);
