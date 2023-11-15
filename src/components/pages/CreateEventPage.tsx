@@ -14,7 +14,7 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/sector.tsx";
 
 
-export default function HomePage({isEditing} : {isEditing: boolean}) {
+export default function HomePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
@@ -48,7 +48,7 @@ export default function HomePage({isEditing} : {isEditing: boolean}) {
             "categoryId": category,
             "sectorId": loadSectors
         };
-        if (isEditing) {
+        if (isEditing) { //TODO: fix the parameter passing
             evApiEvents.editEvent(eventData, evReq.token).then(r => console.log(r));
         } else {
             evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
@@ -67,12 +67,12 @@ export default function HomePage({isEditing} : {isEditing: boolean}) {
             <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
             <label>Event Name</label>
             <Input placeholder="Type in here…" onChange={e   => setEventName(e.target.value)}
-                   required/>
+                   required
+            />
 
             <label>Description</label>
             <Textarea placeholder="Type anything…" onChange={e   => setDescription(e.target.value)}
                       required
-
             />
 
             <div className="dropdowns">

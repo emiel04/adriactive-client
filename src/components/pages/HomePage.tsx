@@ -11,6 +11,7 @@ export default function HomePage() {
     const [filters, setFilters] = useState<Set<number>>(new Set<number>());
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApi.getEvents(evReq.token).then(data => {

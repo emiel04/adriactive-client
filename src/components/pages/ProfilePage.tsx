@@ -2,11 +2,12 @@ import "../../assets/css/profilepage.scss"
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
-import Api from "../../services/api-user.ts";
+import api from "../../services/api-user.ts";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {TUser} from "../common/user.tsx";
 import {useNavigate} from "react-router";
 import UserBlock from "../UserBlock.tsx";
+import Button from "@mui/joy/Button";
 
 function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
@@ -16,14 +17,14 @@ function ProfilePage() {
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        Api.getUserInterests(evReq.token).then(data => {
+        api.getUserInterests(evReq.token).then(data => {
             setInterests(data);
             setIsLoading(false);
         }).catch(() => {
             setIsLoading(false);
         });
 
-        Api.getUser(evReq.token).then(data => {
+        api.getUser(evReq.token).then(data => {
             setUser(data);
             setIsLoading(false);
         }).catch(() => {
@@ -79,7 +80,7 @@ function ProfilePage() {
                 <form className="list-container">
                     {renderUserInterests(interests)}
                 </form>
-                <button className="edit-interests" onClick={() => navigate('')}>Edit interests</button>
+                <Button onClick={() => navigate('/app/interests?editing=true')}>Edit interests</Button>
             </div>
         </div>
             </>}

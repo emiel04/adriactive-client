@@ -5,9 +5,7 @@ import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
 import Button from '@mui/joy/Button';
 import {useNavigate} from "react-router";
-
-export default function StartPage({isEditing} : {isEditing: boolean}) {
-
+export default function InterestPage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
@@ -35,12 +33,13 @@ export default function StartPage({isEditing} : {isEditing: boolean}) {
             ) : <>
             <form className="form-group" onSubmit={handleSubmit}>
             <div className="interests-page">
-                <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
-                <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
+                //TODO: fix the parameter passing
+                <h2>{editing ? 'Change Interests' : 'Select Interests'}</h2>
+                <h3>{editing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
                 <div className="interests-grid">
                 {renderInterests(interests)}
             </div>
-                <Button type="submit" className="skip-button" onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</Button>
+                <Button type="submit" className="skip-button" onClick={() => navigate('/app/home')}>{editing ? 'Save' : 'Skip'}</Button>
             </div>
                 </form>
             </>}
@@ -50,11 +49,7 @@ export default function StartPage({isEditing} : {isEditing: boolean}) {
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
         console.log(selectedInterests);
-        if (isEditing) {
-            api.editInterests(selectedInterests, evReq.token).then(r => console.log(r));
-        } else {
-            api.addInterests(selectedInterests, evReq.token).then(r => console.log(r));
-        }
+        api.addInterests(selectedInterests, evReq.token).then(r => console.log(r));
 
         navigate('/app/home');
     }

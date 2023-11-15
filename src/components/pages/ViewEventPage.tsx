@@ -7,7 +7,7 @@ import EventBlock from "../EventBlock.tsx";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Button from '@mui/joy/Button';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-function ViewEventPage({isJoined} : {isJoined: boolean}) {
+function ViewEventPage() {
 
     const [event, setEvent] = useState<TEvent | null>(null);
     const { eventId} = useParams();
@@ -34,9 +34,8 @@ function ViewEventPage({isJoined} : {isJoined: boolean}) {
         <p>Event Details</p>
         {event && <EventBlock event={event} key={eventId} onClick={() => null}></EventBlock>}
 
-        <Button type="submit" onClick={() => navigate('/app/home')}>{isJoined !== undefined && isJoined !== null ? (isJoined ? 'Leave' : 'Join') : 'Return to Homepage'}</Button>
+        <Button type="submit" onClick={() => navigate('/app/home')}>{isJoined !== undefined || isJoined !== null ? (isJoined ? 'Leave' : 'Join') : 'Return to Homepage'}</Button>
     </>
-
 
 }
 
