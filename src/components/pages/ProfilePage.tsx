@@ -67,7 +67,7 @@ function ProfilePage() {
         <div className="profile-page">
             <div className="profile-info">
                 <div className="profile-picture">
-                    <AccountCircleIcon id={"profilePic"}}></AccountCircleIcon>
+                    <AccountCircleIcon id={"profilePic"}></AccountCircleIcon>
                 </div>
                 <div className="name">
                     {renderUser(user)}
