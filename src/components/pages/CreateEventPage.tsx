@@ -43,11 +43,9 @@ export default function HomePage() {
         event.preventDefault();
         const eventData = {
             "name": eventName,
-            "eventType": "TODO", //TODO
             "description": description,
             "amountOfPeople": value,
             "categoryId": category,
-            "organiserId": "TODO", //TODO
             "sectorId": loadSectors
         };
         evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
@@ -61,7 +59,7 @@ export default function HomePage() {
 
     return (
         <form className="form-group" onSubmit={handleSubmit}>
-            <ArrowBackIosIcon onClick={() => navigate("")}></ArrowBackIosIcon>
+            <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
             <h1>Create Event</h1>
             <label>Event Name</label>
             <Input placeholder="Type in here…" onChange={e   => setEventName(e.target.value)}
