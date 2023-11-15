@@ -25,18 +25,22 @@ export default function StartPage({isEditing} : {isEditing: boolean}) {
         }
     }, [])
 
-    return <div className={"loading"}>
-        {isLoading ? (
-            <p>Loading...</p>
-        ) : <div className="interests-page">
+    return <>
+        <div className={"loading"}>
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : <>
+            <div className="interests-page">
                 <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
                 <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
                 <div className="interests-grid">
                 {renderInterests(interests)}
-                </div>
+            </div>
                 <button className="skip-button" onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</button>
-        </div>}
-    </div>
+            </div>
+            </>}
+        </div>
+    </>
 }
 
 function renderInterests(interests: TInterest[]) {
