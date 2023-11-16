@@ -1,10 +1,10 @@
-#myEvents {
+#my-events {
   display: grid;
   grid-template-columns: 75% 25%;
   height: 41rem;
   max-width: 97%;
 
-  #joinedEvents{
+  #joined-events{
     display: flex;
     flex-direction: column;
     height: 36rem;
@@ -20,7 +20,7 @@
       max-width: fit-content;
     }
 
-    .eventTypeHeader{
+    .event-type-header{
       position: sticky;
       top: 0;
       display: flex;
@@ -49,14 +49,14 @@
       display: flex;
       height: 12rem;
     }
-    #ongoingEvents{
+    #ongoing-events{
       height: 50%;
       overflow-x: scroll;
       overflow-y: hidden;
       white-space: nowrap;
     }
 
-    #upcomingEvents{
+    #upcoming-events{
       margin-top: 0.5rem;
       height: 50%;
       overflow-x: scroll;
@@ -65,7 +65,7 @@
   }
 
 
-  #createdEvents{
+  #created-events{
     height: 35rem;
     width: 100%;
     overflow: auto;

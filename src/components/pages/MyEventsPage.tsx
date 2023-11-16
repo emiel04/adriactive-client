@@ -27,27 +27,27 @@ function MyEventsPage(){
             {isLoading ? (
                     <p>Loading...</p>
                 ) : <>
-        <div id={"myEvents"}>
-            <article id={"joinedEvents"}>
-                <div className={'eventTypeHeader'}>
+        <div id={"my-events"}>
+            <article id={"joined-events"}>
+                <div className={'event-type-header'}>
                     <h1>Ongoing Events</h1>
                 </div>
-                <div id={"ongoingEvents"} className={"sideScroll"}>
+                <div id={"ongoing-events"} className={"side-scroll"}>
                     <div className={"horizontal"}>
                         {renderMyEvents(events)}
                     </div>
 
                 </div>
-                <div className={'eventTypeHeader'}>
+                <div className={'event-type-header'}>
                     <h1>Upcoming Events</h1>
                 </div>
-                <div id={"upcomingEvents"} className={"sideScroll"}>
+                <div id={"upcoming-events"} className={"side-scroll"}>
                     <div className={"horizontal"}>
                         {renderMyEvents(events)}
                     </div>
                 </div>
             </article>
-            <div id={"createdEvents"}>
+            <div id={"created-events"}>
                 <h1>Created Events</h1>
                 {renderMyEvents(events)}
             </div>

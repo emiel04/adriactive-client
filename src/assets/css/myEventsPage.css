@@ -1,16 +1,16 @@
-#myEvents {
+#my-events {
   display: grid;
   grid-template-columns: 75% 25%;
   height: 41rem;
   max-width: 97%;
 }
-#myEvents #joinedEvents {
+#my-events #joined-events {
   display: flex;
   flex-direction: column;
   height: 36rem;
   max-width: 100%;
 }
-#myEvents #joinedEvents h1 {
+#my-events #joined-events h1 {
   position: sticky;
   top: 0;
   text-align: center;
@@ -19,46 +19,46 @@
   border-radius: 0.5rem;
   max-width: fit-content;
 }
-#myEvents #joinedEvents .eventTypeHeader {
+#my-events #joined-events .event-type-header {
   position: sticky;
   top: 0;
   display: flex;
   justify-content: center;
 }
-#myEvents #joinedEvents .event {
+#my-events #joined-events .event {
   min-width: 12rem;
   max-width: 12rem;
   margin-right: 0.5rem;
   height: 13rem;
 }
-#myEvents #joinedEvents .event h2 {
+#my-events #joined-events .event h2 {
   font-size: 1rem;
 }
-#myEvents #joinedEvents .event li {
+#my-events #joined-events .event li {
   font-size: 0.75rem;
 }
-#myEvents #joinedEvents .event img {
+#my-events #joined-events .event img {
   width: 8rem;
   height: 6rem;
 }
-#myEvents #joinedEvents .horizontal {
+#my-events #joined-events .horizontal {
   white-space: nowrap;
   display: flex;
   height: 12rem;
 }
-#myEvents #joinedEvents #ongoingEvents {
+#my-events #joined-events #ongoing-events {
   height: 50%;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
 }
-#myEvents #joinedEvents #upcomingEvents {
+#my-events #joined-events #upcoming-events {
   margin-top: 0.5rem;
   height: 50%;
   overflow-x: scroll;
   overflow-y: hidden;
 }
-#myEvents #createdEvents {
+#my-events #created-events {
   height: 35rem;
   width: 100%;
   overflow: auto;
@@ -68,7 +68,7 @@
   justify-content: center;
   flex-wrap: wrap;
 }
-#myEvents #createdEvents h1 {
+#my-events #created-events h1 {
   position: sticky;
   top: 0;
   text-align: center;
@@ -77,12 +77,12 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
-#myEvents #createdEvents p {
+#my-events #created-events p {
   padding: 0.5rem;
   background-color: #89d0c1;
   margin: 0.5rem;
 }
-#myEvents #createdEvents .event {
+#my-events #created-events .event {
   max-width: 17rem;
   min-width: 17rem;
 }
