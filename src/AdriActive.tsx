@@ -11,7 +11,7 @@ import "./assets/css/events.scss";
 import StartPage from "./components/pages/StartPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
-import {useWebSocket} from "./components/context/WebSocketContext";
+import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect} from "react";
 
 function AdriActive () {
