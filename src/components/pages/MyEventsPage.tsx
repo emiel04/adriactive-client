@@ -27,29 +27,29 @@ function MyEventsPage(){
             {isLoading ? (
                     <p>Loading...</p>
                 ) : <>
-        <div id={"myEvents"}>
-            <article id={"joinedEvents"}>
-                <div id={"ongoingEvents"} className={"sideScroll"}>
-                    <div className={'eventTypeHeader'}>
-                        <h1>Ongoing Events</h1>
-                    </div>
+        <div id={"my-events"}>
+            <article id={"joined-events"}>
+                <div className={'event-type-header'}>
+                    <h1>Ongoing Events</h1>
+                </div>
+                <div id={"ongoing-events"} className={"side-scroll"}>
                     <div className={"horizontal"}>
-                        {renderEvents(events)}
+                        {renderMyEvents(events)}
                     </div>
 
                 </div>
-                <div id={"upcomingEvents"} className={"sideScroll"}>
-                    <div className={'eventTypeHeader'}>
-                        <h1>Upcoming Events</h1>
-                    </div>
+                <div className={'event-type-header'}>
+                    <h1>Upcoming Events</h1>
+                </div>
+                <div id={"upcoming-events"} className={"side-scroll"}>
                     <div className={"horizontal"}>
-                        {renderEvents(events)}
+                        {renderMyEvents(events)}
                     </div>
                 </div>
             </article>
-            <div id={"createdEvents"}>
+            <div id={"created-events"}>
                 <h1>Created Events</h1>
-                {renderEvents(events)}
+                {renderMyEvents(events)}
             </div>
         </div>
             </>}
@@ -58,7 +58,7 @@ function MyEventsPage(){
 
 }
 
-function renderEvents(events : TEvent[]){
+function renderMyEvents(events : TEvent[]){
     return <>
         {
             events ? (events.map(event => (

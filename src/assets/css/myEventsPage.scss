@@ -1,73 +1,72 @@
-
-
-#myEvents {
-  overflow: hidden;
+#my-events {
   display: grid;
-  grid-template-columns: 70% 30%;
-  height: 35rem;
-  max-width: 98%;
+  grid-template-columns: 75% 25%;
+  height: 41rem;
+  max-width: 97%;
 
-  #joinedEvents{
+  #joined-events{
     display: flex;
     flex-direction: column;
-    height: 31rem;
-    padding: 0.5rem;
+    height: 36rem;
     max-width: 100%;
-    border-right: #89d0c1 solid;
 
     h1{
       position: sticky;
       top: 0;
       text-align: center;
-      margin-bottom: 1rem;
-      background-color: #b9f6ec;
+      background-color: #89d0c1;
       padding: 0.25rem;
       border-radius: 0.5rem;
       max-width: fit-content;
     }
 
-    .eventTypeHeader{
+    .event-type-header{
+      position: sticky;
+      top: 0;
       display: flex;
       justify-content: center;
     }
 
     .event{
-      width: 10rem;
+      min-width: 12rem;
+      max-width: 12rem;
+      margin-right: 0.5rem;
+      height: 13rem;
       h2{
-        font-size: 0.25rem;
+        font-size: 1rem;
       }
       li{
-        font-size: 0.5rem;
+        font-size: 0.75rem;
       }
       img{
-        max-width: 6rem;
+        width: 8rem;
+        height: 6rem;
       }
     }
 
     .horizontal {
-      overflow-x: scroll;
       white-space: nowrap;
       display: flex;
       height: 12rem;
     }
-    #ongoingEvents{
-      height: 45%;
-      overflow: auto;
+    #ongoing-events{
+      height: 50%;
+      overflow-x: scroll;
+      overflow-y: hidden;
       white-space: nowrap;
-      margin-bottom: 0.5rem;
-      border-bottom: #89d0c1 solid;
     }
 
-    #upcomingEvents{
-      height: 45%;
-      border-bottom: #89d0c1 solid;
+    #upcoming-events{
+      margin-top: 0.5rem;
+      height: 50%;
+      overflow-x: scroll;
+      overflow-y: hidden;
     }
   }
 
 
-
-  #createdEvents{
-    height: 80%;
+  #created-events{
+    height: 35rem;
     width: 100%;
     overflow: auto;
     white-space: nowrap;
@@ -75,10 +74,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    border-bottom: #89d0c1 solid;
-    margin-left: 1rem;
-    box-shadow: 0 0.25rem 0.5rem #89d0c1;
-    z-index: -1;
 
 
     h1{
@@ -86,7 +81,7 @@
       top: 0;
       text-align: center;
       margin-bottom: 1rem;
-      background-color: #b9f6ec;
+      background-color: #89d0c1;
       padding: 0.5rem;
       border-radius: 0.5rem;
     }
@@ -97,7 +92,8 @@
     }
 
     .event{
-      max-width: 70%;
+      max-width: 17rem;
+      min-width: 17rem;
     }
   }
 }

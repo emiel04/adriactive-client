@@ -16,7 +16,7 @@
 .event {
   margin: 1rem 1rem 2rem 1rem;
   background: #56C1AE;
-  border-radius: 40px;
+  border-radius: 20px;
   max-width: 20%;
   height: auto;
   color: #fff;
@@ -38,8 +38,7 @@
 .event img {
   max-width: 80%;
   height: auto;
-  margin: 0 1rem 1rem 1rem;
-  border-radius: 40px;
+  border-radius: 10px;
 }
 
 /*# sourceMappingURL=events.css.map */
