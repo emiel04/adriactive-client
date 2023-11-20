@@ -5,7 +5,7 @@ stages:
   - deploy
 
 before_script:
-#  - ln -s /ci/node_modules .
+  - ln -s /ci/node_modules .
 
 validateHTML:
   stage: QA
