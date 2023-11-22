@@ -26,11 +26,11 @@ function AdriActive () {
         };
     }, []);
 
-    const handleMessage = (error: Error, message: any) => {
+    const handleMessage = (error: Error) => {
         if (error){
             console.error(error);
         }
-        console.log(message.body);
+        //console.log(message.body);
     }
     return <>
         <Routes>
