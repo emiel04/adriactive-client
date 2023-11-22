@@ -14,6 +14,7 @@ import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
+import "./assets/css/viewEvent.scss";
 
 function AdriActive () {
     const ws = useWebSocket();

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {TEvent} from "./common/events";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 type TViewEventBlockProps = {
     event: TEvent;
@@ -19,8 +20,12 @@ export default function EventBlock(prop: TViewEventBlockProps) {
     }, [prop.event.category.categoryId]);
 
     return (<>
-            <img src={imgSrc} alt={`Category: ${prop.event.name}`}/>
-            <div className="event" id={prop.event.id.toString()}>
+            <div className="imageContainer">
+                <img src={imgSrc} alt={`Category: ${prop.event.name}`} className="imgViewEvent" />
+                <AccountCircleIcon id="profilePic"/>
+            </div>
+            <h1 id="eventDetails">Event Details:</h1>
+            <div className="viewEvent" id={prop.event.id.toString()}>
                 <h2>{prop.event.name}</h2>
                 <ul>
                     <li>Organised by: {prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>

@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useParams, useNavigate, useSearchParams} from "react-router-dom";
 import axios from "axios";
 import evApi from "../../services/api-events";
 import ViewEventBlock from "../ViewEventBlock";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Button from '@mui/joy/Button';
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function ViewEventPage() {
     const [event, setEvent] = useState(null);
-    const { id: eventId } = useParams(); // Ensure that the parameter name matches your route
+    const {id: eventId} = useParams(); // Ensure that the parameter name matches your route
     const navigate = useNavigate();
     const [isJoined, setIsJoined] = useState(false);
     const [searchParams] = useSearchParams();
@@ -41,14 +40,14 @@ function ViewEventPage() {
 
     return (
         <>
-            <ArrowBackIosIcon onClick={() => navigate(-1)} />
-            <h1>{isJoined ? 'Leave event' : 'Join event'}</h1>
-            <AccountCircleIcon />
-            <p>Event Details</p>
-            {event && <ViewEventBlock event={event} />}
-            <Button type="submit" onClick={() => navigate('/app/home')}>
-                {isJoined ? 'Leave' : 'Join'}
-            </Button>
+            <ArrowBackIosIcon onClick={() => navigate(-1)}/>
+            <h1 id="joinOrLeave">{isJoined ? 'Leave event' : 'Join event'}</h1>
+            {event && <ViewEventBlock event={event}/>}
+            <div className="joinButtonContainer">
+                <Button type="submit" onClick={() => navigate('/app/home')} className="joinButton">
+                    {isJoined ? 'Leave' : 'Join'}
+                </Button>
+            </div>
         </>
     );
 }
