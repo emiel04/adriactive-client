@@ -5,6 +5,10 @@ import {OSM} from "ol/source";
 import {Tile} from "ol/layer";
 import "../../assets/css/map.css"
 
+
+
+
+
 function MapPage() {
     const mapDiv = useRef(null);
     useEffect(() => {
