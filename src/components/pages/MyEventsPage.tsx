@@ -63,7 +63,7 @@ function MyEventsPage(){
         return <>
             {
                 events ? (events.map(event => (
-                    <EventBlock event={event} key={event.id} onClick={()=> navigate(`/event/view/${event.id}`)}/>
+                    <EventBlock event={event} key={event.id} onClick={()=> navigate(`app/event/view/${event.id}`)}/>
                 ))) : <p>no events found</p>
             }
         </>

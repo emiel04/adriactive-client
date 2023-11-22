@@ -42,7 +42,7 @@ function AdriActive () {
             <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
             <Route path={"/interests"} element={<InterestPage/>}></Route>
             <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
-            <Route path={"/event/view/:id"} element={<ViewEventPage/>}></Route>
+            <Route path={"/events/view/:id"} element={<ViewEventPage/>}></Route>
             <Route path={"*"} element={<NotFound/>}></Route>
         </Routes>
         <Navbar></Navbar>
