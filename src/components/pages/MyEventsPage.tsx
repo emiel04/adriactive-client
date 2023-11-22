@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-events.ts";
 import EventBlock from "../EventBlock.tsx";
-import Button from "@mui/joy/Button";
 import {useNavigate} from "react-router";
 
 function MyEventsPage(){
@@ -60,17 +59,18 @@ function MyEventsPage(){
         </div>
     </>
 
+    function renderEvents(events : TEvent[]){
+        return <>
+            {
+                events ? (events.map(event => (
+                    <EventBlock event={event} key={event.id} onClick={()=> navigate(`/event/view/${event.id}`)}/>
+                ))) : <p>no events found</p>
+            }
+        </>
+    }
+
 }
 
-function renderEvents(events : TEvent[]){
-    return <>
-        {
-            events ? (events.map(event => (
-                <EventBlock event={event} key={event.id}/>
-            ))) : <p>no events found</p>
-        }
-    </>
-}
 
 export default MyEventsPage;
 

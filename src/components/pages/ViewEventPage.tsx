@@ -42,7 +42,7 @@ function ViewEventPage() {
         <p>Event Details</p>
         {event && <EventBlock event={event} key={eventId} onClick={() => null}></EventBlock>}
 
-        <Button type="submit" onClick={() => navigate('/app/home')}>{isJoined !== undefined || isJoined !== null ? (isJoined ? 'Leave' : 'Join') : 'Return to Homepage'}</Button>
+        <Button type="submit" onClick={() => navigate('/app/home')}>{isJoined ? 'Leave' : 'Join'}</Button>
     </>
 
 }

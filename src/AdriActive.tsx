@@ -13,6 +13,7 @@ import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect} from "react";
+import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 
 function AdriActive () {
     const ws = useWebSocket();
