@@ -1,5 +1,5 @@
 import {Extent} from "ol/extent";
-import {CoordinateRange, Sector} from "../../components/common/sector.tsx";
+import {TCoordinateRange, TSector} from "../../components/common/TSector.tsx";
 
 export function createCoordConverter(rectBoundingBox: Extent| undefined, serverWidth: number, serverHeight: number): (x: number, y: number) => [number, number]{
     if (!rectBoundingBox){
@@ -18,7 +18,7 @@ export function createCoordConverter(rectBoundingBox: Extent| undefined, serverW
 }
 
 
-export function convertServerSectorToClientSector(sectors: Sector[], coordConverter: (x: number, y: number) => [number, number]): Sector[] {
+export function convertServerSectorToClientSector(sectors: TSector[], coordConverter: (x: number, y: number) => [number, number]): TSector[] {
     return sectors.map(serverSector => ({
         name: serverSector.name,
         coordinateRange: convertCoordinateRange(serverSector.coordinateRange, coordConverter),
@@ -29,7 +29,7 @@ export function convertServerSectorToClientSector(sectors: Sector[], coordConver
     }));
 }
 
-export function convertCoordinateRange(coordinateRange: CoordinateRange, coordConverter: (x: number, y: number) => [number, number]): CoordinateRange {
+export function convertCoordinateRange(coordinateRange: TCoordinateRange, coordConverter: (x: number, y: number) => [number, number]): TCoordinateRange {
     return {
         start: convertCoordinate(coordinateRange.start, coordConverter),
         end: convertCoordinate(coordinateRange.end, coordConverter),

@@ -8,7 +8,7 @@ import "../../assets/css/map.css"
 import {useWebSocket} from "../context/WebSocketContext.tsx";
 import VectorLayer from "ol/layer/Vector";
 import {Coordinate} from "ol/coordinate";
-import {Sector} from "../common/sector.tsx";
+import {TSector} from "../common/TSector.tsx";
 import {convertServerSectorToClientSector, createCoordConverter} from "../../helpers/maphelpers/serversectorhelper.ts";
 import {drawDangerZones, drawRectangle, drawSectors} from "../../helpers/maphelpers/shape-drawer.ts";
 
@@ -49,7 +49,7 @@ function MapPage() {
                 console.log(error);
                 return;
             }
-            let sectors : Sector[] = message.body.sectors;
+            let sectors : TSector[] = message.body.sectors;
             sectors = convertServerSectorToClientSector(sectors, coordConverter);
             //remove existing layers
             dangerZoneLayers.forEach(dangerzone => {

@@ -11,7 +11,7 @@ import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
-import {TSector} from "../common/sector.tsx";
+import {TSector} from "../common/TSector.tsx";
 import {useSearchParams} from "react-router-dom";
 
 
