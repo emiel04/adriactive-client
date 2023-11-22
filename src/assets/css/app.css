@@ -1,4 +1,4 @@
-.navbar {
+.navbar:not(#profileNav) {
   position: fixed;
   display: block;
   left: 0;
@@ -7,12 +7,12 @@
   padding: 1rem 1rem;
   background: white;
 }
-.navbar li {
+.navbar:not(#profileNav) li:not(#profileNav) {
   display: inline-block;
   margin-right: 1rem;
   text-align: center;
 }
-.navbar li a {
+.navbar:not(#profileNav) li:not(#profileNav) a:not(#profileNav) {
   display: inline-block;
   background: #56C1AE;
   border-radius: 20px;
@@ -22,14 +22,18 @@
   font-weight: bold;
   min-width: 6rem;
 }
-.navbar li a.active {
+.navbar:not(#profileNav) li:not(#profileNav) a.active:not(#profileNav) {
   outline: 3px solid #4e766c;
 }
-.navbar li a:hover {
+.navbar:not(#profileNav) li:not(#profileNav) a:hover:not(#profileNav) {
   background: #77ccbf;
 }
+.navbar:not(#profileNav) li:not(#profileNav) #navProfile {
+  width: 75px;
+  height: 75px;
+}
 
-button, a {
+button:not(#profileNav), a:not(#profileNav) {
   font-size: 1em;
   padding: 0.6em;
   background: #56C1AE;
@@ -37,7 +41,7 @@ button, a {
   border-radius: 20px;
   color: white;
 }
-button:hover, a:hover {
+button:not(#profileNav):hover, a:not(#profileNav):hover {
   background: #77ccbf;
 }
 

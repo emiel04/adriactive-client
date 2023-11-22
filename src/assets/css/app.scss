@@ -1,6 +1,6 @@
 @use "var";
 
-.navbar{
+.navbar:not(#profileNav){
     position: fixed;
     display: block;
     left: 0;
@@ -8,11 +8,11 @@
     bottom: 0;
     padding: 1rem 1rem;
     background: white;
-    li{
+    li:not(#profileNav) {
         display: inline-block;
         margin-right: 1rem;
         text-align: center;
-       a{
+       a:not(#profileNav){
            display: inline-block;
            background: var.$primary-color;
            border-radius: 20px;
@@ -22,16 +22,20 @@
            font-weight: bold;
            min-width: 6rem;
        }
-        a.active{
+        a.active:not(#profileNav){
            outline: 3px solid var.$dark-color;
         }
-        a:hover {
+        a:hover:not(#profileNav) {
             background: var.$hover-color;
+        }
+        #navProfile {
+            width: 75px;
+            height: 75px;
         }
     }
 }
 
-button, a{
+button:not(#profileNav), a:not(#profileNav){
     font-size: 1em;
     padding: .6em;
     background: var.$primary-color;
