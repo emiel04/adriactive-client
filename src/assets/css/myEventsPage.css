@@ -1,6 +1,6 @@
 #my-events {
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: 80% 20%;
   height: 41rem;
   max-width: 97%;
 }
@@ -10,12 +10,14 @@
   height: 36rem;
   max-width: 100%;
 }
+
 #my-events #joined-events h1 {
+  color: white;
   position: sticky;
   top: 0;
   text-align: center;
   background-color: #89d0c1;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   max-width: fit-content;
 }
@@ -31,7 +33,17 @@
   margin-right: 0.5rem;
   height: 13rem;
 }
+
+#my-events #joined-events .event:hover{
+  background: #77ccbf;
+}
+
+#my-events #created-events .event:hover{
+  background: #77ccbf;
+}
+
 #my-events #joined-events .event h2 {
+  color: white;
   font-size: 1rem;
 }
 #my-events #joined-events .event li {
@@ -52,6 +64,7 @@
   overflow-y: hidden;
   white-space: nowrap;
 }
+
 #my-events #joined-events #upcoming-events {
   margin-top: 0.5rem;
   height: 50%;
@@ -63,12 +76,13 @@
   width: 100%;
   overflow: auto;
   white-space: nowrap;
-  padding: 0.5rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 #my-events #created-events h1 {
+  color: white;
   position: sticky;
   top: 0;
   text-align: center;
@@ -76,6 +90,7 @@
   background-color: #89d0c1;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  font-size: 1rem;
 }
 #my-events #created-events p {
   padding: 0.5rem;
@@ -83,8 +98,18 @@
   margin: 0.5rem;
 }
 #my-events #created-events .event {
-  max-width: 17rem;
-  min-width: 17rem;
+  max-width: 15rem;
+  min-width: 15rem;
 }
+
+#my-events #created-events li {
+  font-size: 0.75rem;
+}
+
+#my-events #created-events h2 {
+  font-size: 1.5rem;
+}
+
+
 
 /*# sourceMappingURL=myEventsPage.css.map */

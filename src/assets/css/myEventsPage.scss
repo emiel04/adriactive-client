@@ -1,6 +1,6 @@
 #my-events {
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: 85% 25%;
   height: 41rem;
   max-width: 97%;
 
@@ -92,8 +92,8 @@
     }
 
     .event{
-      max-width: 17rem;
-      min-width: 17rem;
+      max-width: 12rem;
+      min-width: 12rem;
     }
   }
 }
