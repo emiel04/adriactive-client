@@ -3,9 +3,12 @@ import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import evApi from "../../services/api-events.ts";
 import EventBlock from "../EventBlock.tsx";
+import {useNavigate} from "react-router";
+
 function MyEventsPage(){
     const [events, setEvents] = useState<TEvent[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -27,46 +30,47 @@ function MyEventsPage(){
             {isLoading ? (
                     <p>Loading...</p>
                 ) : <>
-        <div id={"my-events"}>
-            <article id={"joined-events"}>
-                <div className={'event-type-header'}>
-                    <h1>Ongoing Events</h1>
-                </div>
-                <div id={"ongoing-events"} className={"side-scroll"}>
+        <div id={"myEvents"}>
+            <article id={"joinedEvents"}>
+                <div id={"ongoingEvents"} className={"sideScroll"}>
+                    <div className={'eventTypeHeader'}>
+                        <h1>Ongoing Events</h1>
+                    </div>
                     <div className={"horizontal"}>
-                        {renderMyEvents(events)}
+                        {renderEvents(events)}
                     </div>
 
                 </div>
-                <div className={'event-type-header'}>
-                    <h1>Upcoming Events</h1>
-                </div>
-                <div id={"upcoming-events"} className={"side-scroll"}>
+                <div id={"upcomingEvents"} className={"sideScroll"}>
+                    <div className={'eventTypeHeader'}>
+                        <h1>Upcoming Events</h1>
+                    </div>
                     <div className={"horizontal"}>
-                        {renderMyEvents(events)}
+                        {renderEvents(events)}
                     </div>
                 </div>
             </article>
-            <div id={"created-events"}>
+            <div id={"createdEvents"}>
                 <h1>Created Events</h1>
-                {renderMyEvents(events)}
+                {renderEvents(events)}
             </div>
         </div>
             </>}
         </div>
     </>
 
+    function renderEvents(events : TEvent[]){
+        return <>
+            {
+                events ? (events.map(event => (
+                    <EventBlock event={event} key={event.id} onClick={()=> navigate(`app/event/view/${event.id}`)}/>
+                ))) : <p>no events found</p>
+            }
+        </>
+    }
+
 }
 
-function renderMyEvents(events : TEvent[]){
-    return <>
-        {
-            events ? (events.map(event => (
-                <EventBlock event={event} key={event.id}/>
-            ))) : <p>no events found</p>
-        }
-    </>
-}
 
 export default MyEventsPage;
 

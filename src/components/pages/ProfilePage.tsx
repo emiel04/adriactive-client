@@ -2,11 +2,12 @@ import "../../assets/css/profilepage.scss"
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
-import evApi from "../../services/api-user.ts";
+import api from "../../services/api-user.ts";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {TUser} from "../common/user.tsx";
 import {useNavigate} from "react-router";
 import UserBlock from "../UserBlock.tsx";
+import Button from "@mui/joy/Button";
 
 function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
@@ -16,14 +17,14 @@ function ProfilePage() {
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        evApi.getUserInterests(evReq.token).then(data => {
+        api.getUserInterests(evReq.token).then(data => {
             setInterests(data);
             setIsLoading(false);
         }).catch(() => {
             setIsLoading(false);
         });
 
-        evApi.getUser(evReq.token).then(data => {
+        api.getUser(evReq.token).then(data => {
             setUser(data);
             setIsLoading(false);
         }).catch(() => {
@@ -38,7 +39,7 @@ function ProfilePage() {
     function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
             interests.map((e) => (
-                <p key={e.name}>{e.name}</p>
+                    <p key={e.name}>{e.name}</p>
             ))
         ) : (
             <div>
@@ -50,37 +51,41 @@ function ProfilePage() {
     function renderUser(user: TUser | undefined) {
         return user ? (
                 <UserBlock user={user}></UserBlock>
-            )
-            : (
-                <div>
-                    <p className={"error"}>No User found!</p>
-                </div>
-            )
+        )
+         : (
+            <div>
+                <p className={"error"}>No User found!</p>
+            </div>
+        )
 
     }
 
-    return <div className={"loading"}>
-        {isLoading ? (
+    return <>
+        <div className={"loading"}>
+            {isLoading ? (
                 <p>Loading...</p>
-            ) :
-            <div className="profile-page">
-                <div className="profile-info">
-                    <div className="profile-picture">
-                        <AccountCircleIcon id={"profilePic"}></AccountCircleIcon>
-                    </div>
-                    <div className="name">
-                        {renderUser(user)}
-                    </div>
+            ) : <>
+        <div className="profile-page">
+            <button className="edit-button">Edit</button>
+            <div className="profile-info">
+                <div className="profile-picture">
+                    <AccountCircleIcon></AccountCircleIcon>
                 </div>
-                <div className="interests-list">
-                    <h2>Interest List</h2>
-                    <form className="list-container">
-                        {renderUserInterests(interests)}
-                    </form>
-                    <button className="edit-interests" onClick={() => navigate("/app/start")}>Edit interests</button>
+                <div className="name">
+                    {renderUser(user)}
                 </div>
-            </div>}
-    </div>
+            </div>
+            <div className="interests-list">
+                <h2>Interest List</h2>
+                <form className="list-container">
+                    {renderUserInterests(interests)}
+                </form>
+                <Button onClick={() => navigate('/app/interests?editing=true')}>Edit interests</Button>
+            </div>
+        </div>
+            </>}
+        </div>
+    </>
 }
 
 export default ProfilePage;

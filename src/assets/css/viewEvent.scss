@@ -1,0 +1,57 @@
+@use "var";
+
+.imageContainer:not(#profilePic) {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  height: 12rem;
+  margin: auto;
+  border-radius: 30px;
+}
+
+.imgViewEvent {
+  max-width: 100%;
+  border-radius: 30px;
+}
+
+.viewEvent {
+  text-align: center;
+  background: var.$primary-color;
+  max-width: 20%;
+  border-radius: 30px;
+  padding: 1rem;
+  line-height: 2;
+  margin-left: 20%;
+}
+
+.joinButtonContainer {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  max-width: 50%;
+  margin: auto;
+  border-radius: 30px;
+}
+
+.joinButton {
+  width: 30%;
+}
+
+#eventDetails {
+  margin-top: 1rem;
+  margin-left: 25%;
+}
+
+#joinOrLeave {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+#profilePic {
+  margin: 0 0 0 10rem;
+  width: 10rem;
+  height: 10rem;
+}
