@@ -54,7 +54,6 @@ function MyEventsPage(){
             <div id={"createdEvents"}>
                 <h1>Created Events</h1>
                 {renderEvents(events)}
-                <Button onClick={() => navigate("/app/event/create")}>Create</Button>
             </div>
         </div>
             </>}
@@ -64,11 +63,10 @@ function MyEventsPage(){
 }
 
 function renderEvents(events : TEvent[]){
-    const navigate = useNavigate();
     return <>
         {
             events ? (events.map(event => (
-                <EventBlock event={event} key={event.id} onClick={() => navigate(`/app/event/view/${event.id}`)}/>
+                <EventBlock event={event} key={event.id}/>
             ))) : <p>no events found</p>
         }
     </>

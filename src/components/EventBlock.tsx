@@ -23,11 +23,12 @@ export default function EventBlock(prop: TEventBlockProps) {
     return <div className="event" id={prop.event.id.toString()}>
                 <h2>{prop.event.name}</h2>
                 <ul>
+                    <li><img src={imgSrc} alt={imgByCat.toString()}/></li>
                     <li>Organised by: {prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
                     <li>Located in sector: {prop.event.sector}</li>
                     <li>Spots left: {prop.event.amountOfPeople}</li>
                     <li>{prop.event.description}</li>
-                    <li><img src={imgSrc} alt={imgByCat.toString()}/></li>
+
                 </ul>
             </div>;
 }

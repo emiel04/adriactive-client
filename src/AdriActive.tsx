@@ -11,9 +11,25 @@ import "./assets/css/events.scss";
 import InterestPage from "./components/pages/InterestPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
-import ViewEventPage from "./components/pages/ViewEventPage.tsx";
+import {useWebSocket} from "./components/context/WebSocketContext.tsx";
+import {useEffect} from "react";
 
 function AdriActive () {
+    const ws = useWebSocket();
+
+    useEffect(() => {
+        ws.addListener(handleMessage);
+        return () => {
+            ws.removeListener(handleMessage);
+        };
+    }, []);
+
+    const handleMessage = (error: Error, message: any) => {
+        if (error){
+            console.error(error);
+        }
+        console.log(message.body);
+    }
     return <>
         <Routes>
             <Route path={"/profile"} element={<ProfilePage/>}></Route>
