@@ -1,3 +1,29 @@
+.profile-page {
+  height: 20rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50%;
+  width: 80%;
+}
 
+.profile-picture svg {
+  width: 10rem;
+  height: auto;
+}
+
+.edit-button {
+  left: 20%;
+  top: 10%;
+  position: absolute;
+}
+
+.profile-info {
+  float: left;
+}
+
+.interests-list {
+  float: right;
+}
 
 /*# sourceMappingURL=profilepage.css.map */
