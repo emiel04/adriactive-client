@@ -15,19 +15,20 @@
 
 .event {
   margin: 1rem 1rem 2rem 1rem;
+  padding-bottom: 0.75rem;
   background: #56C1AE;
   border-radius: 20px;
-  max-width: 20%;
   height: auto;
   color: #fff;
 }
 
 .event h2, .event ul, .event p {
   text-align: center;
+  font-size: 1.25rem;
 }
 
 .event h2 {
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   padding-top: 0.5rem;
 }
 
