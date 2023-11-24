@@ -2,7 +2,7 @@ import axios from "axios";
 import URI from "../api"
 import dayjs from "dayjs";
 import {jwtDecode} from "jwt-decode";
-export const handleError = (error: Error) => {
+export const handleError = (error: any) => {
     if (axios.isCancel(error)) {
         return null;
     }

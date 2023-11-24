@@ -5,7 +5,7 @@ import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import evApiInterests from "../../services/api-interests.ts";
-import evApiSectors from "../../services/api-sectors.ts";
+import evApiSectors from "../../services/api-world.ts";
 import evApiEvents from "../../services/api-events.ts";
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
