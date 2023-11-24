@@ -2,16 +2,16 @@ import {createContext, PropsWithChildren, useContext, useEffect, useState} from 
 import EventBus from "@vertx/eventbus-bridge-client.js";
 import URI from "../../api";
 
-export const WebSocketContext = createContext<any>({ eb: null });
+export const WebSocketContext = createContext<any>({eb: null});
 const CHNL_TO_CLIENTS_BROADCAST = "events.to.users";
 
-export type TWebSocketContext ={
+export type TWebSocketContext = {
     eb: any;
     addListener: (listener: (error: Error, message: any) => void) => void;
     removeListener: (listener: (error: Error, message: any) => void) => void;
 }
 
-export function WebSocketProvider({ children } : PropsWithChildren) {
+export function WebSocketProvider({children}: PropsWithChildren) {
     const [eb, setEb] = useState<any | null>(null);
     const [listeners, setListeners] = useState<((error: Error, message: any) => void)[]>([]);
 
@@ -19,7 +19,7 @@ export function WebSocketProvider({ children } : PropsWithChildren) {
         const eventBus = new EventBus(URI + "/events");
 
         eventBus.onopen = () => {
-            console.log("Opening");
+            console.log("Opening websocket");
             eventBus.registerHandler(CHNL_TO_CLIENTS_BROADCAST, onBroadcast);
         };
 
@@ -53,7 +53,7 @@ export function WebSocketProvider({ children } : PropsWithChildren) {
     );
 }
 
-export const useWebSocket = () : TWebSocketContext => {
+export const useWebSocket = (): TWebSocketContext => {
     const context: TWebSocketContext = useContext(WebSocketContext);
     if (!context) {
         throw new Error("useWebSocket must be used within a WebSocketProvider");
