@@ -34,11 +34,11 @@ function MapPage() {
     const mapDiv = useRef(null);
     const ws = useWebSocket();
     const dangerZoneLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
-    const sectorLayers : VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
+    const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     useEffect(() => {
         const center: Coordinate = fromLonLat([12.060, 45.0528]);
         const mapObject = createMapObject(center);
-        const cancelTokenSource = axios.CancelToken.source();
+        const adriaCancelSource = axios.CancelToken.source();
         if (mapDiv.current) {
             mapObject.setTarget(mapDiv.current);
         }
@@ -56,48 +56,48 @@ function MapPage() {
                     sectorLayers.push(sector);
                 })
             }
-
             //add the layers
             drawDangerZones(mapObject, sectors).forEach(zone => {
                 dangerZoneLayers.push(zone);
             })
         }
 
-        async function fetchSectorsAndDraw() {
-            try {
-                const response = await api.getAdria(cancelTokenSource.token);
-                if (!response.ok) {
+        function fetchSectorsAndDraw() {
+
+            api.getAdria(adriaCancelSource.token).then(data => {
+                if (!data) {
                     console.error("Failed to fetch sectors")
                     return;
                 }
-                const sectorsData = await response.json();
-                updateSectors(sectorsData.sectors);
-            } catch (error) {
-                console.error('Error fetching sectors:', error);
-            }
+                const sectors = convertServerSectorToClientSector(data.sectors, coordConverter);
+                updateSectors(sectors);
+            });
+
         }
-        fetchSectorsAndDraw();
-        function handleWebSocketMessage(error: Error, message: any){
+
+        function handleWebSocketMessage(error: Error, message: any) {
             if (error) {
-                console.log(error);
+                console.error(error);
                 return;
             }
-            let sectors : TSector[] = message.body.sectors;
+            let sectors: TSector[] = message.body.sectors;
             sectors = convertServerSectorToClientSector(sectors, coordConverter);
             updateSectors(sectors);
 
         }
+
         ws.addListener(handleWebSocketMessage)
-        
+        fetchSectorsAndDraw();
+
         return () => {
             mapObject.setTarget();
             ws.removeListener(handleWebSocketMessage);
-            cancelTokenSource.cancel();
+            adriaCancelSource.cancel();
         };
     }, []);
 
     return (
-        <div ref={mapDiv} id="map" className={"ol-map"} />
+        <div ref={mapDiv} id="map" className={"ol-map"}/>
     );
 
 }

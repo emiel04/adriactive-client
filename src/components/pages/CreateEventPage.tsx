@@ -52,6 +52,7 @@ export default function HomePage() {
     const handleChange = (_event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
+
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
         const eventData = {
@@ -70,18 +71,17 @@ export default function HomePage() {
     }
 
 
-
     return (
         <form className="form-group" onSubmit={handleSubmit}>
             <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
             <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
             <label>Event Name</label>
-            <Input placeholder="Type in here…" onChange={e   => setEventName(e.target.value)}
+            <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
                    required
             />
 
             <label>Description</label>
-            <Textarea placeholder="Type anything…" onChange={e   => setDescription(e.target.value)}
+            <Textarea placeholder="Type anything…" onChange={e => setDescription(e.target.value)}
                       required
             />
 

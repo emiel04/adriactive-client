@@ -10,7 +10,7 @@ import {Feature} from "ol";
 import VectorSource from "ol/source/Vector";
 
 export function drawSectors(map: ol.Map, sectors: TSector[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
-    const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[]  = [];
+    const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     sectors.forEach(sector => {
         const start = [sector.coordinateRange.start.x, sector.coordinateRange.start.y] as Coordinate;
         const end = [sector.coordinateRange.end.x, sector.coordinateRange.end.y] as Coordinate;
@@ -24,7 +24,7 @@ export function drawSectors(map: ol.Map, sectors: TSector[]): VectorLayer<Vector
 }
 
 export function drawDangerZones(map: ol.Map, sectors: TSector[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
-    const dangerZoneLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[]  = [];
+    const dangerZoneLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     sectors.forEach(sector => {
         sector.dangerousAreas.forEach(area => {
             const start = [area.coordinateRange.start.x, area.coordinateRange.start.y] as Coordinate;
@@ -70,6 +70,7 @@ export function drawRectangle(mapObject: ol.Map, center: Coordinate, width: numb
     mapObject.addLayer(layer);
     return rectangleFeature;
 }
+
 export function drawRectangleWithStartAndEndPoint(
     mapObject: ol.Map,
     start: Coordinate,

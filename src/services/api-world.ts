@@ -2,20 +2,16 @@ import {CancelToken} from "axios";
 import axiosInstance, {handleError} from "../helpers/axioshelper.ts";
 
 export default {
-    getSectors: async (cancelToken: CancelToken) => {
-        try {
-            const res = await axiosInstance.get("api/sector", {cancelToken: cancelToken});
-            return res.data;
-        } catch (error) {
-            return handleError(error);
-        }
+    getSectors: (cancelToken: CancelToken) => {
+        return axiosInstance.get("api/sector", {cancelToken: cancelToken}).then(res => {
+            return res.data
+        }).catch(error => handleError(error));
     },
     getAdria: async (cancelToken: CancelToken) => {
         try {
-            const res = await axiosInstance.get("api/adria", {cancelToken: cancelToken});
-            return res.data;
-        } catch (error) {
-            return handleError(error);
+            return (await axiosInstance.get("api/adria", {cancelToken: cancelToken})).data;
+        } catch (e) {
+            handleError(e);
         }
     },
 };

@@ -6,6 +6,7 @@ import InterestBlock from "../InterestBlock.tsx";
 import Button from '@mui/joy/Button';
 import {useNavigate} from "react-router";
 import {useSearchParams} from "react-router-dom";
+
 export default function InterestPage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,7 +21,6 @@ export default function InterestPage() {
         api.getInterests(evReq.token).then(data => {
             setInterests(data);
             setIsLoading(false);
-            console.log(data)
         }).catch(() => {
             setIsLoading(false);
         });
@@ -40,15 +40,16 @@ export default function InterestPage() {
             {isLoading ? (
                 <p>Loading...</p>
             ) : <>
-            <form className="form-group" onSubmit={handleSubmit}>
-            <div className="interests-page">
-                <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
-                <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
-                <div className="interests-grid">
-                {renderInterests(interests)}
-            </div>
-                <Button type="submit" className="skip-button" onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</Button>
-            </div>
+                <form className="form-group" onSubmit={handleSubmit}>
+                    <div className="interests-page">
+                        <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
+                        <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
+                        <div className="interests-grid">
+                            {renderInterests(interests)}
+                        </div>
+                        <Button type="submit" className="skip-button"
+                                onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</Button>
+                    </div>
                 </form>
             </>}
         </div>

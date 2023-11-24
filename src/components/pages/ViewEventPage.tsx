@@ -15,7 +15,6 @@ function ViewEventPage() {
 
     useEffect(() => {
         const evReq = axios.CancelToken.source();
-        console.log('eventId:', eventId);
 
         if (eventId != null) {
             evApi.getEventFromId(parseInt(eventId), evReq.token)
