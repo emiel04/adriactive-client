@@ -13,13 +13,11 @@ body {
   background: #f0f0f0;
   color: #212427;
 }
-
 .navbar li {
   display: inline-block;
   margin-right: 1rem;
   text-align: center;
 }
-
 .navbar li a {
   display: inline-block;
   background: #56C1AE;
@@ -30,15 +28,12 @@ body {
   font-weight: bold;
   min-width: 6rem;
 }
-
 .navbar li a.active {
   outline: 3px solid #4e766c;
 }
-
 .navbar li a:hover {
   background: #77ccbf;
 }
-
 .navbar li #navProfile {
   width: 75px;
   height: 75px;
@@ -52,7 +47,6 @@ button:not(#profileNav), a:not(#profileNav) {
   border-radius: 20px;
   color: white;
 }
-
 button:not(#profileNav):hover, a:not(#profileNav):hover {
   background: #77ccbf;
 }
@@ -75,11 +69,8 @@ button:not(#profileNav):hover, a:not(#profileNav):hover {
   border: 6px solid transparent;
   background-clip: content-box;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
 }
-
-
 
 /*# sourceMappingURL=app.css.map */

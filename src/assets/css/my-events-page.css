@@ -6,49 +6,39 @@
   width: 95%;
   margin: 0 auto;
 }
-
 #my-events .horizontal {
   display: flex;
   gap: 2rem;
   overflow-x: scroll;
   padding-bottom: 1rem;
 }
-
 #my-events .event {
   flex: 0 0 18%;
 }
-
 #my-events .event:first-child {
   margin-left: 2rem;
 }
-
 #my-events h2 {
   font-size: 1.75rem;
   margin: 0.5rem 0 0.5rem;
   padding: 1rem 0;
 }
-
 #my-events .event-type-header {
   margin-left: 2rem;
 }
-
 #my-events #created-events {
   overflow-y: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
-
 #my-events #created-events div.event-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-
 #my-events #created-events .event {
   margin: 0 2rem;
 }
-
-
 
 /*# sourceMappingURL=my-events-page.css.map */

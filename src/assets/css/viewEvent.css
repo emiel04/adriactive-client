@@ -1,4 +1,4 @@
-.imageContainer:not(#profilePic) {
+.imageContainer {
   display: flex;
   justify-content: center;
   padding: 8px;
@@ -53,7 +53,5 @@ h1 {
   width: 10rem;
   height: 10rem;
 }
-
-
 
 /*# sourceMappingURL=viewEvent.css.map */
