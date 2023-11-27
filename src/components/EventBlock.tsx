@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { TEvent } from "./common/events";
-import Button from '@mui/joy/Button';
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {TEvent} from "./common/events";
+import PersonIcon from '@mui/icons-material/Person';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DescriptionIcon from '@mui/icons-material/Description';
+
 
 type TEventBlockProps = {
+    simple?: boolean
     event: TEvent;
     onClick: () => void;
 };
@@ -11,7 +16,6 @@ type TEventBlockProps = {
 export default function EventBlock(prop: TEventBlockProps) {
     const [imgSrc, setImgSrc] = useState<string | undefined>(undefined);
     const navigate = useNavigate();
-
     useEffect(() => {
         import(`../assets/img/${prop.event.category.categoryId}.png`)
             .then((module) => {
@@ -23,15 +27,20 @@ export default function EventBlock(prop: TEventBlockProps) {
     }, [prop.event.category.categoryId]);
 
     return (
-        <div className="event" id={prop.event.id.toString()}>
-            <h2>{prop.event.name}</h2>
+        <div onClick={() => navigate(`/app/events/view/${prop.event.id}`)} className="event"
+             key={prop.event.id.toString()}>
+            <img src={imgSrc} alt={`Category: ${prop.event.name}`}/>
+            <p>{prop.event.name}</p>
             <ul>
-                <li><img src={imgSrc} alt={`Category: ${prop.event.name}`} /></li>
-                <li>Organised by: {prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
-                <li>Located in sector: {prop.event.sector}</li>
-                <li>Spots left: {prop.event.amountOfPeople}</li>
-                <li>{prop.event.description}</li>
-                <Button onClick={()=> navigate(`/app/events/view/${prop.event.id}`)}>View Event</Button>
+                {!prop.simple &&
+                  <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
+                }
+                <li><LocationOnIcon/> {prop.event.sector}</li>
+                {!prop.simple &&
+                  <li><CheckCircleIcon/> {prop.event.amountOfPeople} - {4} spots left</li>
+                }
+                {!prop.simple &&
+                  <li><DescriptionIcon/> {prop.event.description}</li>}
             </ul>
         </div>
     );

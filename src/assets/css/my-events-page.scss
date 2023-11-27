@@ -1,0 +1,59 @@
+@use "var";
+
+
+#my-events {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 3rem;
+  $gap: 2rem;
+  box-sizing: border-box;
+  width: 95%;
+  margin: 0 auto;
+
+  .horizontal {
+    display: flex;
+    gap: $gap;
+    overflow-x: scroll;
+    padding-bottom: 1rem;
+
+  }
+
+  .event {
+    flex: 0 0 18%;
+
+    &:first-child {
+      margin-left: $gap;
+    }
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    margin: .5rem 0 .5rem;
+    padding: 1rem 0;
+  }
+
+  .event-type-header {
+    margin-left: 2rem;
+  }
+
+  #created-events {
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    h2 {
+
+    }
+
+    div.event-container {
+      display: flex;
+      flex-direction: column;
+      gap: $gap;
+    }
+
+    .event {
+      margin: 0 2rem;
+    }
+  }
+}
