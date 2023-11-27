@@ -1,6 +1,4 @@
-@use "var";
-
-.imageContainer {
+.imageContainer:not(#profilePic) {
   display: flex;
   justify-content: center;
   padding: 8px;
@@ -16,7 +14,7 @@
 
 .viewEvent {
   text-align: center;
-  background: var.$primary-color;
+  background: #56C1AE;
   max-width: 20%;
   border-radius: 30px;
   padding: 1rem;
@@ -55,3 +53,7 @@ h1 {
   width: 10rem;
   height: 10rem;
 }
+
+
+
+/*# sourceMappingURL=viewEvent.css.map */

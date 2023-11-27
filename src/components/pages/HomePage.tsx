@@ -30,7 +30,7 @@ export default function HomePage() {
 
     return <div className={"homepage"}>
         <CategoryBar filters={filters} setFilters={setFilters}></CategoryBar>
-        <div className={"loading"}>
+        <div className={"events"}>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
@@ -50,7 +50,7 @@ export default function HomePage() {
 
         return events && events.length > 0 ? (
             events.map((e) => (
-                <EventBlock key={e.id} event={e} onClick={()=> navigate(`/event/view/${e.id}`)}></EventBlock>
+                <EventBlock key={e.id} event={e} onClick={() => navigate(`/event/view/${e.id}`)}></EventBlock>
             ))
         ) : (
             <div>
