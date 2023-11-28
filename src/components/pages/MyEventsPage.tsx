@@ -33,7 +33,7 @@ function MyEventsPage() {
                 <p>Loading...</p>
             ) : <>
                 <div id={"my-events"}>
-                    <article id={"joined-events"}>
+                    <div id={"joined-events"}>
                         <div id={"ongoing-events"} className={"sideScroll"}>
                             <div className={'event-type-header'}>
                                 <h2>Ongoing Events</h2>
@@ -51,7 +51,7 @@ function MyEventsPage() {
                                 {renderEvents(events)}
                             </div>
                         </div>
-                    </article>
+                    </div>
                     <div id={"created-events"}>
                         <h2>Created Events</h2>
                         <div className={"event-container"}>

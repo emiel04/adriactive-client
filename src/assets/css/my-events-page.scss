@@ -9,6 +9,7 @@
   box-sizing: border-box;
   width: 95%;
   margin: 0 auto;
+  height: 90vh;
 
   .horizontal {
     display: flex;
@@ -18,13 +19,6 @@
 
   }
 
-  .event {
-    flex: 0 0 18%;
-
-    &:first-child {
-      margin-left: $gap;
-    }
-  }
 
   h2 {
     font-size: 1.75rem;
@@ -36,15 +30,24 @@
     margin-left: 2rem;
   }
 
-  #created-events {
-    overflow-y: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  #joined-events {
+    .event {
+      flex: 0 0 18%;
 
-    h2 {
+      &:first-child {
+        margin-left: $gap;
+      }
 
+      &:last-child {
+        margin-right: $gap;
+      }
     }
+  }
+
+  #created-events {
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 0 $gap;
 
     div.event-container {
       display: flex;
@@ -52,8 +55,11 @@
       gap: $gap;
     }
 
+
     .event {
-      margin: 0 2rem;
+      &:last-child {
+        margin-bottom: $gap;
+      }
     }
   }
 }
