@@ -55,56 +55,53 @@ function MyEventsPage() {
     }, [])
 
 
-    return <>
-        <div className={"loading"}>
-            {isLoading ? (
+    return <div className={"loading"}>
+        {isLoading ? (
                 <p>Loading...</p>
-            ) : <>
-                <div id={"my-events"}>
-                    <div id={"joined-events"}>
-                        <div id={"ongoing-events"} className={"sideScroll"}>
-                            <div className={'event-type-header'}>
-                                <h2>Ongoing Events</h2>
-                            </div>
-                            <div className={"horizontal"}>
-                                <div className={"error"}>
-                                    {isNoOngoing ? (
-                                        <p>There are no ongoing events!</p>
-                                    ) : null}
-                                    {renderEvents(ongoingEvents)}
-                                </div>
-                            </div>
-
+            ) :
+            <div id={"my-events"}>
+                <div id={"joined-events"}>
+                    <div id={"ongoing-events"} className={"sideScroll"}>
+                        <div className={'event-type-header'}>
+                            <h2>Ongoing Events</h2>
                         </div>
-                        <div id={"upcoming-events"} className={"sideScroll"}>
-                            <div className={'event-type-header'}>
-                                <h2>Upcoming Events</h2>
-                            </div>
-                            <div className={"horizontal"}>
-                                <div className={"error"}>
-                                    {isNoUpcoming ? (
-                                        <p>There are no upcoming events!</p>
-                                    ) : null}
-                                    {renderEvents(upcomingEvents)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id={"created-events"}>
-                        <h2>Created Events</h2>
-                        <div className={"event-container"}>
+                        <div className={"horizontal"}>
                             <div className={"error"}>
-                                {isNoCreated ? (
-                                    <p>You have not created an event yet!</p>
+                                {isNoOngoing ? (
+                                    <p>There are no ongoing events!</p>
                                 ) : null}
-                                {renderEvents(createdEvents)}
+                                {renderEvents(ongoingEvents)}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id={"upcoming-events"} className={"sideScroll"}>
+                        <div className={'event-type-header'}>
+                            <h2>Upcoming Events</h2>
+                        </div>
+                        <div className={"horizontal"}>
+                            <div className={"error"}>
+                                {isNoUpcoming ? (
+                                    <p>There are no upcoming events!</p>
+                                ) : null}
+                                {renderEvents(upcomingEvents)}
                             </div>
                         </div>
                     </div>
                 </div>
-            </>}
-        </div>
-    </>
+                <div id={"created-events"}>
+                    <h2>Created Events</h2>
+                    <div className={"event-container"}>
+                        <div className={"error"}>
+                            {isNoCreated ? (
+                                <p>You have not created an event yet!</p>
+                            ) : null}
+                            {renderEvents(createdEvents)}
+                        </div>
+                    </div>
+                </div>
+            </div>}
+    </div>
 
     function renderEvents(events: TEvent[]) {
         return <>
