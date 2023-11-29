@@ -13,6 +13,7 @@ import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
 import {TSector} from "../common/TSector.tsx";
 import {useSearchParams} from "react-router-dom";
+import {TAmountOfPeople} from "../common/events.tsx";
 
 
 export default function HomePage() {
@@ -23,7 +24,7 @@ export default function HomePage() {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<TInterest | null>(null);
     const [loadSectors, setLoadSectors] = useState<TSector | null>(null);
-    const [value, setValue] = useState<number[]>([12, 24]);
+    const [value, setValue] = useState<TAmountOfPeople>([12, 24]);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -49,8 +50,9 @@ export default function HomePage() {
         setIsEditing(editing === "true")
     }, [searchParams]);
 
-    const handleChange = (_event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
+
+    const handleChange = (_event: Event, newValue: number | number[], _: number) => {
+        setValue(newValue as TAmountOfPeople);
     };
 
     function handleSubmit(event: { preventDefault: () => void; }) {
