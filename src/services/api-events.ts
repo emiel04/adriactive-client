@@ -13,13 +13,28 @@ export default {
         }).catch(handleError);
     },
     createEvent: (data: any, cancelToken: CancelToken) => {
-        return axiosInstance.post("api/event", data,{cancelToken: cancelToken}).then(res => {
+        return axiosInstance.post("api/event", data, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
     editEvent: (data: any, cancelToken: CancelToken) => {
-        return axiosInstance.put("api/event", data,{cancelToken: cancelToken}).then(res => {
+        return axiosInstance.put("api/event", data, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
+    joinEvent: (id: number, cancelToken: CancelToken) => {
+        return axiosInstance.post(`api/event/${id}/join`, {}, {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+    leaveEvent: (id: number, cancelToken: CancelToken) => {
+        return axiosInstance.post(`api/event/${id}/leave`, {}, {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+    hasUserJoined: (id: number, cancelToken: CancelToken) => {
+        return axiosInstance.get(`api/event/${id}/join`, {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    }
 };

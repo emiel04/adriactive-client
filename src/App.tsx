@@ -6,7 +6,7 @@ import NotFound from "./components/common/404";
 import {PrivateRoute} from "./components/PrivateRoute";
 import theme from "./assets/theme";
 import {WebSocketProvider} from "./components/context/WebSocketContext";
-
+import {Toaster} from 'react-hot-toast';
 
 function App() {
 
@@ -22,6 +22,10 @@ function App() {
                     }/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
+                <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                />
             </WebSocketProvider>
         </CssVarsProvider>
     )

@@ -5,6 +5,10 @@ body {
   color: var.$black-color;
 }
 
+#root {
+  height: 100dvh;
+}
+
 .navbar {
   position: fixed;
   display: block;
@@ -46,7 +50,7 @@ body {
   }
 }
 
-button:not(#profileNav), a:not(#profileNav) {
+button, a {
   font-size: 1em;
   padding: .6em;
   background: var.$primary-color;
