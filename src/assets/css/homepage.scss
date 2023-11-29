@@ -27,10 +27,7 @@
   }
 
   .pressed {
-    outline: 3px solid var.$dark-color;
+    outline: 3px solid var.$selected-color;
   }
 
-  .events {
-
-  }
 }

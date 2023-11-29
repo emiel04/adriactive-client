@@ -51,7 +51,7 @@
     h2 {
       position: sticky;
       top: 0;
-      background: var.$primary-color;
+      background: var.$white-color;
     }
 
     div.event-container {
@@ -61,11 +61,19 @@
 
     }
 
-
     .event {
       &:last-child {
         margin-bottom: $gap;
       }
     }
+  }
+
+  .error {
+    color: #ff4444;
+    background-color: #ffebee;
+    border: 1px solid #ff4444;
+    padding: 10px;
+    border-radius: 0.5rem;
+    margin-bottom: 15px;
   }
 }
