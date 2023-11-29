@@ -4,7 +4,6 @@ import {TEvent} from "./common/events";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DescriptionIcon from '@mui/icons-material/Description';
 import getSectorName from "../helpers/sectorhelper.ts";
 
 
@@ -28,8 +27,7 @@ export default function EventBlock(prop: TEventBlockProps) {
     }, [prop.event.category.categoryId]);
 
     return (
-        <div onClick={() => navigate(`/app/events/view/${prop.event.id}`)} className="event"
-             key={prop.event.id.toString()}>
+        <div onClick={() => navigate(`/app/events/view/${prop.event.id}`)} className="event" key={prop.event.id.toString()}>
             <img src={imgSrc} alt={`Category: ${prop.event.name}`}/>
             <p>{prop.event.name}</p>
             <ul>
@@ -38,10 +36,8 @@ export default function EventBlock(prop: TEventBlockProps) {
                 }
                 <li><LocationOnIcon/> {getSectorName(prop.event.sector)}</li>
                 {!prop.simple &&
-                  <li><CheckCircleIcon/> {prop.event.amountOfPeople} - {4} spots left</li>
+                  <li><CheckCircleIcon/>{4} spots of {prop.event.amountOfPeople} left</li>
                 }
-                {!prop.simple &&
-                  <li><DescriptionIcon/> {prop.event.description}</li>}
             </ul>
         </div>
     );
