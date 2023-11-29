@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DescriptionIcon from '@mui/icons-material/Description';
+import getSectorName from "../helpers/sectorhelper.ts";
 
 
 type TEventBlockProps = {
@@ -35,7 +36,7 @@ export default function EventBlock(prop: TEventBlockProps) {
                 {!prop.simple &&
                   <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
                 }
-                <li><LocationOnIcon/> {prop.event.sector}</li>
+                <li><LocationOnIcon/> {getSectorName(prop.event.sector)}</li>
                 {!prop.simple &&
                   <li><CheckCircleIcon/> {prop.event.amountOfPeople} - {4} spots left</li>
                 }

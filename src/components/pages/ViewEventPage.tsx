@@ -5,6 +5,9 @@ import evApi from "../../services/api-events";
 import ViewEventBlock from "../ViewEventBlock";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Button from '@mui/joy/Button';
+import "../../assets/css/view-event.scss";
+import toast from "react-hot-toast";
+import {log} from "ol/console";
 
 function ViewEventPage() {
     const [event, setEvent] = useState(null);
@@ -12,23 +15,31 @@ function ViewEventPage() {
     const navigate = useNavigate();
     const [isJoined, setIsJoined] = useState(false);
     const [searchParams] = useSearchParams();
+    const joinReq = axios.CancelToken.source();
+
+    if (!eventId || Number.isNaN(parseInt(eventId))) {
+        navigate("/");
+    }
 
     useEffect(() => {
         const evReq = axios.CancelToken.source();
-
-        if (eventId != null) {
+        if (eventId) {
             evApi.getEventFromId(parseInt(eventId), evReq.token)
                 .then(data => {
-                    console.log('Fetched event data:', data);
                     setEvent(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching event data:', error);
                 });
+            evApi.hasUserJoined(parseInt(eventId), evReq.token)
+                .then(data => {
+                    if (data) {
+                        setIsJoined(data.attending);
+                    }
+                })
         }
+
 
         return () => {
             evReq.cancel();
+            joinReq.cancel();
         };
     }, [eventId]);
 
@@ -37,17 +48,56 @@ function ViewEventPage() {
         setIsJoined(isJoined === "true");
     }, [searchParams]);
 
+
+    async function joinEvent() {
+        if (!eventId) return;
+        return await evApi.joinEvent(parseInt(eventId), joinReq.token);
+    }
+
+    async function leaveEvent() {
+        if (!eventId) return;
+        return await evApi.leaveEvent(parseInt(eventId), joinReq.token);
+    }
+
+
+    function handleJoin() {
+        const joinReq = toast.promise(joinEvent(), {
+            loading: "Joining event...",
+            success: "Successfully joined event!",
+            error: "Error joining event, try again later. If the issue persists contact support."
+        }).catch(err => log(err));
+        joinReq.then((res) => {
+            if (res) {
+                setEvent(res);
+            }
+            setIsJoined(true);
+        });
+    }
+
+    function handleLeave() {
+        const leaveReq = toast.promise(leaveEvent(), {
+            loading: "Leaving event...",
+            success: "Successfully leaved event!",
+            error: "Error leaving event, try again later. If the issue persists contact support."
+        });
+        leaveReq.then((event) => {
+            setEvent(event);
+            setIsJoined(false);
+        });
+    }
+
     return (
-        <>
+        <div className={"event-view-container"}>
             <ArrowBackIosIcon onClick={() => navigate(-1)}/>
             <h1 id="joinOrLeave">{isJoined ? 'Leave event' : 'Join event'}</h1>
             {event && <ViewEventBlock event={event}/>}
             <div className="joinButtonContainer">
-                <Button type="submit" onClick={() => navigate('/app/home')} className="joinButton">
+                <Button size={"lg"} type="submit" onClick={() => isJoined ? handleLeave() : handleJoin()}
+                        className="joinButton">
                     {isJoined ? 'Leave' : 'Join'}
                 </Button>
             </div>
-        </>
+        </div>
     );
 }
 
