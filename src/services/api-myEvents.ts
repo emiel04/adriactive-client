@@ -12,5 +12,11 @@ export default {
         return axiosInstance.get("api/event/upcoming", {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
+    },
+
+    getCreatedEvents: (cancelToken: CancelToken) => {
+        return axiosInstance.get("api/event/created", {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
     }
 };

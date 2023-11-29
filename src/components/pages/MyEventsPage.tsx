@@ -10,6 +10,7 @@ import "../../assets/css/events.css"
 function MyEventsPage() {
     const [ongoingEvents, setOngoingEvents] = useState<TEvent[]>([]);
     const [upcomingEvents, setUpcomingEvents] = useState<TEvent[]>([]);
+    const [createdEvents, setCreatedEvents] = useState<TEvent[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isNoOngoing, setIsNoOngoing] = useState<boolean>(true);
     const [isNoUpcoming, setIsNoUpcoming] = useState<boolean>(true);
@@ -35,6 +36,16 @@ function MyEventsPage() {
             setIsLoading(false);
         }).catch(() => {
             setIsNoUpcoming(false);
+            setIsLoading(false);
+        })
+
+        evApi.getCreatedEvents(evReq.token).then(dataCreated => {
+            setCreatedEvents(dataCreated);
+
+            setIsNoCreated(Object.keys(dataCreated).length === 0);
+            setIsLoading(false);
+        }).catch(() => {
+            setIsNoCreated(false);
             setIsLoading(false);
         })
 
@@ -86,7 +97,7 @@ function MyEventsPage() {
                                 {isNoCreated ? (
                                     <p>You have not created an event yet!</p>
                                 ) : null}
-                                {renderEvents(ongoingEvents)}
+                                {renderEvents(createdEvents)}
                             </div>
                         </div>
                     </div>
