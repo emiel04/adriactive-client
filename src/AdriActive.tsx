@@ -2,12 +2,12 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Navbar from "./components/common/navbar";
 import HomePage from "./components/pages/HomePage";
 import "./assets/css/homepage.css";
-import "./assets/css/myEventsPage.css"
+import "./assets/css/my-events-page.css"
 import MapPage from "./components/pages/MapPage";
 import MyEventsPage from "./components/pages/MyEventsPage.tsx";
 import "./assets/css/interestspage.scss";
 import NotFound from "./components/common/404.tsx";
-import "./assets/css/events.scss";
+import "./assets/css/events.css";
 import InterestPage from "./components/pages/InterestPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
@@ -16,7 +16,7 @@ import {useEffect} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 import "./assets/css/viewEvent.scss";
 
-function AdriActive () {
+function AdriActive() {
     const ws = useWebSocket();
 
     useEffect(() => {
@@ -26,11 +26,11 @@ function AdriActive () {
         };
     }, []);
 
-    const handleMessage = (error: Error, message: any) => {
-        if (error){
+    const handleMessage = (error: Error) => {
+        if (error) {
             console.error(error);
         }
-        console.log(message.body);
+        //console.log(message.body);
     }
     return <>
         <Routes>

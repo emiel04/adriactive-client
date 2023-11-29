@@ -1,18 +1,24 @@
-.navbar:not(#profileNav) {
+body {
+  background: #f0f0f0;
+  color: #212427;
+}
+
+.navbar {
   position: fixed;
   display: block;
   left: 0;
   right: 0;
   bottom: 0;
   padding: 1rem 1rem;
-  background: white;
+  background: #f0f0f0;
+  color: #212427;
 }
-.navbar:not(#profileNav) li:not(#profileNav) {
+.navbar li {
   display: inline-block;
   margin-right: 1rem;
   text-align: center;
 }
-.navbar:not(#profileNav) li:not(#profileNav) a:not(#profileNav) {
+.navbar li a {
   display: inline-block;
   background: #56C1AE;
   border-radius: 20px;
@@ -22,13 +28,13 @@
   font-weight: bold;
   min-width: 6rem;
 }
-.navbar:not(#profileNav) li:not(#profileNav) a.active:not(#profileNav) {
+.navbar li a.active {
   outline: 3px solid #4e766c;
 }
-.navbar:not(#profileNav) li:not(#profileNav) a:hover:not(#profileNav) {
+.navbar li a:hover {
   background: #77ccbf;
 }
-.navbar:not(#profileNav) li:not(#profileNav) #navProfile {
+.navbar li #navProfile {
   width: 75px;
   height: 75px;
 }

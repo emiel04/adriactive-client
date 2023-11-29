@@ -1,68 +1,83 @@
 @use "var";
 
-.navbar:not(#profileNav){
-    position: fixed;
-    display: block;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1rem 1rem;
-    background: white;
-    li:not(#profileNav) {
-        display: inline-block;
-        margin-right: 1rem;
-        text-align: center;
-       a:not(#profileNav){
-           display: inline-block;
-           background: var.$primary-color;
-           border-radius: 20px;
-           padding: 1rem;
-           color: white;
-           text-decoration: none;
-           font-weight: bold;
-           min-width: 6rem;
-       }
-        a.active:not(#profileNav){
-           outline: 3px solid var.$dark-color;
-        }
-        a:hover:not(#profileNav) {
-            background: var.$hover-color;
-        }
-        #navProfile {
-            width: 75px;
-            height: 75px;
-        }
-    }
+body {
+  background: #f0f0f0;
+  color: var.$black-color;
 }
 
-button:not(#profileNav), a:not(#profileNav){
-    font-size: 1em;
-    padding: .6em;
-    background: var.$primary-color;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    &:hover{
-        background: var.$hover-color;
+.navbar {
+  position: fixed;
+  display: block;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1rem;
+  background: var.$white-color;
+  color: var.$black-color;
+
+  li {
+    display: inline-block;
+    margin-right: 1rem;
+    text-align: center;
+
+    a {
+      display: inline-block;
+      background: var.$primary-color;
+      border-radius: 20px;
+      padding: 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      min-width: 6rem;
     }
+
+    a.active {
+      outline: 3px solid var.$dark-color;
+    }
+
+    a:hover {
+      background: var.$hover-color;
+    }
+
+    #navProfile {
+      width: 75px;
+      height: 75px;
+    }
+  }
 }
 
-.capitalize{
-    text-transform: capitalize;
+button:not(#profileNav), a:not(#profileNav) {
+  font-size: 1em;
+  padding: .6em;
+  background: var.$primary-color;
+  border: none;
+  border-radius: 20px;
+  color: white;
+
+  &:hover {
+    background: var.$hover-color;
+  }
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 ::-webkit-scrollbar {
-    width: 20px;
+  width: 20px;
 }
+
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-    background-color: #d6dee1;
-    border-radius: 20px;
-    border: 6px solid transparent;
-    background-clip: content-box;
-    &:hover {
-        background-color: #a8bbbf;
-    }
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+
+  &:hover {
+    background-color: #a8bbbf;
+  }
 }

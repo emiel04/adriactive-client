@@ -1,0 +1,47 @@
+#my-events {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 3rem;
+  box-sizing: border-box;
+  width: 95%;
+  margin: 0 auto;
+  height: 90vh;
+}
+#my-events .horizontal {
+  display: flex;
+  gap: 2rem;
+  overflow-x: scroll;
+  padding-bottom: 1rem;
+}
+#my-events h2 {
+  font-size: 1.75rem;
+  margin: 0.5rem 0 0.5rem;
+  padding: 1rem 0;
+}
+#my-events .event-type-header {
+  margin-left: 2rem;
+}
+#my-events #joined-events .event {
+  flex: 0 0 18%;
+}
+#my-events #joined-events .event:first-child {
+  margin-left: 2rem;
+}
+#my-events #joined-events .event:last-child {
+  margin-right: 2rem;
+}
+#my-events #created-events {
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 0 2rem;
+}
+#my-events #created-events div.event-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+#my-events #created-events .event:last-child {
+  margin-bottom: 2rem;
+}
+
+/*# sourceMappingURL=my-events-page.css.map */
