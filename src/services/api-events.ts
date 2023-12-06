@@ -17,13 +17,18 @@ export default {
             return res.data;
         }).catch(handleError);
     },
-    editEvent: (data: any, cancelToken: CancelToken) => {
-        return axiosInstance.put("api/event", data, {cancelToken: cancelToken}).then(res => {
+    editEvent: (id: number, data: any, cancelToken: CancelToken) => {
+        return axiosInstance.put(`api/event/${id}`, data, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
     joinEvent: (id: number, cancelToken: CancelToken) => {
         return axiosInstance.post(`api/event/${id}/join`, {}, {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+    cancelEvent: (id: number, cancelToken: CancelToken) => {
+        return axiosInstance.put(`api/event/${id}/cancel`, {}, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },

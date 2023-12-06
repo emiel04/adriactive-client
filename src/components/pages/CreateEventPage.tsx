@@ -14,9 +14,11 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/TSector.tsx";
 import {useSearchParams} from "react-router-dom";
 import {TAmountOfPeople} from "../common/events.tsx";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from 'dayjs';
 
 
-export default function HomePage() {
+export default function CreateEventPage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
@@ -27,6 +29,8 @@ export default function HomePage() {
     const [value, setValue] = useState<TAmountOfPeople>([12, 24]);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [date, setDate] = useState<Dayjs | null>(dayjs());
+    const [hours, setHours] = useState(0);
     const evReq: CancelTokenSource = axios.CancelToken.source();
 
     useEffect(() => {
@@ -55,19 +59,27 @@ export default function HomePage() {
         setValue(newValue as TAmountOfPeople);
     };
 
+    const handleSliderChange = (event, newValue) => {
+        setHours(newValue);
+    };
+
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
+        const startDateTime = date ? date.valueOf() : null;
+
         const eventData = {
             "name": eventName,
             "description": description,
             "amountOfPeople": value,
             "categoryId": category,
-            "sectorId": loadSectors
+            "sectorId": loadSectors,
+            "startDateTime": startDateTime,
+            "hours": hours,
         };
         if (isEditing) { //TODO: fix the parameter passing
-            evApiEvents.editEvent(eventData, evReq.token).then(r => console.log(r));
+            evApiEvents.editEvent(/* eventid */,eventData, evReq.token).then(r => console.log(r));
         } else {
-            evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
+            evApiEvents.createEvent(/* eventid */,eventData, evReq.token).then(r => console.log(r));
         }
         navigate('/app/home');
     }
@@ -112,6 +124,22 @@ export default function HomePage() {
                 onChange={handleChange}
                 valueLabelDisplay="auto"
             />
+
+            <label>Duration</label>
+            <DatePicker label="Start date"
+                        value={date}
+                        onChange={(newDate) => setDate(newDate)}
+            />
+                <Slider
+                    aria-label="Hours"
+                    defaultValue={0}
+                    step={1}
+                    value={hours}
+                    onChange={handleSliderChange}
+                    min={0}
+                    max={48}
+                    valueLabelDisplay="auto"
+                />
             <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
         </form>
     );
