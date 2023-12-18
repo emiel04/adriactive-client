@@ -35,12 +35,10 @@ export default function InterestPage() {
         setIsEditing(editing === "true")
     }, [searchParams]);
 
-    return <>
-        <div className={"loading"}>
+    return <div className={"loading"}>
             {isLoading ? (
                 <p>Loading...</p>
-            ) : <>
-                <form className="form-group" onSubmit={handleSubmit}>
+            ) : <form className="form-group" onSubmit={handleSubmit}>
                     <div className="interests-page">
                         <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
                         <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
@@ -51,9 +49,9 @@ export default function InterestPage() {
                                 onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</Button>
                     </div>
                 </form>
-            </>}
+            }
         </div>
-    </>
+
 
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();

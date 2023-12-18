@@ -29,7 +29,6 @@ function AdriActive() {
         if (error) {
             console.error(error);
         }
-        //console.log(message.body);
     }
     return <>
         <Routes>
