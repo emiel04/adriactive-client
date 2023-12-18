@@ -99,6 +99,7 @@ function MyEventsPage() {
                             {renderEvents(createdEvents)}
                         </div>
                     </div>
+                    <a href={"/app/event/create"}>Create Event</a>
                 </div>
             </div>}
     </div>
