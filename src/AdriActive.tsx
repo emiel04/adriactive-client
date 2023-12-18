@@ -14,6 +14,7 @@ import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
+import SearchPage from "./components/pages/SearchPage.tsx";
 
 function AdriActive() {
     const ws = useWebSocket();
@@ -29,14 +30,14 @@ function AdriActive() {
         if (error) {
             console.error(error);
         }
-        //console.log(message.body);
     }
+
     return <>
         <Routes>
             <Route path={"/profile"} element={<ProfilePage/>}></Route>
             <Route path={"/"} element={<Navigate to={"/app/home"}/>}></Route>
             <Route path={"/home"} element={<HomePage/>}></Route>
-            <Route path={"/search"} element={<p>Search</p>}></Route>
+            <Route path={"/search"} element={<SearchPage/>}></Route>
             <Route path={"/map"} element={<MapPage/>}></Route>
             <Route path={"/events"} element={<MyEventsPage/>}></Route>
             <Route path={"/notifications"} element={<p>Notifications</p>}></Route>

@@ -39,7 +39,7 @@ function ProfilePage() {
     function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
             interests.map((e) => (
-                    <p key={e.name}>{e.name}</p>
+                <p key={e.name}>{e.name}</p>
             ))
         ) : (
             <div>
@@ -51,21 +51,19 @@ function ProfilePage() {
     function renderUser(user: TUser | undefined) {
         return user ? (
                 <UserBlock user={user}></UserBlock>
-        )
-         : (
-            <div>
-                <p className={"error"}>No User found!</p>
-            </div>
-        )
+            )
+            : (
+                <div>
+                    <p className={"error"}>No User found!</p>
+                </div>
+            )
 
     }
 
-    return <>
-        <div className={"loading"}>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : <>
-        <div className="profile-page">
+    return <div className={"loading"}>
+        {isLoading ? (
+            <p>Loading...</p>
+        ) : <div className="profile-page">
             <button className="edit-button">Edit</button>
             <div className="profile-info">
                 <div className="profile-picture">
@@ -83,9 +81,8 @@ function ProfilePage() {
                 <Button onClick={() => navigate('/app/interests?editing=true')}>Edit interests</Button>
             </div>
         </div>
-            </>}
-        </div>
-    </>
+        }
+    </div>
 }
 
 export default ProfilePage;
