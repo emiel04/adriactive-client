@@ -7,15 +7,17 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import evApiInterests from "../../services/api-interests.ts";
 import evApiSectors from "../../services/api-world.ts";
 import evApiEvents from "../../services/api-events.ts";
-import {useEffect, useState} from "react";
+import {SetStateAction, useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
 import {TSector} from "../common/TSector.tsx";
 import {useSearchParams} from "react-router-dom";
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import dayjs, {Dayjs} from 'dayjs';
 
 
-export default function HomePage() {
+export default function CreateEventPage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
@@ -26,7 +28,8 @@ export default function HomePage() {
     const [value, setValue] = useState<number>(0);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
-
+    const [date, setDate] = useState<Dayjs | null>(dayjs());
+    const [hours, setHours] = useState(0);
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApiInterests.getInterests(evReq.token).then(data => {
@@ -56,20 +59,26 @@ export default function HomePage() {
         setValue(newValue as number);
     };
 
+    const handleSliderChange = (_event: Event, newValue: number | number[]) => {
+        setHours(newValue);
+    };
+
     function handleSubmit(event: { preventDefault: () => void; }) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         event.preventDefault();
+        const startDateTime = date ? date.valueOf() : null;
+
         const eventData = {
             "name": eventName,
             "description": description,
             "amountOfPeople": value,
             "categoryId": category,
             "sectorId": loadSectors,
-            "startDateTime": ,
-            "hours":
+            "startDateTime": startDateTime,
+            "hours": hours,
         };
-        if (isEditing) { //TODO: fix the parameter passing
-            evApiEvents.editEvent(eventData, evReq.token).then(r => console.log(r));
+        if (isEditing) {
+            evApiEvents.editEvent(/* eventid */, eventData, evReq.token).then(r => console.log(r));
         } else {
             evApiEvents.createEvent(eventData, evReq.token).then(r => console.log(r));
         }
@@ -117,6 +126,22 @@ export default function HomePage() {
                 onChange={handleChange}
                 step={1}
             />
+
+            <label>Duration</label>
+            <DatePicker label="Start date"
+                        value={date}
+                        onChange={(newDate: SetStateAction<dayjs.Dayjs | null>) => setDate(newDate)}
+            />
+                <Slider
+                    aria-label="Hours"
+                    defaultValue={0}
+                    step={1}
+                    value={hours}
+                    onChange={handleSliderChange}
+                    min={0}
+                    max={48}
+                    valueLabelDisplay="auto"
+                />
             <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
         </form>
     );
