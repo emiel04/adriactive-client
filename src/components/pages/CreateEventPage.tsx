@@ -13,7 +13,6 @@ import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
 import {TSector} from "../common/TSector.tsx";
 import {useSearchParams} from "react-router-dom";
-import {TAmountOfPeople} from "../common/events.tsx";
 
 
 export default function HomePage() {
@@ -24,19 +23,21 @@ export default function HomePage() {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<TInterest | null>(null);
     const [loadSectors, setLoadSectors] = useState<TSector | null>(null);
-    const [value, setValue] = useState<TAmountOfPeople>([12, 24]);
+    const [value, setValue] = useState<number>(0);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const evReq: CancelTokenSource = axios.CancelToken.source();
 
     useEffect(() => {
+        const evReq: CancelTokenSource = axios.CancelToken.source();
         evApiInterests.getInterests(evReq.token).then(data => {
             setInterests(data);
+            console.log(data);
         }).catch(() => {
         });
 
         evApiSectors.getSectors(evReq.token).then(data => {
             setSectors(data);
+            console.log(data);
         }).catch(() => {
         });
 
@@ -51,18 +52,21 @@ export default function HomePage() {
     }, [searchParams]);
 
 
-    const handleChange = (_event: Event, newValue: number | number[], _: number) => {
-        setValue(newValue as TAmountOfPeople);
+    const handleChange = (_event: Event, newValue: number | number[]) => {
+        setValue(newValue as number);
     };
 
     function handleSubmit(event: { preventDefault: () => void; }) {
+        const evReq: CancelTokenSource = axios.CancelToken.source();
         event.preventDefault();
         const eventData = {
             "name": eventName,
             "description": description,
             "amountOfPeople": value,
             "categoryId": category,
-            "sectorId": loadSectors
+            "sectorId": loadSectors,
+            "startDateTime": ,
+            "hours":
         };
         if (isEditing) { //TODO: fix the parameter passing
             evApiEvents.editEvent(eventData, evReq.token).then(r => console.log(r));
@@ -107,10 +111,11 @@ export default function HomePage() {
             </div>
             <label>Number of People</label>
             <Slider
-                getAriaLabel={() => 'people range'}
+                aria-label="Amount of People"
+                defaultValue={10}
                 value={value}
                 onChange={handleChange}
-                valueLabelDisplay="auto"
+                step={1}
             />
             <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
         </form>

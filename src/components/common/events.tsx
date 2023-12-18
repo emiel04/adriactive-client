@@ -7,8 +7,7 @@ export type TEvent = {
     eventType: string;
     category: TCategory;
     organiser: TUser;
-    amountOfPeople: TAmountOfPeople;
+    amountOfPeople: number;
     sector: number;
     description: string;
 }
-export type TAmountOfPeople = [number, number]

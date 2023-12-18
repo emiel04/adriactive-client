@@ -84,8 +84,8 @@ function MyEventsPage() {
                                 {isNoUpcoming ? (
                                     <p>There are no upcoming events!</p>
                                 ) : null}
-                                {renderEvents(upcomingEvents)}
                             </div>
+                            {renderEvents(upcomingEvents)}
                         </div>
                     </div>
                 </div>
@@ -96,8 +96,8 @@ function MyEventsPage() {
                             {isNoCreated ? (
                                 <p>You have not created an event yet!</p>
                             ) : null}
-                            {renderEvents(createdEvents)}
                         </div>
+                        {renderEvents(createdEvents)}
                     </div>
                     <a href={"/app/event/create"}>Create Event</a>
                 </div>
