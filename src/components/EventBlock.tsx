@@ -34,7 +34,7 @@ export default function EventBlock(prop: TEventBlockProps) {
                 {!prop.simple &&
                   <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
                 }
-                <li><LocationOnIcon/> {getSectorName(prop.event.sector)}</li>
+                <li><LocationOnIcon/> {getSectorName(prop.event.sector.id)}</li>
                 {!prop.simple &&
                   <li><CheckCircleIcon/>{4} spots of {prop.event.amountOfPeople} left</li>
                 }

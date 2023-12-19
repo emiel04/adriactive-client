@@ -8,7 +8,7 @@ export default {
         }).catch(handleError);
     },
     addInterests: (data: any, cancelToken: CancelToken) => {
-        return axiosInstance.post("user/interests", data, {cancelToken: cancelToken}).then(res => {
+        return axiosInstance.post("api/user/interests", data, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
     },
