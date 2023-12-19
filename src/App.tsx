@@ -8,25 +8,43 @@ import theme from "./assets/theme";
 import {WebSocketProvider} from "./components/context/WebSocketContext";
 import {Toaster} from 'react-hot-toast';
 
-function App() {
+function checkNotificationPermission() {
+    const permission = localStorage.getItem('notificationPermission');
+    if (permission !== 'granted') {
+        requestNotificationPermission();
+    }
+}
 
+function requestNotificationPermission() {
+    Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+            localStorage.setItem('notificationPermission', 'granted');
+        }
+    }).catch(error => {
+        console.error('Error in requesting notification permission:', error);
+    });
+}
+
+function App() {
+    checkNotificationPermission();
     return (
         <CssVarsProvider theme={theme}>
-            <WebSocketProvider>
-                <Routes>
-                    <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
-                    <Route path="/app/*" element={
-                        <PrivateRoute>
+            <Routes>
+                <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
+                <Route path="/app/*" element={
+                    <PrivateRoute>
+                        <WebSocketProvider>
                             <AdriActive></AdriActive>
-                        </PrivateRoute>
-                    }/>
-                    <Route path="*" element={<NotFound/>}/>
-                </Routes>
-                <Toaster
-                    position="top-right"
-                    reverseOrder={false}
-                />
-            </WebSocketProvider>
+                        </WebSocketProvider>
+
+                    </PrivateRoute>
+                }/>
+                <Route path="*" element={<NotFound/>}/>
+            </Routes>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
         </CssVarsProvider>
     )
 }

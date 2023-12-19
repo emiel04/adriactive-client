@@ -4,16 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Adria 10: AdriActive</title>
-    <script>window.global = window</script>
+    <script>
+      window.global = window
+      // Service worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/src/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+            // Additional logic if needed
+          })
+          .catch(error => {
+            console.error('Service Worker registration failed:', error);
+          });
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
     <link rel="stylesheet" href="./src/assets/css/reset.css">
     <link rel="shortcut icon" href="./src/assets/img/favicon.ico" type="image/x-icon">
     <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Inder&family=MedievalSharp&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Inder&family=MedievalSharp&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"/>
 </head>
 <body>
-    <div id="root"></div>
+<div id="root"></div>
 </body>
 
 </html>
