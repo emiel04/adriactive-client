@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
 import catApi from "../../services/api-catergory.ts";
+import secApi from "../../services/api-world.ts";
 import axios, {CancelTokenSource} from "axios";
 import EventBlock from "../EventBlock.tsx";
 import {TEvent} from "../common/events.tsx";
-import "../../assets/css/search.scss"
+import "../../assets/css/search.scss";
 import Input from '@mui/joy/Input';
 import {styled} from '@mui/joy/styles';
 import Select from "@mui/joy/Select";
@@ -25,9 +26,13 @@ const CustomSelect = styled(Select)({
 function SearchPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [categories, setCategories] = useState<TCategory[]>([]);
+    const [sectors, setSectors] = useState<TCategory[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [events, setEvents] = useState<TEvent[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>('');
+    const [selectedSector, setSelectedSector] = useState<string | null>('');
+    const [selectedPrice, setSelectedPrice] = useState<string | null>('');
+    const [selectedAmountOfPeople, setSelectedAmountOfPeople] = useState<string | null>('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,8 +54,18 @@ function SearchPage() {
             setIsLoading(false);
         });
 
+        const secReq: CancelTokenSource = axios.CancelToken.source();
+        secApi.getSectors(secReq.token).then(data => {
+            setSectors(data);
+            setIsLoading(false);
+        }).catch(() => {
+            setIsLoading(false);
+        });
+
         return () => {
             evReq.cancel();
+            catReq.cancel();
+            secReq.cancel();
         };
     }, []);
 
@@ -59,10 +74,6 @@ function SearchPage() {
     ) => {
         setSearchTerm(event.target.value);
     };
-
-    /*const handleCategoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setSelectedCategory(event.target.value as string | null);
-    };*/
 
     const renderOptions = () => {
         // Include an "All" option to deselect the category
@@ -73,6 +84,20 @@ function SearchPage() {
         ));
 
         options.unshift(<Option key="all" value={null}>All</Option>);
+        return options;
+    };
+
+    const renderOptionsSector = () => {
+        // Include an "All" option to deselect the category
+        let sectorId = 0;
+        const options = sectors.map((sector) => (
+            <Option key={sector.name} value={sector}>
+                {sector.name}
+            </Option>
+        ));
+        sectorId++;
+
+        options.unshift(<Option key="all" value={""}>All</Option>);
         return options;
     };
 
@@ -88,13 +113,34 @@ function SearchPage() {
                 <CustomSelect
                     placeholder="Category"
                     variant="outlined"
-                    value={selectedCategory}
-                    onChange={(event) => {
-                        if (event && event.target instanceof HTMLSelectElement) {
-                            setSelectedCategory(event.target.value || null);
-                        }
-                    }}                >
+                    value={selectedCategory}  // Use the state variable here
+                    onChange={(event) => setSelectedCategory(event.target.value)}
+                >
                     {renderOptions()}
+                </CustomSelect>
+                <CustomSelect
+                    placeholder="Sector"
+                    variant="outlined"
+                    value={selectedSector}
+                    onChange={(event) => setSelectedSector(event.target.value)}
+                >
+                    {renderOptionsSector()}
+                </CustomSelect>
+                <CustomSelect
+                    placeholder="Price"
+                    variant="outlined"
+                    value={selectedPrice}
+                    onChange={(event) => setSelectedPrice(event.target.value)}
+
+                >
+                </CustomSelect>
+                <CustomSelect
+                    placeholder="Amount of People"
+                    variant="outlined"
+                    value={selectedAmountOfPeople}
+                    onChange={(event) => setSelectedAmountOfPeople(event.target.value)}
+
+                >
                 </CustomSelect>
             </div>
             <div className={"homepage"}>
@@ -102,7 +148,7 @@ function SearchPage() {
                     {isLoading ? (
                         <p>Loading...</p>
                     ) : (
-                        renderEvents(events, searchTerm, selectedCategory)
+                        renderEvents(events, searchTerm, "sport")
                     )}
                 </div>
             </div>
