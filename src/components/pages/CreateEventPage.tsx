@@ -8,7 +8,6 @@ import evApiInterests from "../../services/api-interests.ts";
 import evApiSectors from "../../services/api-world.ts";
 import evApiEvents from "../../services/api-events.ts";
 import {useEffect, useState} from "react";
-import {TInterest} from "../common/interest.tsx";
 import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
 import {TSector} from "../common/TSector.tsx";
@@ -18,35 +17,34 @@ import { Calendar } from 'primereact/calendar';
 import { PrimeReactProvider } from 'primereact/api';
 import toast from "react-hot-toast";
 import {log} from "ol/console";
+import {TCategory} from "../common/category.tsx";
 
 
 export default function CreateEventPage() {
-    const [interests, setInterests] = useState<TInterest[]>([]);
+    const [interests, setInterests] = useState<TCategory[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const navigate = useNavigate();
     const [eventName, setEventName] = useState("");
     const [eventId, setEventId] = useState<number>(0);
     const [description, setDescription] = useState("");
-    const [category, setCategory] = useState<TInterest | null>(null);
-    const [loadSectors, setLoadSectors] = useState<TSector | null>(null);
+    const [category, setCategory] = useState<TCategory | null>(null);
+    const [loadSector, setLoadSector] = useState<TSector | null>();
     const [value, setValue] = useState<number>(0);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [date, setDate] = useState<Dayjs | null>(dayjs());
-    const [hours, setHours] = useState(0);
+    const [hours, setHours] = useState<number>(0);
     const [eventData, setEventData] = useState({});
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApiInterests.getInterests(evReq.token).then(data => {
             setInterests(data);
-            console.log(data);
         }).catch(() => {
         });
 
         evApiSectors.getSectors(evReq.token).then(data => {
             setSectors(data);
-            console.log(data);
         }).catch(() => {
         });
 
@@ -56,10 +54,13 @@ export default function CreateEventPage() {
     }, [])
 
     useEffect(() => {
-        const editing = searchParams.get('editing');
-        setIsEditing(!!editing)
-        setEventId(editing)
-    }, [searchParams]);
+        const editing = searchParams.get('id');
+        const id = parseInt(editing || "") || 0;
+        setEventId(id)
+        setIsEditing(!!eventId)
+
+        console.log(eventId, isEditing)
+    }, [searchParams, eventId, isEditing]);
 
 
     const handleChange = (_event: Event, newValue: number | number[]) => {
@@ -72,15 +73,14 @@ export default function CreateEventPage() {
 
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
-        const startDateTime = date ? date.valueOf() : null;
 
         setEventData({
             "name": eventName,
             "description": description,
             "amountOfPeople": value,
-            "categoryId": category?.categoryId,
-            "sectorId": loadSectors,
-            "startDateTime": startDateTime,
+            "categoryId": category.categoryId || "",
+            "sectorId": loadSector.id,
+            "startDateTime": date.valueOf(),
             "hours": hours,
         });
         if (isEditing) {
@@ -88,7 +88,7 @@ export default function CreateEventPage() {
         } else {
             handleCreate();
         }
-        navigate('/app/home');
+        navigate('/app/events');
     }
 
     function handleEdit() {
@@ -151,7 +151,7 @@ export default function CreateEventPage() {
                 <label>Sectors</label>
                 <Autocomplete
                     options={sectors}
-                    onChange={(_event, newValue) => setLoadSectors(newValue)}
+                    onChange={(_event, newValue) => setLoadSector(newValue)}
                     getOptionLabel={(option) => option.name ?? option}
                     required
                 />
@@ -165,10 +165,11 @@ export default function CreateEventPage() {
                 onChange={handleChange}
                 step={1}
                 valueLabelDisplay="auto"
+                aria-required={true}
             />
 
             <label>StartDate</label>
-            <Calendar value={date?.toDate()} onChange={(e) => setDate(dayjs(e.value))} />
+            <Calendar id="calendar-24h" value={date?.toDate()} onChange={(e) => setDate(dayjs(e.value))} showTime hourFormat="24" />
             <label>Hours</label>
             <Slider
                     aria-label="Hours"
@@ -179,6 +180,7 @@ export default function CreateEventPage() {
                     min={0}
                     max={48}
                     valueLabelDisplay="auto"
+                    aria-required={true}
                 />
             <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
         </form>
