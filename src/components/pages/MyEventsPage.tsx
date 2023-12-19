@@ -6,6 +6,7 @@ import EventBlock from "../EventBlock.tsx";
 import {useNavigate} from "react-router";
 import "../../assets/css/my-events-page.css"
 import "../../assets/css/events.css"
+import Button from "@mui/joy/Button";
 
 function MyEventsPage() {
     const [ongoingEvents, setOngoingEvents] = useState<TEvent[]>([]);
@@ -99,7 +100,7 @@ function MyEventsPage() {
                         </div>
                         {renderEvents(createdEvents)}
                     </div>
-                    <a href={"/app/event/create"}>Create Event</a>
+                    <Button onClick={() => navigate('/app/event/create')}>Create Event</Button>
                 </div>
             </div>}
     </div>

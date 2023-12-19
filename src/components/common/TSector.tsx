@@ -14,6 +14,7 @@ export type TDangerousArea = {
 };
 
 export type TSector = {
+    id: number;
     name: string;
     coordinateRange: TCoordinateRange;
     dangerousAreas: TDangerousArea[];

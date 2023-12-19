@@ -49,6 +49,7 @@ export default function ViewEventPage() {
             const adriaId = localStorage.getItem("adriaId") || "";
             setIsCreator(event.organiser.id === adriaId);
         }
+        console.log(eventId);
 
     }, [event]);
     useEffect(() => {
@@ -104,6 +105,11 @@ export default function ViewEventPage() {
                         className="joinButton">
                     {isJoined ? 'Leave' : 'Join'}
                 </Button>
+                {isCreator && (
+                    <Button onClick={() => navigate(`/app/event/create?id=${eventId}`)}>
+                        Edit
+                    </Button>
+                )}
             </div>
         </div>
     );
