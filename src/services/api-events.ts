@@ -7,7 +7,7 @@ export default {
             return res.data;
         }).catch(handleError);
     },
-    getEventFromId: (eventId: any, cancelToken: CancelToken) => {
+    getEventFromId: (eventId: number, cancelToken: CancelToken) => {
         return axiosInstance.get(`api/event/${eventId}`, {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);

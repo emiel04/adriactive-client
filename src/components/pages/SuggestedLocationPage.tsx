@@ -1,5 +1,5 @@
 import Button from '@mui/joy/Button';
-import {TCoordinate} from "../common/TSector.tsx";
+import {TCoordinate} from "../common/TWorldSector.tsx";
 import {Coordinate} from "ol/coordinate";
 import {fromLonLat} from "ol/proj";
 import * as ol from "ol";
