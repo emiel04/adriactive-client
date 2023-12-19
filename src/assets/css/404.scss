@@ -2,7 +2,6 @@
 
 .notfound {
   height: 100%;
-
   font-family: "Montserrat", "sans-serif";
   font-weight: bolder;
   display: flex;
@@ -14,6 +13,7 @@
     background: var.$primary-color;
     color: var.$white-color;
     text-decoration: none;
+    cursor: pointer;
   }
 
   p {
