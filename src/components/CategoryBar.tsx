@@ -41,7 +41,7 @@ export default function CategoryBar({filters, setFilters} : {filters: Set<number
             <ul>
                 {categories.map((c) => (
                     <li key={c.name}>
-                        <button className={`capitalize ${filters.has(c.categoryId) ? 'pressed' : ""}`} onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
+                        <button className={`buttons capitalize ${filters.has(c.categoryId) ? 'pressed' : ""}`} onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
                     </li>
                 ))}
             </ul>

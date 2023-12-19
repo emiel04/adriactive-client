@@ -112,7 +112,7 @@ export default function HomePage() {
                 onChange={handleChange}
                 valueLabelDisplay="auto"
             />
-            <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
+            <Button type="submit" className={"buttons"}>{isEditing ? 'Save' : 'Create'}</Button>
         </form>
     );
 }

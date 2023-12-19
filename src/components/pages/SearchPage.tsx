@@ -134,6 +134,7 @@ function SearchPage() {
                 </CustomInput>
                 <CustomSelect
                     placeholder="Category"
+                    className={"selectBox"}
                     variant="outlined"
                     value={selectedCategory}
                     onChange={(filterCategories as any)}

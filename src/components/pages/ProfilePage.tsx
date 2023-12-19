@@ -64,7 +64,7 @@ function ProfilePage() {
         {isLoading ? (
             <p>Loading...</p>
         ) : <div className="profile-page">
-            <button className="edit-button">Edit</button>
+            <button className="buttons edit-button">Edit</button>
             <div className="profile-info">
                 <div className="profile-picture">
                     <AccountCircleIcon></AccountCircleIcon>
@@ -78,7 +78,7 @@ function ProfilePage() {
                 <form className="list-container">
                     {renderUserInterests(interests)}
                 </form>
-                <Button onClick={() => navigate('/app/interests?editing=true')}>Edit interests</Button>
+                <Button className={"buttons"} onClick={() => navigate('/app/interests?editing=true')}>Edit interests</Button>
             </div>
         </div>
         }

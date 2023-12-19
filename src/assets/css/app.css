@@ -47,7 +47,7 @@ body {
   height: 75px;
 }
 
-button, a {
+.buttons, a {
   font-size: 1em;
   padding: 0.6em;
   background: #f0f0f0;
@@ -57,7 +57,7 @@ button, a {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-button:hover, a:hover {
+.buttons:hover, a:hover {
   background: #d2d5d5;
 }
 

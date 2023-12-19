@@ -45,7 +45,7 @@ export default function InterestPage() {
                         <div className="interests-grid">
                             {renderInterests(interests)}
                         </div>
-                        <Button type="submit" className="skip-button"
+                        <Button type="submit" className="buttons skip-button"
                                 onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</Button>
                     </div>
                 </form>

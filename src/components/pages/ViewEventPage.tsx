@@ -93,7 +93,7 @@ function ViewEventPage() {
             {event && <ViewEventBlock event={event}/>}
             <div className="joinButtonContainer">
                 <Button size={"lg"} type="submit" onClick={() => isJoined ? handleLeave() : handleJoin()}
-                        className="joinButton">
+                        className="joinButton buttons">
                     {isJoined ? 'Leave' : 'Join'}
                 </Button>
             </div>
