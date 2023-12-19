@@ -8,15 +8,16 @@ import Button from '@mui/joy/Button';
 import "../../assets/css/view-event.scss";
 import toast from "react-hot-toast";
 import {log} from "ol/console";
+import {TEvent} from "../common/events.tsx";
 
-function ViewEventPage() {
-    const [event, setEvent] = useState(null);
+export default function ViewEventPage() {
+    const [event, setEvent] = useState<TEvent | null>(null);
     const {id: eventId} = useParams(); // Ensure that the parameter name matches your route
     const navigate = useNavigate();
     const [isJoined, setIsJoined] = useState(false);
     const [searchParams] = useSearchParams();
     const joinReq = axios.CancelToken.source();
-
+    const [isCreator, setIsCreator] = useState(false);
     if (!eventId || Number.isNaN(parseInt(eventId))) {
         navigate("/");
     }
@@ -43,6 +44,13 @@ function ViewEventPage() {
         };
     }, [eventId]);
 
+    useEffect(() => {
+        if (event){
+            const adriaId = localStorage.getItem("adriaId") || "";
+            setIsCreator(event.organiser.id === adriaId);
+        }
+
+    }, [event]);
     useEffect(() => {
         const isJoined = searchParams.get('joined');
         setIsJoined(isJoined === "true");
@@ -100,5 +108,3 @@ function ViewEventPage() {
         </div>
     );
 }
-
-export default ViewEventPage;
