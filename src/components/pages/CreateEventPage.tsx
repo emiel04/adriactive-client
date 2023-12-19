@@ -27,7 +27,7 @@ export default function CreateEventPage() {
     const [eventId, setEventId] = useState<number>(0);
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<TCategory | null>(null);
-    const [loadSector, setLoadSector] = useState<TSector | null>();
+    const [loadSector, setLoadSector] = useState<TSector | null>(null);
     const [numberOfPeople, setNumberOfPeople] = useState<number>(0);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -101,6 +101,7 @@ export default function CreateEventPage() {
         if (isEditing) {
             handleEdit(eventData);
         } else {
+            console.log("test");
             handleCreate(eventData);
         }
         navigate('/app/events');
@@ -135,7 +136,6 @@ export default function CreateEventPage() {
 
     async function createEvent(eventData: any) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        if (!eventId) return;
         return await evApiEvents.createEvent(eventData, evReq.token);
     }
 

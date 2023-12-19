@@ -15,6 +15,7 @@ export default {
     createEvent: (data: any, cancelToken: CancelToken) => {
         return axiosInstance.post("api/event", data, {cancelToken: cancelToken}).then(res => {
             return res.data;
+
         }).catch(handleError);
     },
     editEvent: (id: number, data: any, cancelToken: CancelToken) => {
