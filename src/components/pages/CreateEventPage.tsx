@@ -78,7 +78,7 @@ export default function CreateEventPage() {
             "name": eventName,
             "description": description,
             "amountOfPeople": value,
-            "categoryId": category.categoryId,
+            "categoryId": category?.categoryId,
             "sectorId": loadSectors,
             "startDateTime": startDateTime,
             "hours": hours,
@@ -115,7 +115,7 @@ export default function CreateEventPage() {
     async function editEvent() {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
-        return await evApiEvents.editEvent(event.id, eventData, evReq.token);
+        return await evApiEvents.editEvent(eventId, eventData, evReq.token);
     }
 
     async function createEvent() {
