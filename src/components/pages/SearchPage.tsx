@@ -1,8 +1,9 @@
+//import React, {useEffect, useRef, useState} from "react";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
 import catApi from "../../services/api-catergory.ts";
-import secApi from "../../services/api-world.ts";
+//import secApi from "../../services/api-world.ts";
 import axios, {CancelTokenSource} from "axios";
 import EventBlock from "../EventBlock.tsx";
 import {TEvent} from "../common/events.tsx";
@@ -26,13 +27,14 @@ const CustomSelect = styled(Select)({
 function SearchPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [categories, setCategories] = useState<TCategory[]>([]);
-    const [sectors, setSectors] = useState<TCategory[]>([]);
+    /*const [sectors, setSectors] = useState<TCategory[]>([]);*/
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [events, setEvents] = useState<TEvent[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<string | null>('');
-    const [selectedSector, setSelectedSector] = useState<string | null>('');
-    const [selectedPrice, setSelectedPrice] = useState<string | null>('');
-    const [selectedAmountOfPeople, setSelectedAmountOfPeople] = useState<string | null>('');
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
+    /*const [selectedSector, setSelectedSector] = useState<string>('all');
+    const [selectedPrice, setSelectedPrice] = useState<string>('all');
+    const [selectedAmountOfPeople, setSelectedAmountOfPeople] = useState<string>('all');
+*/
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,25 +49,28 @@ function SearchPage() {
             });
 
         const catReq: CancelTokenSource = axios.CancelToken.source();
-        catApi.getCategories(catReq.token).then(data => {
-            setCategories(data);
-            setIsLoading(false);
-        }).catch(() => {
+        catApi.getCategories(catReq.token)
+            .then(data => {
+                console.log(data)
+                setCategories(data);
+                setIsLoading(false);
+            }).catch(() => {
             setIsLoading(false);
         });
 
-        const secReq: CancelTokenSource = axios.CancelToken.source();
-        secApi.getSectors(secReq.token).then(data => {
-            setSectors(data);
+        /*const secReq: CancelTokenSource = axios.CancelToken.source();
+        secApi.getSectors(secReq.token)
+            .then(data => {
+                setSectors(data);
+                setIsLoading(false);
+            }).catch(() => {
             setIsLoading(false);
-        }).catch(() => {
-            setIsLoading(false);
-        });
+        });*/
 
         return () => {
             evReq.cancel();
-            catReq.cancel();
-            secReq.cancel();
+            //catReq.cancel();
+            //secReq.cancel();
         };
     }, []);
 
@@ -75,31 +80,47 @@ function SearchPage() {
         setSearchTerm(event.target.value);
     };
 
-    const renderOptions = () => {
-        // Include an "All" option to deselect the category
+    const renderOptionsCategories = () => {
         const options = categories.map((category) => (
-            <Option key={category.categoryId} value={category.name}>
+            <Option key={category.name} value={category.name}>
                 {category.name}
             </Option>
         ));
 
-        options.unshift(<Option key="all" value={null}>All</Option>);
-        return options;
-    };
-
-    const renderOptionsSector = () => {
-        // Include an "All" option to deselect the category
-        let sectorId = 0;
-        const options = sectors.map((sector) => (
-            <Option key={sector.name} value={sector}>
-                {sector.name}
-            </Option>
-        ));
-        sectorId++;
-
         options.unshift(<Option key="all" value={""}>All</Option>);
         return options;
     };
+
+    const filterCategories = (event: React.ChangeEvent<{ value: string }>) => {
+        console.log("Event:", event);
+        const selected = event.target.value;
+        // Ignore "all" value
+        if (selectedCategory === "all") {
+            return;
+        }
+
+        setSelectedCategory(selected);
+        console.log(selectedCategory);
+    };
+
+
+    /*const renderOptionsSector = () => {
+        console.log(sectors);
+        if (!sectors) {
+            return <Option key={"error"} value={"error"}>
+                No sectors found!
+            </Option>
+        }
+
+        const options = sectors.map((sector) => (
+            <Option key={sector.name} value={sector.name}>
+                {sector.name}
+            </Option>
+        ));
+
+        options.unshift(<Option key="all" value={""}>All</Option>);
+        return options;
+    };*/
 
     return (
         <>
@@ -109,38 +130,15 @@ function SearchPage() {
                     id="searchBar"
                     onChange={handleInputChange}
                     value={searchTerm}
-                />
+                >
+                </CustomInput>
                 <CustomSelect
                     placeholder="Category"
                     variant="outlined"
-                    value={selectedCategory}  // Use the state variable here
-                    onChange={(event) => setSelectedCategory(event.target.value)}
+                    value={selectedCategory}
+                    onChange={(filterCategories as any)}
                 >
-                    {renderOptions()}
-                </CustomSelect>
-                <CustomSelect
-                    placeholder="Sector"
-                    variant="outlined"
-                    value={selectedSector}
-                    onChange={(event) => setSelectedSector(event.target.value)}
-                >
-                    {renderOptionsSector()}
-                </CustomSelect>
-                <CustomSelect
-                    placeholder="Price"
-                    variant="outlined"
-                    value={selectedPrice}
-                    onChange={(event) => setSelectedPrice(event.target.value)}
-
-                >
-                </CustomSelect>
-                <CustomSelect
-                    placeholder="Amount of People"
-                    variant="outlined"
-                    value={selectedAmountOfPeople}
-                    onChange={(event) => setSelectedAmountOfPeople(event.target.value)}
-
-                >
+                    {renderOptionsCategories()}
                 </CustomSelect>
             </div>
             <div className={"homepage"}>
@@ -148,18 +146,20 @@ function SearchPage() {
                     {isLoading ? (
                         <p>Loading...</p>
                     ) : (
-                        renderEvents(events, searchTerm, "sport")
+                        //renderEvents(events, searchTerm, selectedCategory)
+                        renderEvents(events, searchTerm)
                     )}
                 </div>
             </div>
         </>
     );
 
+    /*function renderEvents(events: TEvent[], searchTerm: string) {
     function renderEvents(events: TEvent[], searchTerm: string, selectedCategory: string | null) {
-        let filteredEvents = events;
+        let filteredEvents = [...events]; // Create a copy of the original array
 
         if (searchTerm) {
-            filteredEvents = events.filter((e) =>
+            filteredEvents = filteredEvents.filter((e) =>
                 e.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
@@ -170,20 +170,62 @@ function SearchPage() {
             );
         }
 
-        return filteredEvents && filteredEvents.length > 0 ? (
-            filteredEvents.map((e) => (
-                <EventBlock
-                    key={e.id}
-                    event={e}
-                    onClick={() => navigate(`/event/view/${e.id}`)}
-                ></EventBlock>
-            ))
-        ) : (
-            <div>
-                <p className={"error"}>No events found!</p>
-            </div>
-        );
+        // Check if filteredEvents is empty
+        if (filteredEvents.length === 0) {
+            return (
+                <div>
+                    <p className={"error"}>No events found!</p>
+                </div>
+            );
+        }
+        console.log(events);
+        return filteredEvents.map((e) => (
+            <EventBlock
+                key={e.id}
+                event={e}
+                onClick={() => navigate(`/event/view/${e.id}`)}
+            ></EventBlock>
+        ));
+    }
+}*/
+
+    function renderEvents(events: TEvent[], searchTerm: string) {
+        let filteredEvents = events;
+
+        if (searchTerm) {
+            filteredEvents = events.filter((e) =>
+                e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                e.organiser.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                e.organiser.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            ;
+        }
+
+        /*if (selectedCategory !== null && selectedCategory !== "all") {
+            filteredEvents = filteredEvents.filter(
+                (e) => e.category.name === selectedCategory
+            );
+        }*/
+
+        // Check if filteredEvents is null or undefined
+        if (!filteredEvents || filteredEvents.length === 0) {
+            return (
+                <div>
+                    <p className={"error"}>No events found!</p>
+                </div>
+            );
+        }
+
+        return filteredEvents.map((e) => (
+            <EventBlock
+                key={e.id}
+                event={e}
+                onClick={() => navigate(`/event/view/${e.id}`)}
+            ></EventBlock>
+        ));
     }
 }
+
+//function renderEvents(events: TEvent[], searchTerm: string, selectedCategory: string | null)
 
 export default SearchPage;
