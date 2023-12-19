@@ -33,7 +33,6 @@ export default function CreateEventPage() {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [date, setDate] = useState<Dayjs | null>(dayjs());
     const [hours, setHours] = useState<number>(0);
-    const [eventData, setEventData] = useState({});
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
@@ -90,7 +89,7 @@ export default function CreateEventPage() {
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
 
-        setEventData({
+        const eventData = {
             "name": eventName,
             "description": description,
             "amountOfPeople": numberOfPeople,
@@ -98,17 +97,17 @@ export default function CreateEventPage() {
             "sectorId": loadSector?.id,
             "startDateTime": date?.valueOf(),
             "hours": hours,
-        });
+        };
         if (isEditing) {
-            handleEdit();
+            handleEdit(eventData);
         } else {
-            handleCreate();
+            handleCreate(eventData);
         }
         navigate('/app/events');
     }
 
-    function handleEdit() {
-        const editReq = toast.promise(editEvent(), {
+    function handleEdit(eventData: any) {
+        const editReq = toast.promise(editEvent(eventData), {
             loading: "Editing event...",
             success: "Successfully edited event!",
             error: "Error editing event, try again later. If the issue persists contact support."
@@ -118,8 +117,8 @@ export default function CreateEventPage() {
         });
     }
 
-    function handleCreate() {
-        const createReq = toast.promise(createEvent(), {
+    function handleCreate(eventData: any) {
+        const createReq = toast.promise(createEvent(eventData), {
             loading: "Creating event...",
             success: "Successfully created event!",
             error: "Error creating event, try again later. If the issue persists contact support."
@@ -128,13 +127,13 @@ export default function CreateEventPage() {
             console.log(res);
         });
     }
-    async function editEvent() {
+    async function editEvent(eventData: any) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
         return await evApiEvents.editEvent(eventId, eventData, evReq.token);
     }
 
-    async function createEvent() {
+    async function createEvent(eventData: any) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
         return await evApiEvents.createEvent(eventData, evReq.token);
@@ -159,7 +158,7 @@ export default function CreateEventPage() {
 
             <div className="dropdowns">
                 <label>Category</label>
-                {category &&
+                {(category || !isEditing) &&
                 <Autocomplete
                     options={interests}
                     value={category}
@@ -170,7 +169,7 @@ export default function CreateEventPage() {
                 />
                 }
                 <label>Sector</label>
-                {loadSector &&
+                {(loadSector || !isEditing) &&
                     <Autocomplete
                         options={sectors}
                         value={loadSector}
