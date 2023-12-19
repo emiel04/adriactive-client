@@ -65,10 +65,7 @@ function MapPage() {
         function fetchSectorsAndDraw() {
 
             api.getAdria(adriaCancelSource.token).then(data => {
-                if (!data) {
-                    console.error("Failed to fetch sectors")
-                    return;
-                }
+                if (!data) return;
                 const sectors = convertServerSectorToClientSector(data.sectors, coordConverter);
                 updateSectors(sectors);
             });
@@ -86,12 +83,12 @@ function MapPage() {
 
         }
 
-        ws.addListener(handleWebSocketMessage)
+        const messageHandlerId = ws.addBroadcastListener(handleWebSocketMessage)
         fetchSectorsAndDraw();
 
         return () => {
             mapObject.setTarget();
-            ws.removeListener(handleWebSocketMessage);
+            ws.removeBroadcastListener(messageHandlerId);
             adriaCancelSource.cancel();
         };
     }, []);
