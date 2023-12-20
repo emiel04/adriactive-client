@@ -13,8 +13,8 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/TWorldSector.tsx";
 import {useSearchParams} from "react-router-dom";
 import dayjs, {Dayjs} from 'dayjs';
-import { Calendar } from 'primereact/calendar';
-import { PrimeReactProvider } from 'primereact/api';
+import {Calendar} from 'primereact/calendar';
+import {PrimeReactProvider} from 'primereact/api';
 import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
 
@@ -74,7 +74,8 @@ export default function CreateEventPage() {
                 setDate(dayjs(event.startDateTime));
                 setHours(event.hours);
             })
-            .catch(() => {});
+            .catch(() => {
+            });
     }
 
 
@@ -128,6 +129,7 @@ export default function CreateEventPage() {
             console.log(res);
         });
     }
+
     async function editEvent(eventData: any) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
@@ -141,11 +143,11 @@ export default function CreateEventPage() {
 
     return (
         <PrimeReactProvider>
-        <form className="form-group" onSubmit={handleSubmit}>
-            <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
-            <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
-            <label>Event Name</label>
-            <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
+            <form className="form-group" onSubmit={handleSubmit}>
+                <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
+                <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
+                <label>Event Name</label>
+                <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
                    required
                    value={eventName}
             />

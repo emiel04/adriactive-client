@@ -1,4 +1,3 @@
-//import React, {useEffect, useRef, useState} from "react";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
@@ -31,10 +30,9 @@ function SearchPage() {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [events, setEvents] = useState<TEvent[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-    const [selectedSector, setSelectedSector] = useState<string>('all');
-    /*const [selectedPrice, setSelectedPrice] = useState<string>('all');
-    const [selectedAmountOfPeople, setSelectedAmountOfPeople] = useState<string>('all');
-*/
+    const [selectedSector, setSelectedSector] = useState<string>('');
+    const [selectedAmountOfPeople, setSelectedAmountOfPeople] = useState<string>('');
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -51,7 +49,6 @@ function SearchPage() {
         const catReq: CancelTokenSource = axios.CancelToken.source();
         catApi.getCategories(catReq.token)
             .then(data => {
-                console.log(data)
                 setCategories(data);
                 setIsLoading(false);
             }).catch(() => {
@@ -85,21 +82,16 @@ function SearchPage() {
             </Option>
         ));
 
-        options.unshift(<Option key="all" value={""}>All</Option>);
+        options.unshift(<Option key="all" value={""}>Select a Category</Option>);
         return options;
     };
 
-    const filterCategories = (event: React.ChangeEvent<{ value: string }>) => {
-        console.log("Event:", event);
-        const selected = event.target.value;
-        // Ignore "all" value
-        if (selectedCategory === "all") {
-            return;
-        }
+    const filterCategories = (e) => {
+        e.target.selected;
+        setSelectedCategory(e.target.innerText);
 
-        setSelectedCategory(selected);
-        console.log(selectedCategory);
-    };
+        renderEvents(events, searchTerm)
+    }
 
     const renderOptionsSectors = () => {
         const options = sectors.map((sector) => (
@@ -108,21 +100,38 @@ function SearchPage() {
             </Option>
         ));
 
-        options.unshift(<Option key="all" value={""}>All</Option>);
+        options.unshift(<Option key="all" value={""}>Select a Sector</Option>);
         return options;
     };
 
-    const filterSectors = (event: React.ChangeEvent<{ value: string }>) => {
-        console.log("Event:", event);
-        const selected = event.target.value;
-        // Ignore "all" value
-        if (selectedSector === "all") {
-            return;
-        }
+    const filterSectors = (e) => {
+        console.log(e);
+        e.target.selected = e.target.innerText;
 
-        setSelectedSector(selected);
-        console.log(selectedCategory);
+
+        setSelectedSector(e.target.innerText);
+
+        renderEvents(events, searchTerm)
+    }
+
+    const renderOptionsAmountOfPeople = () => {
+        const priceRanges = [5, 10, 15, 20, 30, 40, 50, 100, 150, 200, 250, 300, 350, 400, 500];
+        const options = priceRanges.map((priceRange) => (
+            <Option key={priceRange} value={priceRange}>
+                {priceRange}
+            </Option>
+        ));
+
+        options.unshift(<Option key="all" value={""}>Select the max Amount Of People</Option>);
+        return options;
     };
+
+    const filterAmountOfPeople = (e) => {
+        e.target.selected;
+        setSelectedAmountOfPeople(e.target.innerText);
+
+        renderEvents(events, searchTerm)
+    }
 
     return (
         <>
@@ -138,7 +147,7 @@ function SearchPage() {
                     placeholder="Category"
                     variant="outlined"
                     value={selectedCategory}
-                    onChange={(filterCategories as any)}
+                    onChange={filterCategories}
                 >
                     {renderOptionsCategories()}
                 </CustomSelect>
@@ -146,9 +155,17 @@ function SearchPage() {
                     placeholder="Sector"
                     variant="outlined"
                     value={selectedSector}
-                    onChange={(filterSectors as any)}
+                    onChange={filterSectors}
                 >
                     {renderOptionsSectors()}
+                </CustomSelect>
+                <CustomSelect
+                    placeholder="Amount of People"
+                    variant="outlined"
+                    value={selectedAmountOfPeople}
+                    onChange={filterAmountOfPeople}
+                >
+                    {renderOptionsAmountOfPeople()}
                 </CustomSelect>
             </div>
             <div className={"homepage"}>
@@ -156,48 +173,12 @@ function SearchPage() {
                     {isLoading ? (
                         <p>Loading...</p>
                     ) : (
-                        //renderEvents(events, searchTerm, selectedCategory)
                         renderEvents(events, searchTerm)
                     )}
                 </div>
             </div>
         </>
     );
-
-    /*function renderEvents(events: TEvent[], searchTerm: string) {
-    function renderEvents(events: TEvent[], searchTerm: string, selectedCategory: string | null) {
-        let filteredEvents = [...events]; // Create a copy of the original array
-
-        if (searchTerm) {
-            filteredEvents = filteredEvents.filter((e) =>
-                e.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        }
-
-        if (selectedCategory !== null && selectedCategory !== "all") {
-            filteredEvents = filteredEvents.filter(
-                (e) => e.category.name === selectedCategory
-            );
-        }
-
-        // Check if filteredEvents is empty
-        if (filteredEvents.length === 0) {
-            return (
-                <div>
-                    <p className={"error"}>No events found!</p>
-                </div>
-            );
-        }
-        console.log(events);
-        return filteredEvents.map((e) => (
-            <EventBlock
-                key={e.id}
-                event={e}
-                onClick={() => navigate(`/event/view/${e.id}`)}
-            ></EventBlock>
-        ));
-    }
-}*/
 
     function renderEvents(events: TEvent[], searchTerm: string) {
         let filteredEvents = events;
@@ -211,13 +192,30 @@ function SearchPage() {
             ;
         }
 
-        /*if (selectedCategory !== null && selectedCategory !== "all") {
-            filteredEvents = filteredEvents.filter(
-                (e) => e.category.name === selectedCategory
-            );
-        }*/
+        if (selectedCategory && selectedCategory !== "Select a Category") {
+            filteredEvents = filteredEvents.filter((event) => {
+                return event.category.name === selectedCategory;
+            });
+        } else if (selectedCategory === "Select a Category") {
+            filteredEvents = events;
+        }
 
-        // Check if filteredEvents is null or undefined
+        if (selectedSector && selectedSector !== "Select a Sector") {
+            filteredEvents = filteredEvents.filter((event) => {
+                return event.sector.name === selectedSector;
+            });
+        } else if (selectedSector === "Select a Sector") {
+            filteredEvents = events;
+        }
+
+        if (selectedAmountOfPeople && selectedAmountOfPeople !== "Select the max Amount Of People") {
+            filteredEvents = filteredEvents.filter((event) => {
+                return event.amountOfPeople <= parseInt(selectedAmountOfPeople);
+            });
+        } else if (selectedAmountOfPeople === "Select the max Amount Of People") {
+            filteredEvents = events;
+        }
+
         if (!filteredEvents || filteredEvents.length === 0) {
             return (
                 <div>
@@ -235,7 +233,5 @@ function SearchPage() {
         ));
     }
 }
-
-//function renderEvents(events: TEvent[], searchTerm: string, selectedCategory: string | null)
 
 export default SearchPage;
