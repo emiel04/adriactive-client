@@ -13,16 +13,20 @@ export type TWebSocketContext = {
     removeBroadcastListener: (listenerId: string) => void;
     addUnicastListener: (listener: Listener) => string;
     removeUnicastListener: (listenerId: string) => void;
-    sendToServer: (message: any) => void;
+    sendToServer: (message: any) => void
+    cleanUp: () => void;
 };
 type Listener = (error: Error, message: any) => void;
-type ListenerItem = { id: string; listener: Listener };
+type ListenerItem = {
+    id: string;
+    listener: Listener
+};
 
 export function WebSocketProvider({children}: PropsWithChildren) {
     const [eb, setEb] = useState<EventBus.EventBus>();
     const [broadcastListeners, setBroadcastListeners] = useState<ListenerItem[]>([]);
     const [unicastListeners, setUnicastListeners] = useState<ListenerItem[]>([]);
-    const [adriaId, setAdriaId] = useState<string>();
+    const [adriaId, setAdriaId] = useState<string>("");
     let joinId = "";
 
     useEffect(() => {
@@ -44,7 +48,7 @@ export function WebSocketProvider({children}: PropsWithChildren) {
                     if (!joinId) {
                         waitForConnection();
                     }
-                    eventBus.send(CHNL_USER_TO_SERVER, ({type: "join", adriaId: adriaId, joinId: joinId}));
+                    eventBus.send(CHNL_USER_TO_SERVER, ({type: "join", adriaId: id, joinId: joinId}));
                 }, 100)
             }
 
@@ -76,8 +80,8 @@ export function WebSocketProvider({children}: PropsWithChildren) {
 
 
     const onBroadcast = (error: Error, message: any) => {
-        if (!broadcastListeners) {
-            console.error("No broadcastListeners defined");
+        if (broadcastListeners.length < 1) {
+            console.log("No broadcastListeners defined");
         } else {
             broadcastListeners.forEach((l) => {
                 l.listener(error, message);
@@ -85,8 +89,8 @@ export function WebSocketProvider({children}: PropsWithChildren) {
         }
     };
     const onUnicast = (error: Error, message: any) => {
-        if (!broadcastListeners) {
-            console.error("No unicastlisteners defined");
+        if (unicastListeners.length < 1) {
+            console.log("No unicastlisteners defined");
         } else {
             unicastListeners.forEach((l) => {
                 l.listener(error, message);
@@ -117,7 +121,11 @@ export function WebSocketProvider({children}: PropsWithChildren) {
             prev.filter((l) => l.id !== listenerId)
         );
     };
-
+    const cleanUp = () => {
+        setBroadcastListeners([]);
+        setUnicastListeners([]);
+        console.log("Cleaned up websocketcontext");
+    }
 
     return (
         <WebSocketContext.Provider
@@ -127,7 +135,8 @@ export function WebSocketProvider({children}: PropsWithChildren) {
                 removeBroadcastListener: removeBroadcastListener,
                 addUnicastListener: addUnicastListener,
                 removeUnicastListener: removeUnicastListener,
-                sendToServer: sendToServer
+                sendToServer: sendToServer,
+                cleanUp: cleanUp
             }}>
             {children}
         </WebSocketContext.Provider>

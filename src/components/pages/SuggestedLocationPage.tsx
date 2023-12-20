@@ -6,7 +6,6 @@ import * as ol from "ol";
 import {Tile} from "ol/layer";
 import {OSM} from "ol/source";
 import {useEffect, useRef} from "react";
-import evApiEvents from "../../services/api-events.ts";
 import {useNavigate} from "react-router";
 import axios, {CancelTokenSource} from "axios";
 
@@ -46,20 +45,7 @@ export default function SuggestedLocationPage({suggestedLocation}: SuggestedLoca
 
 
     function handleSubmit(event: { preventDefault: () => void; }, accepted: boolean) {
-        event.preventDefault();
 
-        const coordinates = {
-            x: suggestedLocation.x,
-            y: suggestedLocation.y,
-        };
-
-        if (accepted) {
-            evApiEvents.editEvent(/* eventid */, coordinates, evReq.token).then(r => console.log(r));
-        } else {
-            evApiEvents.cancelEvent(/* eventid */, evReq.token).then(r => console.log(r));
-        }
-
-        navigate('/app/home');
     }
 
     return (

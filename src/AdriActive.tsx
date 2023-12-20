@@ -21,6 +21,7 @@ function AdriActive() {
         const listenerId = ws.addUnicastListener(handleMessage);
         return () => {
             ws.removeUnicastListener(listenerId);
+            ws.cleanUp();
         };
     }, []);
 
