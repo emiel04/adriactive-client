@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
 import catApi from "../../services/api-catergory.ts";
@@ -69,11 +69,13 @@ function SearchPage() {
         };
     }, []);
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (
+        event
+    ) => {
         setSearchTerm(event.target.value);
-
         renderEvents(events, searchTerm);
     };
+
 
     const renderOptionsCategories = () => {
         const options = categories.map((category) => (
@@ -183,11 +185,11 @@ function SearchPage() {
         let filteredEvents = events;
         console.log(searchTerm);
         if (searchTerm) {
-            filteredEvents = events.filter((e) => {
+            filteredEvents = events.filter((e) =>
                 e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 e.organiser.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 e.organiser.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-            })
+            )
             ;
         }
 
