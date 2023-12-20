@@ -1,5 +1,6 @@
 import {CancelToken} from "axios";
 import axiosInstance, {handleError} from "../helpers/axioshelper";
+import {TCoordinate} from "../components/common/TWorldSector.tsx";
 
 export default {
     getEvents: (cancelToken: CancelToken) => {
@@ -27,8 +28,8 @@ export default {
             return res.data;
         }).catch(handleError);
     },
-    cancelEvent: (id: number, cancelToken: CancelToken) => {
-        return axiosInstance.put(`api/event/${id}/cancel`, {}, {cancelToken: cancelToken}).then(res => {
+    cancelEvent: (id: number) => {
+        return axiosInstance.put(`api/event/${id}/cancel`, {}).then(res => {
             return res.data;
         }).catch(handleError);
     },
@@ -39,6 +40,11 @@ export default {
     },
     hasUserJoined: (id: number, cancelToken: CancelToken) => {
         return axiosInstance.get(`api/event/${id}/join`, {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+    setEventLocation: (id: number, coord: TCoordinate) => {
+        return axiosInstance.put(`/api/event/${id}/location`, coord).then(res => {
             return res.data;
         }).catch(handleError);
     }
