@@ -16,5 +16,11 @@ export default {
         return axiosInstance.post("api/user", {cancelToken: cancelToken}).then(res => {
             return res.data;
         }).catch(handleError);
-    }
+    },
+    editAboutMe: (aboutMe: any, cancelToken: CancelToken) => {
+        return axiosInstance.put("api/user/about-me", aboutMe, {cancelToken: cancelToken}).then(res => {
+            return res.data;
+        }).catch(handleError);
+    },
+
 };

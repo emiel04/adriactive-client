@@ -13,6 +13,7 @@ function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [user, setUser] = useState<TUser>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,7 +35,7 @@ function ProfilePage() {
         return () => {
             evReq.cancel();
         }
-    }, [])
+    }, [isLoading])
 
     function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
@@ -50,7 +51,7 @@ function ProfilePage() {
 
     function renderUser(user: TUser | undefined) {
         return user ? (
-                <UserBlock user={user}></UserBlock>
+                <UserBlock user={user} isEditing={isEditing} setIsEditingFalse={() => setIsEditing(false)} refreshUser={() => setIsLoading(true)}></UserBlock>
             )
             : (
                 <div>
@@ -60,11 +61,15 @@ function ProfilePage() {
 
     }
 
+    const handleEditClick = () => {
+        setIsEditing(prevIsEditing => !prevIsEditing);
+    };
+
     return <div className={"loading"}>
         {isLoading ? (
             <p>Loading...</p>
         ) : <div className="profile-page">
-            <button className="buttons edit-button">Edit</button>
+            <button className="buttons edit-button" onClick={handleEditClick}>{isEditing ? 'Cancel' : 'Edit'}</button>
             <div className="profile-info">
                 <div className="profile-picture">
                     <AccountCircleIcon></AccountCircleIcon>

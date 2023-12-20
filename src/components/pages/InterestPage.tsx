@@ -7,6 +7,7 @@ import {useNavigate} from "react-router";
 import {useSearchParams} from "react-router-dom";
 import apiUser from "../../services/api-user.ts";
 import {TCategory} from "../common/category.tsx";
+import toast from "react-hot-toast";
 
 export default function InterestPage() {
     const [interests, setInterests] = useState<TCategory[]>([]);
@@ -57,14 +58,17 @@ export default function InterestPage() {
                 </div>
 
                 {!isEditing && (
-                    <Button type="submit" className="skip-button"
-                            onClick={() => navigate('/app/home')}>Skip</Button>
+                    <Button className="skip-button"
+                            onClick={() => {
+                                toast.success('Skipped adding interest, add these in the future!');
+                                navigate('/app/home')
+                            }}>Skip</Button>
                 )
                 }
 
                 {selectedInterests.length >= minInterestsSelected && (
                     <Button type="submit"
-                            onClick={() => navigate('/app/home')}>Save</Button>
+                            >Save</Button>
                 )
                 }
             </div>
@@ -75,16 +79,30 @@ export default function InterestPage() {
 
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
-        apiInt.addInterests(selectedInterests, evReq.token).then(r => console.log(r));
+        handleAddInterest();
+        navigate('/app/profile');
+    }
 
-        navigate('/app/home');
+    function handleAddInterest() {
+        const editReq = toast.promise(addInterest(), {
+            loading: "Adding interest...",
+            success: "Successfully added interests!",
+            error: "Error adding interest, try again later. If the issue persists contact support."
+        }).catch(err => console.log(err));
+        editReq.then((res) => {
+            console.log(res);
+        });
+    }
+
+    async function addInterest() {
+        return await apiInt.addInterests(selectedInterests.map(e => e.categoryId), evReq.token);
     }
 
     function handleInterestClick(interest: TCategory) {
-        const isAlreadySelected = selectedInterests.includes(interest);
+        const isAlreadySelected = selectedInterests.some((selectedInterest) => selectedInterest.categoryId === interest.categoryId);
 
         const updatedInterests = isAlreadySelected
-            ? selectedInterests.filter((selectedInterest) => selectedInterest !== interest)
+            ? selectedInterests.filter((selectedInterest) => selectedInterest.categoryId !== interest.categoryId)
             : [...selectedInterests, interest];
 
         setSelectedInterests(updatedInterests);
