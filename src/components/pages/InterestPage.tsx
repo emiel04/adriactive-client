@@ -59,7 +59,10 @@ export default function InterestPage() {
 
                 {!isEditing && (
                     <Button className="skip-button"
-                            onClick={() => navigate('/app/home')}>Skip</Button>
+                            onClick={() => {
+                                toast.success('Skipped adding interest, add these in the future!');
+                                navigate('/app/home')
+                            }}>Skip</Button>
                 )
                 }
 
