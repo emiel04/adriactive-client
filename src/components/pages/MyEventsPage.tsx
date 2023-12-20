@@ -18,6 +18,7 @@ function MyEventsPage() {
     const [isNoCreated, setIsNoCreated] = useState<boolean>(true);
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApi.getOngoingEvents(evReq.token).then(dataOngoing => {
@@ -49,7 +50,6 @@ function MyEventsPage() {
             setIsNoCreated(false);
             setIsLoading(false);
         })
-
         return () => {
             evReq.cancel();
         }

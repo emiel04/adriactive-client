@@ -8,10 +8,8 @@ export default {
         }).catch(error => handleError(error));
     },
     getAdria: async (cancelToken: CancelToken) => {
-        try {
-            return (await axiosInstance.get("api/adria", {cancelToken: cancelToken})).data;
-        } catch (e) {
-            handleError(e);
-        }
+        return axiosInstance.get("api/adria", {cancelToken: cancelToken}).then(res => {
+            return res.data
+        }).catch(error => handleError(error));
     },
 };

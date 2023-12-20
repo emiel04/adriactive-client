@@ -13,10 +13,11 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/TWorldSector.tsx";
 import {useSearchParams} from "react-router-dom";
 import dayjs, {Dayjs} from 'dayjs';
-import {Calendar} from 'primereact/calendar';
-import {PrimeReactProvider} from 'primereact/api';
+import { Calendar } from 'primereact/calendar';
+import { PrimeReactProvider } from 'primereact/api';
 import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
+import {EventData} from "../common/events.tsx";
 
 
 export default function CreateEventPage() {
@@ -74,8 +75,7 @@ export default function CreateEventPage() {
                 setDate(dayjs(event.startDateTime));
                 setHours(event.hours);
             })
-            .catch(() => {
-            });
+            .catch(() => {});
     }
 
 
@@ -90,25 +90,24 @@ export default function CreateEventPage() {
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
 
-        const eventData = {
+        const eventData: EventData = {
             "name": eventName,
             "description": description,
             "amountOfPeople": numberOfPeople,
-            "categoryId": category?.categoryId,
-            "sectorId": loadSector?.id,
-            "startDateTime": date?.valueOf(),
+            "categoryId": category?.categoryId || 0,
+            "sectorId": loadSector?.id || 0,
+            "startDateTime": date?.valueOf() || 0,
             "hours": hours,
         };
         if (isEditing) {
             handleEdit(eventData);
         } else {
-            console.log("test");
             handleCreate(eventData);
         }
         navigate('/app/events');
     }
 
-    function handleEdit(eventData: any) {
+    function handleEdit(eventData: EventData) {
         const editReq = toast.promise(editEvent(eventData), {
             loading: "Editing event...",
             success: "Successfully edited event!",
@@ -119,7 +118,7 @@ export default function CreateEventPage() {
         });
     }
 
-    function handleCreate(eventData: any) {
+    function handleCreate(eventData: EventData) {
         const createReq = toast.promise(createEvent(eventData), {
             loading: "Creating event...",
             success: "Successfully created event!",
@@ -129,25 +128,24 @@ export default function CreateEventPage() {
             console.log(res);
         });
     }
-
-    async function editEvent(eventData: any) {
+    async function editEvent(eventData: EventData) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
         return await evApiEvents.editEvent(eventId, eventData, evReq.token);
     }
 
-    async function createEvent(eventData: any) {
+    async function createEvent(eventData: EventData) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         return await evApiEvents.createEvent(eventData, evReq.token);
     }
 
     return (
         <PrimeReactProvider>
-            <form className="form-group" onSubmit={handleSubmit}>
-                <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
-                <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
-                <label>Event Name</label>
-                <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
+        <form className="form-group" onSubmit={handleSubmit}>
+            <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
+            <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
+            <label>Event Name</label>
+            <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
                    required
                    value={eventName}
             />
@@ -209,7 +207,7 @@ export default function CreateEventPage() {
                     valueLabelDisplay="auto"
                     aria-required={true}
                 />
-            <Button type="submit" className={"buttons"}>{isEditing ? 'Save' : 'Create'}</Button>
+            <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
         </form>
         </PrimeReactProvider>
     );
