@@ -35,7 +35,7 @@ function ProfilePage() {
         return () => {
             evReq.cancel();
         }
-    }, [])
+    }, [isLoading])
 
     function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
@@ -51,7 +51,7 @@ function ProfilePage() {
 
     function renderUser(user: TUser | undefined) {
         return user ? (
-                <UserBlock user={user} isEditing={isEditing} setIsEditingFalse={() => setIsEditing(false)}></UserBlock>
+                <UserBlock user={user} isEditing={isEditing} setIsEditingFalse={() => setIsEditing(false)} refreshUser={() => setIsLoading(true)}></UserBlock>
             )
             : (
                 <div>
@@ -69,7 +69,7 @@ function ProfilePage() {
         {isLoading ? (
             <p>Loading...</p>
         ) : <div className="profile-page">
-            <button className="buttons edit-button" onClick={handleEditClick}>Edit</button>
+            <button className="buttons edit-button" onClick={handleEditClick}>{isEditing ? 'Cancel' : 'Edit'}</button>
             <div className="profile-info">
                 <div className="profile-picture">
                     <AccountCircleIcon></AccountCircleIcon>

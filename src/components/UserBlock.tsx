@@ -10,6 +10,7 @@ type TUserBlockProps = {
     user: TUser;
     isEditing: boolean;
     setIsEditingFalse: () => void;
+    refreshUser: () => void;
 }
 
 export default function UserBlock(prop: TUserBlockProps) {
@@ -29,9 +30,9 @@ export default function UserBlock(prop: TUserBlockProps) {
 
     function handleEditAboutMe() {
         const editReq = toast.promise(editAboutMe(), {
-            loading: "Changing aboutme...",
-            success: "Successfully changed aboutme!",
-            error: "Error changing aboutme, try again later. If the issue persists contact support."
+            loading: "Changing about-me...",
+            success: "Successfully changed about-me!",
+            error: "Error changing about-me, try again later. If the issue persists contact support."
         }).catch(err => console.log(err));
         editReq.then((res) => {
             console.log(res);
@@ -49,5 +50,6 @@ export default function UserBlock(prop: TUserBlockProps) {
         event.preventDefault();
         handleEditAboutMe();
         prop.setIsEditingFalse();
+        prop.refreshUser();
     }
 }
