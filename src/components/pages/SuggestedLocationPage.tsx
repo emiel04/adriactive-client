@@ -50,8 +50,6 @@ export default function SuggestedLocationPage() {
         const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
 
         const markerLocation = coordConverter(suggestedLocation.coordinate.x, suggestedLocation.coordinate.y);
-        console.log(markerLocation)
-        const rect = drawRectangle(mapObject, markerLocation, 100, 100, "rgba(245, 40, 145, 0.19)");
         const marker = drawMarker(mapObject, markerLocation);
 
         console.log(marker)
