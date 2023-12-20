@@ -90,7 +90,9 @@ export default function InterestPage({setHasSelectedInterests}: InterestPageProp
         if (setHasSelectedInterests) {
             setHasSelectedInterests();
         }
-        navigate('/app/profile');
+        if (isEditing) {
+            navigate('/app/profile');
+        }
     }
 
     function handleAddInterest() {
