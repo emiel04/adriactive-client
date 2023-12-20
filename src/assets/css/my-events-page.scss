@@ -44,7 +44,7 @@
   }
 
   #created-events {
-    overflow: auto;
+    max-height: 50%;
     box-sizing: border-box;
     padding: 0 $gap;
 

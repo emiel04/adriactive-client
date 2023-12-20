@@ -30,6 +30,7 @@ export default function HomePage() {
 
     return <div className={"homepage"}>
         <CategoryBar filters={filters} setFilters={setFilters}></CategoryBar>
+
         <div className={"events"}>
             {isLoading ? (
                 <p>Loading...</p>

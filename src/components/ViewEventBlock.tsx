@@ -33,7 +33,7 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                         <h2>{prop.event.name}</h2>
                         <ul>
                             <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
-                            <li><LocationOnIcon/>{getSectorName(prop.event.sector)}</li>
+                            <li><LocationOnIcon/>{getSectorName(prop.event.sector.id)}</li>
                             <li><CheckCircleIcon/>{prop.event.amountOfPeople}</li>
                             <li>{prop.event.description}</li>
                         </ul>

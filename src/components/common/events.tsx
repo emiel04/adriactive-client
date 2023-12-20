@@ -1,5 +1,6 @@
 import {TCategory} from "./category.tsx";
 import {TUser} from "./user.tsx";
+import {TSector} from "./TWorldSector.tsx";
 
 export type TEvent = {
     id: number;
@@ -7,8 +8,7 @@ export type TEvent = {
     eventType: string;
     category: TCategory;
     organiser: TUser;
-    amountOfPeople: TAmountOfPeople;
-    sector: number;
+    amountOfPeople: number;
+    sector: TSector;
     description: string;
 }
-export type TAmountOfPeople = [number, number]

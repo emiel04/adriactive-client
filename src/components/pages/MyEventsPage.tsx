@@ -6,6 +6,7 @@ import EventBlock from "../EventBlock.tsx";
 import {useNavigate} from "react-router";
 import "../../assets/css/my-events-page.css"
 import "../../assets/css/events.css"
+import Button from "@mui/joy/Button";
 
 function MyEventsPage() {
     const [ongoingEvents, setOngoingEvents] = useState<TEvent[]>([]);
@@ -84,8 +85,8 @@ function MyEventsPage() {
                                 {isNoUpcoming ? (
                                     <p>There are no upcoming events!</p>
                                 ) : null}
-                                {renderEvents(upcomingEvents)}
                             </div>
+                            {renderEvents(upcomingEvents)}
                         </div>
                     </div>
                 </div>
@@ -96,10 +97,10 @@ function MyEventsPage() {
                             {isNoCreated ? (
                                 <p>You have not created an event yet!</p>
                             ) : null}
-                            {renderEvents(createdEvents)}
                         </div>
+                        {renderEvents(createdEvents)}
                     </div>
-                    <a href={"/app/event/create"}>Create Event</a>
+                    <Button onClick={() => navigate('/app/event/create')}>Create Event</Button>
                 </div>
             </div>}
     </div>
