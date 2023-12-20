@@ -1,7 +1,7 @@
 @use "var";
 
 $block-border-radius: 12px;
-$block-aspect-ratio: 8/4;
+$block-aspect-ratio: calc(8 / 4);
 
 .event-view-container {
   display: flex;
