@@ -1,5 +1,5 @@
 import {TCategory} from "./common/category";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import catApi from "../services/api-catergory";
 
@@ -41,7 +41,7 @@ export default function CategoryBar({filters, setFilters} : {filters: Set<number
             <ul>
                 {categories.map((c) => (
                     <li key={c.name}>
-                        <button className={`capitalize ${filters.has(c.categoryId) ? 'pressed' : ""}`} onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
+                        <button className={`buttons capitalize ${filters.has(c.categoryId) ? 'pressed' : ""}`} onClick={(e) => handleFilterClick(e, c.categoryId)}>{c.name}</button>
                     </li>
                 ))}
             </ul>

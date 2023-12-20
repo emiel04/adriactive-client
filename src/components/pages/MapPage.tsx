@@ -35,7 +35,9 @@ function createMapObject(center: Array<number>) {
 function MapPage() {
     const mapDiv = useRef(null);
     const ws = useWebSocket();
+    // @ts-ignore
     const dangerZoneLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
+    // @ts-ignore
     const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     useEffect(() => {
         const center: Coordinate = getAdriaMiddle();

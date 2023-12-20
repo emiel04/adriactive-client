@@ -67,9 +67,9 @@ function MyEventsPage() {
                             <h2>Ongoing Events</h2>
                         </div>
                         <div className={"horizontal"}>
-                            <div className={"error"}>
+                            <div>
                                 {isNoOngoing ? (
-                                    <p>There are no ongoing events!</p>
+                                    <p className={"error"}>There are no ongoing events!</p>
                                 ) : null}
                                 {renderEvents(ongoingEvents)}
                             </div>
@@ -81,9 +81,9 @@ function MyEventsPage() {
                             <h2>Upcoming Events</h2>
                         </div>
                         <div className={"horizontal"}>
-                            <div className={"error"}>
+                            <div>
                                 {isNoUpcoming ? (
-                                    <p>There are no upcoming events!</p>
+                                    <p className={"error"}>There are no upcoming events!</p>
                                 ) : null}
                             </div>
                             {renderEvents(upcomingEvents)}
@@ -93,9 +93,9 @@ function MyEventsPage() {
                 <div id={"created-events"}>
                     <h2>Created Events</h2>
                     <div className={"event-container"}>
-                        <div className={"error"}>
+                        <div>
                             {isNoCreated ? (
-                                <p>You have not created an event yet!</p>
+                                <p className={"error"}>You have not created an event yet!</p>
                             ) : null}
                         </div>
                         {renderEvents(createdEvents)}
