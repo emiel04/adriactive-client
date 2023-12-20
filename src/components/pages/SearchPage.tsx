@@ -69,10 +69,10 @@ function SearchPage() {
         };
     }, []);
 
-    const handleInputChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleInputChange = (event) => {
         setSearchTerm(event.target.value);
+
+        renderEvents(events, searchTerm);
     };
 
     const renderOptionsCategories = () => {
@@ -90,7 +90,7 @@ function SearchPage() {
         e.target.selected;
         setSelectedCategory(e.target.innerText);
 
-        renderEvents(events, searchTerm)
+        renderEvents(events, searchTerm);
     }
 
     const renderOptionsSectors = () => {
@@ -105,13 +105,12 @@ function SearchPage() {
     };
 
     const filterSectors = (e) => {
-        console.log(e);
         e.target.selected = e.target.innerText;
 
 
         setSelectedSector(e.target.innerText);
 
-        renderEvents(events, searchTerm)
+        renderEvents(events, searchTerm);
     }
 
     const renderOptionsAmountOfPeople = () => {
@@ -130,7 +129,7 @@ function SearchPage() {
         e.target.selected;
         setSelectedAmountOfPeople(e.target.innerText);
 
-        renderEvents(events, searchTerm)
+        renderEvents(events, searchTerm);
     }
 
     return (
@@ -139,8 +138,8 @@ function SearchPage() {
                 <CustomInput
                     placeholder="Search for an event..."
                     id="searchBar"
-                    onChange={handleInputChange}
                     value={searchTerm}
+                    onChange={handleInputChange}
                 >
                 </CustomInput>
                 <CustomSelect
@@ -182,13 +181,13 @@ function SearchPage() {
 
     function renderEvents(events: TEvent[], searchTerm: string) {
         let filteredEvents = events;
-
+        console.log(searchTerm);
         if (searchTerm) {
-            filteredEvents = events.filter((e) =>
+            filteredEvents = events.filter((e) => {
                 e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 e.organiser.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 e.organiser.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-            )
+            })
             ;
         }
 
