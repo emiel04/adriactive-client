@@ -69,6 +69,15 @@ export default function SuggestedLocationPage() {
     }
 
     useEffect(() => {
+        const $root = document.querySelector("#root");
+        if (!$root) return;
+        $root.classList.add("full-dvh");
+        return () => {
+            $root.classList.remove("full-dvh");
+        }
+    }, []);
+
+    useEffect(() => {
         const center: Coordinate = getAdriaMiddle();
         const mapObject = createMapObject(center);
         if (mapDiv.current) {

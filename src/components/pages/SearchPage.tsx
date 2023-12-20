@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
 import catApi from "../../services/api-catergory.ts";
@@ -12,19 +12,20 @@ import {styled} from '@mui/joy/styles';
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import {TCategory} from "../common/category.tsx";
+import Button from "@mui/joy/Button";
 
 const CustomInput = styled(Input)({
     marginTop: '0.5rem',
     marginLeft: '2rem',
     marginRight: '3rem',
     width: "35rem",
-});
+}) as typeof Button;
 
 const CustomSelect = styled(Select)({
     marginTop: '0.5rem',
     marginRight: '3rem',
     width: "15rem",
-});
+}) as typeof Select;
 
 function SearchPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -73,7 +74,7 @@ function SearchPage() {
     }, []);
 
     const handleInputChange = (
-        event
+        event: React.ChangeEvent<HTMLButtonElement>
     ) => {
         setSearchTerm(event.target.value);
         renderEvents(events, searchTerm);
@@ -91,7 +92,7 @@ function SearchPage() {
         return options;
     };
 
-    const filterCategories = (e) => {
+    const filterCategories = (e: any) => {
         e.target.selected;
         setSelectedCategory(e.target.innerText);
 
@@ -109,7 +110,7 @@ function SearchPage() {
         return options;
     };
 
-    const filterSectors = (e) => {
+    const filterSectors = (e: any) => {
         e.target.selected = e.target.innerText;
 
 
@@ -130,7 +131,7 @@ function SearchPage() {
         return options;
     };
 
-    const filterAmountOfPeople = (e) => {
+    const filterAmountOfPeople = (e: any) => {
         e.target.selected;
         setSelectedAmountOfPeople(e.target.innerText);
 
