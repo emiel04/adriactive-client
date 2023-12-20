@@ -1,12 +1,11 @@
 import Button from '@mui/joy/Button';
-import {TSectorLocation} from "../common/TWorldSector.tsx";
+import {TCoordinate, TSectorLocation} from "../common/TWorldSector.tsx";
 import {Coordinate} from "ol/coordinate";
 import * as ol from "ol";
 import {Tile} from "ol/layer";
 import {OSM} from "ol/source";
 import {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router";
-import axios, {CancelToken, CancelTokenSource} from "axios";
 import {TEvent} from "../common/events.tsx";
 import {getAdriaMiddle, getCoordConverter} from "../../helpers/maphelpers/server-location-helper.ts";
 import {drawMarker, drawRectangle, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
@@ -38,7 +37,7 @@ export type SuggestedLocationPageProps = {
 }
 
 
-async function setLocation(eventId: number, coord: Coordinate) {
+async function setLocation(eventId: number, coord: TCoordinate) {
     return await evApi.setEventLocation(eventId, coord);
 }
 

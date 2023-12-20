@@ -1,6 +1,6 @@
 import {CancelToken} from "axios";
 import axiosInstance, {handleError} from "../helpers/axioshelper";
-import {Coordinate} from "ol/coordinate";
+import {TCoordinate} from "../components/common/TWorldSector.tsx";
 
 export default {
     getEvents: (cancelToken: CancelToken) => {
@@ -43,7 +43,7 @@ export default {
             return res.data;
         }).catch(handleError);
     },
-    setEventLocation: (id: number, coord: Coordinate) => {
+    setEventLocation: (id: number, coord: TCoordinate) => {
         return axiosInstance.put(`/api/event/${id}/location`, coord).then(res => {
             return res.data;
         }).catch(handleError);
