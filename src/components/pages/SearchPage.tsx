@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
 import catApi from "../../services/api-catergory.ts";
