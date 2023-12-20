@@ -17,6 +17,7 @@ import { Calendar } from 'primereact/calendar';
 import { PrimeReactProvider } from 'primereact/api';
 import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
+import {EventData} from "../common/events.tsx";
 
 
 export default function CreateEventPage() {
@@ -89,13 +90,13 @@ export default function CreateEventPage() {
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
 
-        const eventData = {
+        const eventData: EventData = {
             "name": eventName,
             "description": description,
             "amountOfPeople": numberOfPeople,
-            "categoryId": category?.categoryId,
-            "sectorId": loadSector?.id,
-            "startDateTime": date?.valueOf(),
+            "categoryId": category?.categoryId || 0,
+            "sectorId": loadSector?.id || 0,
+            "startDateTime": date?.valueOf() || 0,
             "hours": hours,
         };
         if (isEditing) {
@@ -107,7 +108,7 @@ export default function CreateEventPage() {
         navigate('/app/events');
     }
 
-    function handleEdit(eventData: any) {
+    function handleEdit(eventData: EventData) {
         const editReq = toast.promise(editEvent(eventData), {
             loading: "Editing event...",
             success: "Successfully edited event!",
@@ -118,7 +119,7 @@ export default function CreateEventPage() {
         });
     }
 
-    function handleCreate(eventData: any) {
+    function handleCreate(eventData: EventData) {
         const createReq = toast.promise(createEvent(eventData), {
             loading: "Creating event...",
             success: "Successfully created event!",
@@ -128,13 +129,13 @@ export default function CreateEventPage() {
             console.log(res);
         });
     }
-    async function editEvent(eventData: any) {
+    async function editEvent(eventData: EventData) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
         return await evApiEvents.editEvent(eventId, eventData, evReq.token);
     }
 
-    async function createEvent(eventData: any) {
+    async function createEvent(eventData: EventData) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         return await evApiEvents.createEvent(eventData, evReq.token);
     }
