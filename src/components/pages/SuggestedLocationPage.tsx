@@ -1,13 +1,14 @@
 import Button from '@mui/joy/Button';
 import {TCoordinate, TSectorLocation} from "../common/TWorldSector.tsx";
 import {Coordinate} from "ol/coordinate";
-import * as ol from "ol";
-import {Tile} from "ol/layer";
-import {OSM} from "ol/source";
 import {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router";
 import {TEvent} from "../common/events.tsx";
-import {getAdriaMiddle, getCoordConverter} from "../../helpers/maphelpers/server-location-helper.ts";
+import {
+    createMapObject,
+    getAdriaMiddle,
+    getCoordConverter
+} from "../../helpers/maphelpers/server-location-helper.ts";
 import {drawMarker, drawRectangle, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
 import "../../assets/css/suggested-notification.scss"
 import PersonIcon from "@mui/icons-material/Person";
@@ -15,21 +16,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import getSectorName from "../../helpers/sectorhelper.ts";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import evApi from "../../services/api-events.ts";
-
-function createMapObject(center: Array<number>) {
-    return new ol.Map({
-        layers: [
-            new Tile({
-                source: new OSM()
-            })
-        ],
-        view: new ol.View({
-            center: center,
-            zoom: 15,
-        }),
-        controls: []
-    });
-}
 
 export type SuggestedLocationPageProps = {
     suggestedLocation: TSectorLocation,
@@ -79,7 +65,7 @@ export default function SuggestedLocationPage() {
 
     useEffect(() => {
         const center: Coordinate = getAdriaMiddle();
-        const mapObject = createMapObject(center);
+        const mapObject = createMapObject(center, 16);
         if (mapDiv.current) {
             mapObject.setTarget(mapDiv.current);
         }
