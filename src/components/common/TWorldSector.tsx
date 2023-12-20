@@ -22,3 +22,7 @@ export type TSector = {
     id: number;
     name: string;
 }
+export type TSectorLocation = {
+    sector: TSector;
+    coordinate: TCoordinate;
+}

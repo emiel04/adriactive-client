@@ -1,4 +1,4 @@
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import Navbar from "./components/common/navbar";
 import HomePage from "./components/pages/HomePage";
 import "./assets/css/homepage.css";
@@ -14,9 +14,14 @@ import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
+import SuggestedLocationPage, {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
+import {WebsocketEvent} from "./components/common/websocketevent.ts";
+import {TSectorLocation} from "./components/common/TWorldSector.tsx";
+import {TEvent} from "./components/common/events.tsx";
 
 function AdriActive() {
     const ws = useWebSocket();
+    const navigate = useNavigate();
     useEffect(() => {
         const listenerId = ws.addUnicastListener(handleMessage);
         return () => {
@@ -29,8 +34,16 @@ function AdriActive() {
         if (error) {
             console.error(error);
         }
-
-        console.log(message.body);
+        if (message.body.eventType === WebsocketEvent.SUGGESTLOCATION) {
+            const suggestedLocation: TSectorLocation = message.body.suggestedLocation;
+            const event: TEvent = message.body.event;
+            console.log(message.body)
+            const stateData: SuggestedLocationPageProps = {
+                suggestedLocation: suggestedLocation,
+                event: event
+            }
+            navigate("/app/notification/suggested", {state: stateData})
+        }
     }
     return <>
         <Routes>
@@ -44,6 +57,7 @@ function AdriActive() {
             <Route path={"/interests"} element={<InterestPage/>}></Route>
             <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
             <Route path={"/events/view/:id"} element={<ViewEventPage/>}></Route>
+            <Route path="/notification/suggested" element={<SuggestedLocationPage/>}/>
             <Route path={"*"} element={<NotFound/>}></Route>
         </Routes>
         <Navbar></Navbar>

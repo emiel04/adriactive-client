@@ -1,13 +1,15 @@
 import Button from '@mui/joy/Button';
-import {TCoordinate} from "../common/TWorldSector.tsx";
+import {TSectorLocation} from "../common/TWorldSector.tsx";
 import {Coordinate} from "ol/coordinate";
-import {fromLonLat} from "ol/proj";
 import * as ol from "ol";
 import {Tile} from "ol/layer";
 import {OSM} from "ol/source";
 import {useEffect, useRef} from "react";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import axios, {CancelTokenSource} from "axios";
+import {TEvent} from "../common/events.tsx";
+import {getAdriaMiddle, getCoordConverter} from "../../helpers/maphelpers/server-location-helper.ts";
+import {drawMarker, drawRectangle, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
 
 function createMapObject(center: Array<number>) {
     return new ol.Map({
@@ -24,22 +26,38 @@ function createMapObject(center: Array<number>) {
     });
 }
 
-type SuggestedLocationPageProps = {
-    suggestedLocation: TCoordinate
+export type SuggestedLocationPageProps = {
+    suggestedLocation: TSectorLocation,
+    event: TEvent
 }
 
 
-export default function SuggestedLocationPage({suggestedLocation}: SuggestedLocationPageProps) {
+export default function SuggestedLocationPage() {
     const mapDiv = useRef(null);
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const {state} = useLocation()
     const evReq: CancelTokenSource = axios.CancelToken.source();
-
-
+    const suggestedLocation: TSectorLocation = state.suggestedLocation;
+    const event: TEvent = state.event;
     useEffect(() => {
-        const center: Coordinate = fromLonLat([suggestedLocation.x, suggestedLocation.y]);
+        const center: Coordinate = getAdriaMiddle();
         const mapObject = createMapObject(center);
         if (mapDiv.current) {
             mapObject.setTarget(mapDiv.current);
+        }
+        const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
+        const rectExtent = rectFeature.getGeometry()?.getExtent();
+        const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
+
+        const markerLocation = coordConverter(suggestedLocation.coordinate.x, suggestedLocation.coordinate.y);
+        console.log(markerLocation)
+        const rect = drawRectangle(mapObject, markerLocation, 100, 100, "rgba(245, 40, 145, 0.19)");
+        const marker = drawMarker(mapObject, markerLocation);
+
+        console.log(marker)
+        return () => {
+            mapObject.setTarget();
+            mapObject.removeLayer(marker);
         }
     }, [suggestedLocation]);
 

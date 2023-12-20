@@ -1,6 +1,5 @@
 import {useEffect, useRef} from "react";
 import * as ol from "ol";
-import {fromLonLat} from "ol/proj";
 import {OSM, Vector} from "ol/source";
 import {Tile} from "ol/layer";
 import {Polygon} from "ol/geom";
@@ -9,8 +8,11 @@ import {useWebSocket} from "../context/WebSocketContext.tsx";
 import VectorLayer from "ol/layer/Vector";
 import {Coordinate} from "ol/coordinate";
 import {TWorldSector} from "../common/TWorldSector.tsx";
-import {convertServerSectorToClientSector, createCoordConverter} from "../../helpers/maphelpers/serversectorhelper.ts";
-import {drawDangerZones, drawRectangle, drawSectors} from "../../helpers/maphelpers/shape-drawer.ts";
+import {
+    convertServerSectorToClientSector,
+    getAdriaMiddle, getCoordConverter
+} from "../../helpers/maphelpers/server-location-helper.ts";
+import {drawDangerZones, drawRectangle, drawSectors, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
 import api from "../../services/api-world.ts";
 import axios from "axios";
 
@@ -36,15 +38,15 @@ function MapPage() {
     const dangerZoneLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     useEffect(() => {
-        const center: Coordinate = fromLonLat([12.060, 45.0528]);
+        const center: Coordinate = getAdriaMiddle();
         const mapObject = createMapObject(center);
         const adriaCancelSource = axios.CancelToken.source();
         if (mapDiv.current) {
             mapObject.setTarget(mapDiv.current);
         }
-        const rectFeature = drawRectangle(mapObject, center, 5000, 5000, "transparent")
+        const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
         const rectExtent = rectFeature.getGeometry()?.getExtent();
-        const coordConverter = createCoordConverter(rectExtent, 100, 100)
+        const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
 
         function updateSectors(sectors: TWorldSector[]) {
             //remove existing layers
