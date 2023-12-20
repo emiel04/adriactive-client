@@ -77,7 +77,7 @@ export default function InterestPage() {
     </div>
 
 
-    async function handleSubmit(event: { preventDefault: () => void; }) {
+    function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
         handleAddInterest();
         navigate('/app/profile');
