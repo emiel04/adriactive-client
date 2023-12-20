@@ -44,4 +44,8 @@
   gap: 2rem;
 }
 
+#root.full-dvh {
+  height: 100dvh;
+}
+
 /*# sourceMappingURL=suggested-notification.css.map */
