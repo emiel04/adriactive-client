@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import evApi from "../../services/api-events.ts";
 import catApi from "../../services/api-catergory.ts";
-//import secApi from "../../services/api-world.ts";
+import secApi from "../../services/api-world.ts";
 import axios, {CancelTokenSource} from "axios";
 import EventBlock from "../EventBlock.tsx";
 import {TEvent} from "../common/events.tsx";
@@ -27,12 +27,12 @@ const CustomSelect = styled(Select)({
 function SearchPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [categories, setCategories] = useState<TCategory[]>([]);
-    /*const [sectors, setSectors] = useState<TCategory[]>([]);*/
+    const [sectors, setSectors] = useState<TCategory[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [events, setEvents] = useState<TEvent[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-    /*const [selectedSector, setSelectedSector] = useState<string>('all');
-    const [selectedPrice, setSelectedPrice] = useState<string>('all');
+    const [selectedSector, setSelectedSector] = useState<string>('all');
+    /*const [selectedPrice, setSelectedPrice] = useState<string>('all');
     const [selectedAmountOfPeople, setSelectedAmountOfPeople] = useState<string>('all');
 */
     const navigate = useNavigate();
@@ -58,19 +58,17 @@ function SearchPage() {
             setIsLoading(false);
         });
 
-        /*const secReq: CancelTokenSource = axios.CancelToken.source();
+        const secReq: CancelTokenSource = axios.CancelToken.source();
         secApi.getSectors(secReq.token)
             .then(data => {
                 setSectors(data);
                 setIsLoading(false);
             }).catch(() => {
             setIsLoading(false);
-        });*/
+        });
 
         return () => {
             evReq.cancel();
-            //catReq.cancel();
-            //secReq.cancel();
         };
     }, []);
 
@@ -103,15 +101,7 @@ function SearchPage() {
         console.log(selectedCategory);
     };
 
-
-    /*const renderOptionsSector = () => {
-        console.log(sectors);
-        if (!sectors) {
-            return <Option key={"error"} value={"error"}>
-                No sectors found!
-            </Option>
-        }
-
+    const renderOptionsSectors = () => {
         const options = sectors.map((sector) => (
             <Option key={sector.name} value={sector.name}>
                 {sector.name}
@@ -120,7 +110,19 @@ function SearchPage() {
 
         options.unshift(<Option key="all" value={""}>All</Option>);
         return options;
-    };*/
+    };
+
+    const filterSectors = (event: React.ChangeEvent<{ value: string }>) => {
+        console.log("Event:", event);
+        const selected = event.target.value;
+        // Ignore "all" value
+        if (selectedSector === "all") {
+            return;
+        }
+
+        setSelectedSector(selected);
+        console.log(selectedCategory);
+    };
 
     return (
         <>
@@ -134,12 +136,19 @@ function SearchPage() {
                 </CustomInput>
                 <CustomSelect
                     placeholder="Category"
-                    className={"selectBox"}
                     variant="outlined"
                     value={selectedCategory}
                     onChange={(filterCategories as any)}
                 >
                     {renderOptionsCategories()}
+                </CustomSelect>
+                <CustomSelect
+                    placeholder="Sector"
+                    variant="outlined"
+                    value={selectedSector}
+                    onChange={(filterSectors as any)}
+                >
+                    {renderOptionsSectors()}
                 </CustomSelect>
             </div>
             <div className={"homepage"}>
