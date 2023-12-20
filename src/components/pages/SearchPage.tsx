@@ -15,11 +15,14 @@ import {TCategory} from "../common/category.tsx";
 
 const CustomInput = styled(Input)({
     marginTop: '0.5rem',
-    width: "15rem",
+    marginLeft: '2rem',
+    marginRight: '3rem',
+    width: "35rem",
 });
 
 const CustomSelect = styled(Select)({
     marginTop: '0.5rem',
+    marginRight: '3rem',
     width: "15rem",
 });
 
