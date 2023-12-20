@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {AccessTimeFilled} from "@mui/icons-material";
+import {DATE_OPTIONS, TIME_OPTIONS} from "../helpers/datehelper.ts";
 
 
 type TEventBlockProps = {
@@ -26,13 +27,6 @@ export default function EventBlock(prop: TEventBlockProps) {
             });
     }, [prop.event.category.categoryId]);
 
-    const dateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'};
-    const timeOptions: Intl.DateTimeFormatOptions = {
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-    };
-
     return (
         <div onClick={() => navigate(`/app/events/view/${prop.event.id}`)} className="event"
              key={prop.event.id.toString()}>
@@ -44,8 +38,8 @@ export default function EventBlock(prop: TEventBlockProps) {
                 }
                 <li><LocationOnIcon/>{prop.event.sector.name}</li>
                 <li>
-                    <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, dateOptions)}{' | '}
-                    {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, timeOptions)}</li>
+                    <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
+                    {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}</li>
                 {!prop.simple &&
                   <li><CheckCircleIcon/>{4} spots of {prop.event.amountOfPeople} left</li>
                 }

@@ -4,6 +4,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import getSectorName from "../helpers/sectorhelper.ts";
+import {AccessTimeFilled} from "@mui/icons-material";
+import {DATE_OPTIONS, TIME_OPTIONS} from "../helpers/datehelper.ts";
 
 type TViewEventBlockProps = {
     event: TEvent;
@@ -34,6 +36,10 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                         <ul>
                             <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
                             <li><LocationOnIcon/>{getSectorName(prop.event.sector.id)}</li>
+                            <li>
+                                <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
+                                {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}
+                            </li>
                             <li><CheckCircleIcon/>{prop.event.amountOfPeople}</li>
                             <li>{prop.event.description}</li>
                         </ul>
