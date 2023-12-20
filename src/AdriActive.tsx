@@ -17,18 +17,20 @@ import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 
 function AdriActive() {
     const ws = useWebSocket();
-
     useEffect(() => {
-        ws.addListener(handleMessage);
+        const listenerId = ws.addUnicastListener(handleMessage);
         return () => {
-            ws.removeListener(handleMessage);
+            ws.removeUnicastListener(listenerId);
+            ws.cleanUp();
         };
     }, []);
 
-    const handleMessage = (error: Error) => {
+    const handleMessage = (error: Error, message: any) => {
         if (error) {
             console.error(error);
         }
+
+        console.log(message.body);
     }
     return <>
         <Routes>

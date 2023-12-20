@@ -30,7 +30,7 @@
   margin-right: 2rem;
 }
 #my-events #created-events {
-  overflow: auto;
+  max-height: 50%;
   box-sizing: border-box;
   padding: 0 2rem;
 }
