@@ -86,7 +86,7 @@ export default function ViewEventPage() {
     function handleLeave() {
         const leaveReq = toast.promise(leaveEvent(), {
             loading: "Leaving event...",
-            success: "Successfully leaved event!",
+            success: "Successfully left event!",
             error: "Error leaving event, try again later. If the issue persists contact support."
         });
         leaveReq.then((event) => {
