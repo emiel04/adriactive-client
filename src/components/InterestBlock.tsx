@@ -1,10 +1,11 @@
-import {TInterest} from "./common/interest.tsx";
+
 import Checkbox from '@mui/joy/Checkbox';
 import Sheet from '@mui/joy/Sheet';
 import Box from '@mui/joy/Box';
+import {TCategory} from "./common/category.tsx";
 
 type TInterestBlockProps = {
-    interest: TInterest;
+    interest: TCategory;
     onChange: () => void;
     isSelected: boolean;
 }

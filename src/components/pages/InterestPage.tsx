@@ -1,17 +1,17 @@
 import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import apiInt from "../../services/api-interests.ts";
-import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
 import Button from '@mui/joy/Button';
 import {useNavigate} from "react-router";
 import {useSearchParams} from "react-router-dom";
 import apiUser from "../../services/api-user.ts";
+import {TCategory} from "../common/category.tsx";
 
 export default function InterestPage() {
-    const [interests, setInterests] = useState<TInterest[]>([]);
+    const [interests, setInterests] = useState<TCategory[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [selectedInterests, setSelectedInterests] = useState<TInterest[]>([]);
+    const [selectedInterests, setSelectedInterests] = useState<TCategory[]>([]);
     const navigate = useNavigate();
     const evReq: CancelTokenSource = axios.CancelToken.source();
     const [searchParams] = useSearchParams();
@@ -29,24 +29,29 @@ export default function InterestPage() {
 
         return () => {
         }
-    }, [])
+    }, [isEditing])
 
     useEffect(() => {
         const editing = searchParams.get('editing');
         setIsEditing(editing === "true");
-
+        console.log(editing);
+        function preSelectInterests() {
+            apiUser.getUserInterests(evReq.token)
+                .then(interests => {
+                    console.log(interests);
+                    setSelectedInterests(interests);
+                    console.log(selectedInterests);
+                })
+                .catch(() => {});
+        }
         if (isEditing) {
             preSelectInterests();
         }
-    }, [searchParams]);
 
-    function preSelectInterests() {
-        apiUser.getUserInterests(evReq.token)
-            .then(interests => {
-                setSelectedInterests(interests);
-            })
-            .catch(() => {});
-    }
+
+    }, [searchParams, isEditing]);
+
+
 
     return <div className={"loading"}>
             {isLoading ? (
@@ -80,13 +85,12 @@ export default function InterestPage() {
 
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
-        console.log(selectedInterests);
         apiInt.addInterests(selectedInterests, evReq.token).then(r => console.log(r));
 
         navigate('/app/home');
     }
 
-    function handleInterestClick(interest: TInterest) {
+    function handleInterestClick(interest: TCategory) {
         const isAlreadySelected = selectedInterests.includes(interest);
 
         const updatedInterests = isAlreadySelected
@@ -96,11 +100,12 @@ export default function InterestPage() {
         setSelectedInterests(updatedInterests);
     }
 
-    function renderInterests(interests: TInterest[]) {
+    function renderInterests(interests: TCategory[]) {
+        console.log(interests)
         return interests && interests.length > 0 ? (
             interests.map((e) => (
                 <InterestBlock
-                    key={e.id} interest={e}
+                    key={e.categoryId} interest={e}
                     onChange={() => handleInterestClick(e)}
                     isSelected={selectedInterests.includes(e)}
                 ></InterestBlock> //key to order the Block by their id
