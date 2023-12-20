@@ -7,7 +7,6 @@ import {useNavigate} from "react-router";
 import "../../assets/css/my-events-page.css"
 import "../../assets/css/events.css"
 import Button from "@mui/joy/Button";
-import {useWebSocket} from "../context/WebSocketContext.tsx";
 
 function MyEventsPage() {
     const [ongoingEvents, setOngoingEvents] = useState<TEvent[]>([]);
@@ -18,7 +17,6 @@ function MyEventsPage() {
     const [isNoUpcoming, setIsNoUpcoming] = useState<boolean>(true);
     const [isNoCreated, setIsNoCreated] = useState<boolean>(true);
     const navigate = useNavigate();
-    const ws = useWebSocket();
 
 
     useEffect(() => {
