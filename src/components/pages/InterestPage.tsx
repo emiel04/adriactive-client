@@ -26,7 +26,13 @@ export default function InterestPage() {
         }).catch(() => {
             setIsLoading(false);
         });
-
+        apiUser.getUserInterests(evReq.token)
+            .then(interests => {
+                if (!interests) interests = [];
+                setSelectedInterests(interests);
+            })
+            .catch(() => {
+            });
         return () => {
         }
     }, [isEditing])
@@ -34,53 +40,37 @@ export default function InterestPage() {
     useEffect(() => {
         const editing = searchParams.get('editing');
         setIsEditing(editing === "true");
-        console.log(editing);
-        function preSelectInterests() {
-            apiUser.getUserInterests(evReq.token)
-                .then(interests => {
-                    console.log(interests);
-                    setSelectedInterests(interests);
-                    console.log(selectedInterests);
-                })
-                .catch(() => {});
-        }
-        if (isEditing) {
-            preSelectInterests();
-        }
-
-
     }, [searchParams, isEditing]);
 
 
-
     return <div className={"loading"}>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : <form className="form-group" onSubmit={handleSubmit}>
-                    <div className="interests-page">
-                        <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
-                        {isEditing ? (
-                                <h3>Select at least 3 categories</h3>
-                            ) : <h3>Select at least 3 categories or skip and finish later</h3>}
-                        <div className="interests-grid">
-                            {renderInterests(interests)}
-                        </div>
+        {isLoading ? (
+            <p>Loading...</p>
+        ) : <form className="form-group" onSubmit={handleSubmit}>
+            <div className="interests-page">
+                <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
+                {isEditing ? (
+                    <h3>Select at least 3 categories</h3>
+                ) : <h3>Select at least 3 categories or skip and finish later</h3>}
+                <div className="interests-grid">
+                    {renderInterests(interests)}
+                </div>
 
-                        {!isEditing && (
-                            <Button type="submit" className="skip-button"
-                                    onClick={() => navigate('/app/home')}>Skip</Button>
-                            )
-                        }
+                {!isEditing && (
+                    <Button type="submit" className="skip-button"
+                            onClick={() => navigate('/app/home')}>Skip</Button>
+                )
+                }
 
-                        {selectedInterests.length >= minInterestsSelected && (
-                            <Button type="submit"
-                                    onClick={() => navigate('/app/home')}>Save</Button>
-                            )
-                        }
-                    </div>
-                </form>
-            }
-        </div>
+                {selectedInterests.length >= minInterestsSelected && (
+                    <Button type="submit"
+                            onClick={() => navigate('/app/home')}>Save</Button>
+                )
+                }
+            </div>
+        </form>
+        }
+    </div>
 
 
     function handleSubmit(event: { preventDefault: () => void; }) {
@@ -101,15 +91,17 @@ export default function InterestPage() {
     }
 
     function renderInterests(interests: TCategory[]) {
-        console.log(interests)
+
         return interests && interests.length > 0 ? (
-            interests.map((e) => (
-                <InterestBlock
-                    key={e.categoryId} interest={e}
-                    onChange={() => handleInterestClick(e)}
-                    isSelected={selectedInterests.includes(e)}
-                ></InterestBlock> //key to order the Block by their id
-            ))
+            interests.map((e) => {
+                return (
+                    <InterestBlock
+                        key={e.categoryId} interest={e}
+                        onChange={() => handleInterestClick(e)}
+                        isSelected={selectedInterests.some(c => e.categoryId === c.categoryId)}
+                    ></InterestBlock> //key to order the Block by their id
+                )
+            })
         ) : (
             <div>
                 <p className={"error"}>No interests found!</p>
