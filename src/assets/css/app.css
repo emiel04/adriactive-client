@@ -1,3 +1,12 @@
+body {
+  background: #f0f0f0;
+  color: #212427;
+}
+
+#root {
+  height: 100dvh;
+}
+
 .navbar {
   position: fixed;
   display: block;
@@ -5,7 +14,10 @@
   right: 0;
   bottom: 0;
   padding: 1rem 1rem;
-  background: white;
+  background: #f0f0f0;
+  color: #212427;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .navbar li {
   display: inline-block;
@@ -14,31 +26,39 @@
 }
 .navbar li a {
   display: inline-block;
-  background: #56C1AE;
+  background: #f0f0f0;
   border-radius: 20px;
   padding: 1rem;
-  color: white;
+  color: #212427;
   text-decoration: none;
   font-weight: bold;
   min-width: 6rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .navbar li a.active {
-  outline: 3px solid #4e766c;
+  outline: 3px solid #757474;
 }
 .navbar li a:hover {
-  background: #77ccbf;
+  background: #d2d5d5;
+}
+.navbar li #navProfile {
+  width: 75px;
+  height: 75px;
 }
 
-button, a {
+.buttons, a {
   font-size: 1em;
   padding: 0.6em;
-  background: #56C1AE;
+  background: #f0f0f0;
   border: none;
   border-radius: 20px;
-  color: white;
+  color: #212427;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-button:hover, a:hover {
-  background: #77ccbf;
+.buttons:hover, a:hover {
+  background: #d2d5d5;
 }
 
 .capitalize {

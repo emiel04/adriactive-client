@@ -1,0 +1,59 @@
+#my-events {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 3rem;
+  box-sizing: border-box;
+  width: 95%;
+  margin: 0 auto;
+  height: 90vh;
+}
+#my-events .horizontal {
+  display: flex;
+  gap: 2rem;
+  overflow-x: scroll;
+  padding-bottom: 1rem;
+}
+#my-events h2 {
+  font-size: 1.75rem;
+  padding: 1.5rem 0 1.5rem;
+}
+#my-events .event-type-header {
+  margin-left: 2rem;
+}
+#my-events #joined-events .event {
+  flex: 0 0 18%;
+}
+#my-events #joined-events .event:first-child {
+  margin-left: 2rem;
+}
+#my-events #joined-events .event:last-child {
+  margin-right: 2rem;
+}
+#my-events #created-events {
+  max-height: 50%;
+  box-sizing: border-box;
+  padding: 0 2rem;
+}
+#my-events #created-events h2 {
+  position: sticky;
+  top: 0;
+  background: #f0f0f0;
+}
+#my-events #created-events div.event-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+#my-events #created-events .event:last-child {
+  margin-bottom: 2rem;
+}
+#my-events .error {
+  color: #ff4444;
+  background-color: #ffebee;
+  border: 1px solid #ff4444;
+  padding: 10px;
+  border-radius: 0.5rem;
+  margin-bottom: 15px;
+}
+
+/*# sourceMappingURL=my-events-page.css.map */

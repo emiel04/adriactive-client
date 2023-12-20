@@ -1,48 +1,52 @@
 import './assets/css/app.css'
 import {Navigate, Route, Routes} from "react-router-dom";
 import AdriActive from "./AdriActive";
-
-import {ReactNode, useEffect, useState} from "react";
-import { v4 as uuidv4 } from 'uuid';
+import {CssVarsProvider} from '@mui/joy/styles';
 import NotFound from "./components/common/404";
+import {PrivateRoute} from "./components/PrivateRoute";
+import theme from "./assets/theme";
+import {WebSocketProvider} from "./components/context/WebSocketContext";
+import {Toaster} from 'react-hot-toast';
 
-
-
-function PrivateRoute({ children } : {children: ReactNode}) {
-
-    const [authenticated, setAuthenticated] = useState(false);
-    //set the adriaId
-    let adriaId = localStorage.getItem("adriaId");
-    if (!adriaId){
-        adriaId = uuidv4();
-        localStorage.setItem("adriaId", adriaId);
-        setAuthenticated(true);
+function checkNotificationPermission() {
+    const permission = localStorage.getItem('notificationPermission');
+    if (permission !== 'granted') {
+        requestNotificationPermission();
     }
-    useEffect(() => {
-        if (localStorage.getItem("adriaId")){
-            setAuthenticated(true);
-        }
-    }, [authenticated])
+}
 
-    return authenticated ? children : <p>Logging in...</p>;
+function requestNotificationPermission() {
+    Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+            localStorage.setItem('notificationPermission', 'granted');
+        }
+    }).catch(error => {
+        console.error('Error in requesting notification permission:', error);
+    });
 }
 
 function App() {
-  return (
-      <>
-          <Routes>
-              <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
-                  <Route path="/app/*" element={
-                      <PrivateRoute>
-                        <AdriActive></AdriActive>
-                      </PrivateRoute>
-                  } />
-              <Route path="*" element={<NotFound/>} />
-          </Routes>
-      </>
-  )
+    checkNotificationPermission();
+    return (
+        <CssVarsProvider theme={theme}>
+            <Routes>
+                <Route path={"/"} element={<Navigate to={"/app"}/>}></Route>
+                <Route path="/app/*" element={
+                    <PrivateRoute>
+                        <WebSocketProvider>
+                            <AdriActive></AdriActive>
+                        </WebSocketProvider>
+
+                    </PrivateRoute>
+                }/>
+                <Route path="*" element={<NotFound/>}/>
+            </Routes>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
+        </CssVarsProvider>
+    )
 }
-
-
 
 export default App

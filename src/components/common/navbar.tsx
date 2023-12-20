@@ -1,8 +1,14 @@
 import {NavLink} from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Navbar() {
     return <nav className={"navbar"}>
         <ul>
+        <li>
+            <NavLink to={"/app/profile"} className={({isActive}) => isActive ? "active" : ""}>
+                <AccountCircleIcon></AccountCircleIcon>
+            </NavLink>
+        </li>
         <li>
             <NavLink to={"/app/home"} className={({isActive}) => isActive ? "active" : ""}>
             Home
@@ -19,7 +25,7 @@ export default function Navbar() {
             </NavLink>
         </li>
         <li>
-            <NavLink to={"/app/myEvents"} className={({isActive}) => isActive ? "active" : ""}>
+            <NavLink to={"/app/events"} className={({isActive}) => isActive ? "active" : ""}>
             Events
             </NavLink>
         </li>
@@ -29,7 +35,7 @@ export default function Navbar() {
             </NavLink>
         </li>
             <li>
-                <NavLink to={"/app/start"} className={({isActive}) => isActive ? "active" : ""}>
+                <NavLink to={"/app/interests"} className={({isActive}) => isActive ? "active" : ""}>
                     Start
                 </NavLink>
             </li>

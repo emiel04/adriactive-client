@@ -1,66 +1,123 @@
 import {TEvent} from "../common/events.tsx";
 import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
-import evApi from "../../services/api-events.ts";
+import evApi from "../../services/api-myEvents.ts";
 import EventBlock from "../EventBlock.tsx";
-function MyEventsPage(){
-    const [events, setEvents] = useState<TEvent[]>([]);
+import {useNavigate} from "react-router";
+import "../../assets/css/my-events-page.css"
+import "../../assets/css/events.css"
+import Button from "@mui/joy/Button";
+
+function MyEventsPage() {
+    const [ongoingEvents, setOngoingEvents] = useState<TEvent[]>([]);
+    const [upcomingEvents, setUpcomingEvents] = useState<TEvent[]>([]);
+    const [createdEvents, setCreatedEvents] = useState<TEvent[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isNoOngoing, setIsNoOngoing] = useState<boolean>(true);
+    const [isNoUpcoming, setIsNoUpcoming] = useState<boolean>(true);
+    const [isNoCreated, setIsNoCreated] = useState<boolean>(true);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
-        evApi.getEvents(evReq.token).then(data => {
-            setEvents(data);
+        evApi.getOngoingEvents(evReq.token).then(dataOngoing => {
+            setOngoingEvents(dataOngoing);
+
+            setIsNoOngoing(Object.keys(dataOngoing).length === 0);
             setIsLoading(false);
         }).catch(() => {
+            setIsNoOngoing(false);
             setIsLoading(false);
         })
 
+        evApi.getUpcomingEvents(evReq.token).then(dataUpcoming => {
+            setUpcomingEvents(dataUpcoming);
+
+            setIsNoUpcoming(Object.keys(dataUpcoming).length === 0);
+            setIsLoading(false);
+        }).catch(() => {
+            setIsNoUpcoming(false);
+            setIsLoading(false);
+        })
+
+        evApi.getCreatedEvents(evReq.token).then(dataCreated => {
+            setCreatedEvents(dataCreated);
+
+            setIsNoCreated(Object.keys(dataCreated).length === 0);
+            setIsLoading(false);
+        }).catch(() => {
+            setIsNoCreated(false);
+            setIsLoading(false);
+        })
         return () => {
             evReq.cancel();
         }
     }, [])
 
 
-    return <>
-        <div id={"myEvents"}>
-            <article id={"joinedEvents"}>
-                <div id={"ongoingEvents"} className={"sideScroll"}>
-                    <div className={'eventTypeHeader'}>
-                        <h1>Ongoing Events</h1>
-                    </div>
-                    <div className={"horizontal"}>
-                        {renderEvents(events)}
-                    </div>
+    return <div className={"loading"}>
+        {isLoading ? (
+                <p>Loading...</p>
+            ) :
+            <div id={"my-events"}>
+                <div id={"joined-events"}>
+                    <div id={"ongoing-events"} className={"sideScroll"}>
+                        <div className={'event-type-header'}>
+                            <h2>Ongoing Events</h2>
+                        </div>
+                        <div className={"horizontal"}>
+                            <div className={"error"}>
+                                {isNoOngoing ? (
+                                    <p>There are no ongoing events!</p>
+                                ) : null}
+                                {renderEvents(ongoingEvents)}
+                            </div>
+                        </div>
 
-                </div>
-                <div id={"upcomingEvents"} className={"sideScroll"}>
-                    <div className={'eventTypeHeader'}>
-                        <h1>Upcoming Events</h1>
                     </div>
-                    <div className={"horizontal"}>
-                        {renderEvents(events)}
+                    <div id={"upcoming-events"} className={"sideScroll"}>
+                        <div className={'event-type-header'}>
+                            <h2>Upcoming Events</h2>
+                        </div>
+                        <div className={"horizontal"}>
+                            <div className={"error"}>
+                                {isNoUpcoming ? (
+                                    <p>There are no upcoming events!</p>
+                                ) : null}
+                            </div>
+                            {renderEvents(upcomingEvents)}
+                        </div>
                     </div>
                 </div>
-            </article>
-            <div id={"createdEvents"}>
-                <h1>Created Events</h1>
-                {renderEvents(events)}
-            </div>
-        </div>
-    </>
+                <div id={"created-events"}>
+                    <h2>Created Events</h2>
+                    <div className={"event-container"}>
+                        <div className={"error"}>
+                            {isNoCreated ? (
+                                <p>You have not created an event yet!</p>
+                            ) : null}
+                        </div>
+                        {renderEvents(createdEvents)}
+                    </div>
+                    <Button onClick={() => navigate('/app/event/create')}>Create Event</Button>
+                </div>
+            </div>}
+    </div>
+
+    function renderEvents(events: TEvent[]) {
+        return <>
+            {
+                events ? (events.map(event => (
+                    <EventBlock event={event} key={event.id} simple={true}
+                                onClick={() => navigate(`app/event/view/${event.id}`)}/>
+                ))) : <p>no events found</p>
+            }
+        </>
+    }
 
 }
 
-function renderEvents(events : TEvent[]){
-    return <>
-        {
-            events ? (events.map(event => (
-                <EventBlock event={event} key={event.id}/>
-            ))) : <p>no events found</p>
-        }
-    </>
-}
 
 export default MyEventsPage;
 
