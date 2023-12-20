@@ -1,5 +1,4 @@
 import Sheet from '@mui/joy/Sheet';
-import Link from '@mui/joy/Link';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Chip from '@mui/joy/Chip';
@@ -28,11 +27,12 @@ function NotificationsPage() {
             >
                 <NotificationsActiveIcon/>
                 <CardContent>
-                    <Typography level="title-lg" id="card-description">
-                        Yosemite Park
+                    <Typography level="title-lg" id="notification-description">
+                        Event cancellation!
                     </Typography>
+                    <Typography level="body-sm">2 minutes ago</Typography>
                     <Chip>
-                        Cool weather all day long
+                        The event: X was canceled
                     </Chip>
                 </CardContent>
             </Card>
