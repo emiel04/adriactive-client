@@ -4,7 +4,7 @@ import {TEvent} from "./common/events";
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import getSectorName from "../helpers/sectorhelper.ts";
+import {AccessTimeFilled} from "@mui/icons-material";
 
 
 type TEventBlockProps = {
@@ -26,15 +26,26 @@ export default function EventBlock(prop: TEventBlockProps) {
             });
     }, [prop.event.category.categoryId]);
 
+    const dateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'};
+    const timeOptions: Intl.DateTimeFormatOptions = {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+    };
+
     return (
-        <div onClick={() => navigate(`/app/events/view/${prop.event.id}`)} className="event" key={prop.event.id.toString()}>
+        <div onClick={() => navigate(`/app/events/view/${prop.event.id}`)} className="event"
+             key={prop.event.id.toString()}>
             <img src={imgSrc} alt={`Category: ${prop.event.name}`}/>
             <p>{prop.event.name}</p>
             <ul>
                 {!prop.simple &&
                   <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
                 }
-                <li><LocationOnIcon/> {getSectorName(prop.event.sector.id)}</li>
+                <li><LocationOnIcon/>{prop.event.sector.name}</li>
+                <li>
+                    <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, dateOptions)}{' | '}
+                    {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, timeOptions)}</li>
                 {!prop.simple &&
                   <li><CheckCircleIcon/>{4} spots of {prop.event.amountOfPeople} left</li>
                 }
