@@ -6,8 +6,6 @@ import * as ol from "ol";
 import {Tile} from "ol/layer";
 import {OSM} from "ol/source";
 import {useEffect, useRef} from "react";
-import {useNavigate} from "react-router";
-import axios, {CancelTokenSource} from "axios";
 
 function createMapObject(center: Array<number>) {
     return new ol.Map({
@@ -31,9 +29,6 @@ type SuggestedLocationPageProps = {
 
 export default function SuggestedLocationPage({suggestedLocation}: SuggestedLocationPageProps) {
     const mapDiv = useRef(null);
-    const navigate = useNavigate();
-    const evReq: CancelTokenSource = axios.CancelToken.source();
-
 
     useEffect(() => {
         const center: Coordinate = fromLonLat([suggestedLocation.x, suggestedLocation.y]);

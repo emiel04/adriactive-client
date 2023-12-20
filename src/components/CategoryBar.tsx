@@ -1,5 +1,5 @@
 import {TCategory} from "./common/category";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import catApi from "../services/api-catergory";
 
