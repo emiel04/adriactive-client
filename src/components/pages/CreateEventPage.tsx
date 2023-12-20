@@ -102,7 +102,6 @@ export default function CreateEventPage() {
         if (isEditing) {
             handleEdit(eventData);
         } else {
-            console.log("test");
             handleCreate(eventData);
         }
         navigate('/app/events');
