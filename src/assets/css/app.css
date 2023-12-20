@@ -4,12 +4,14 @@ body {
 }
 
 #root {
-  height: 100dvh;
+  height: calc(100dvh - 7rem);
+  overflow: auto;
 }
 
 .navbar {
   position: fixed;
-  display: block;
+  display: flex;
+  align-items: center;
   left: 0;
   right: 0;
   bottom: 0;
@@ -18,6 +20,11 @@ body {
   color: #212427;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 5rem;
+}
+.navbar ul {
+  display: flex;
+  align-items: center;
 }
 .navbar li {
   display: inline-block;

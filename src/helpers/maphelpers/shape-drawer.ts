@@ -2,12 +2,13 @@ import * as ol from "ol";
 import {TWorldSector} from "../../components/common/TWorldSector.tsx";
 import VectorLayer from "ol/layer/Vector";
 import {Vector} from "ol/source";
-import {Circle, Polygon} from "ol/geom";
+import {Circle, Point, Polygon} from "ol/geom";
 import {Coordinate} from "ol/coordinate";
 import {ColorLike} from "ol/colorlike";
-import {Fill, Stroke, Style} from "ol/style";
+import {Fill, Icon, Stroke, Style} from "ol/style";
 import {Feature} from "ol";
 import VectorSource from "ol/source/Vector";
+import marker from "../../assets/img/marker-icon.png"
 
 export function drawSectors(map: ol.Map, sectors: TWorldSector[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
     const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
@@ -34,6 +35,10 @@ export function drawDangerZones(map: ol.Map, sectors: TWorldSector[]): VectorLay
         })
     })
     return dangerZoneLayers;
+}
+
+export function getAdriaSize() {
+    return 3000;
 }
 
 export function drawRectangle(mapObject: ol.Map, center: Coordinate, width: number, height: number, color?: ColorLike | string) {
@@ -132,3 +137,25 @@ export function drawCircle(mapObject: ol.Map, center: Coordinate, radius: number
     mapObject.addLayer(layer);
 }
 
+export function drawMarker(mapObject: ol.Map, center: Coordinate) {
+    const markerStyle = new Style({
+        image: new Icon({
+            src: marker,
+            scale: 0.25,
+            anchor: [0.5, 1]
+        })
+    });
+
+    const markerFeature = new Feature({
+        geometry: new Point(center)
+    });
+    markerFeature.setStyle(markerStyle);
+
+    const markerLayer = new VectorLayer({
+        source: new VectorSource({
+            features: [markerFeature]
+        })
+    });
+    mapObject.addLayer(markerLayer);
+    return markerLayer;
+}

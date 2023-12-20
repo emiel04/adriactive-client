@@ -7,6 +7,7 @@ import {PrivateRoute} from "./components/PrivateRoute";
 import theme from "./assets/theme";
 import {WebSocketProvider} from "./components/context/WebSocketContext";
 import {Toaster} from 'react-hot-toast';
+import SuggestedLocationPage from "./components/pages/SuggestedLocationPage.tsx";
 
 function checkNotificationPermission() {
     const permission = localStorage.getItem('notificationPermission');
@@ -39,6 +40,7 @@ function App() {
 
                     </PrivateRoute>
                 }/>
+                <Route path="/notification/suggested" element={<SuggestedLocationPage/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Toaster
