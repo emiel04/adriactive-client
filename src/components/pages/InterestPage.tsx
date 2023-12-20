@@ -9,7 +9,11 @@ import apiUser from "../../services/api-user.ts";
 import {TCategory} from "../common/category.tsx";
 import toast from "react-hot-toast";
 
-export default function InterestPage() {
+interface InterestPageProps {
+    setHasSelectedInterests: (() => void) | null
+}
+
+export default function InterestPage({setHasSelectedInterests}: InterestPageProps) {
     const [interests, setInterests] = useState<TCategory[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [selectedInterests, setSelectedInterests] = useState<TCategory[]>([]);
@@ -61,6 +65,9 @@ export default function InterestPage() {
                     <Button className="skip-button"
                             onClick={() => {
                                 toast.success('Skipped adding interest, add these in the future!');
+                                if (setHasSelectedInterests) {
+                                    setHasSelectedInterests();
+                                }
                                 navigate('/app/home')
                             }}>Skip</Button>
                 )
@@ -68,7 +75,7 @@ export default function InterestPage() {
 
                 {selectedInterests.length >= minInterestsSelected && (
                     <Button type="submit"
-                            >Save</Button>
+                    >Save</Button>
                 )
                 }
             </div>
@@ -80,6 +87,9 @@ export default function InterestPage() {
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
         handleAddInterest();
+        if (setHasSelectedInterests) {
+            setHasSelectedInterests();
+        }
         navigate('/app/profile');
     }
 

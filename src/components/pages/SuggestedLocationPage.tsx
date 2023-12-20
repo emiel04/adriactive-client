@@ -7,7 +7,7 @@ import {OSM} from "ol/source";
 import {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router";
 import {TEvent} from "../common/events.tsx";
-import {getAdriaMiddle, getCoordConverter} from "../../helpers/maphelpers/server-location-helper.ts";
+import {getAdriaExtent, getAdriaMiddle, getCoordConverter} from "../../helpers/maphelpers/server-location-helper.ts";
 import {drawMarker, drawRectangle, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
 import "../../assets/css/suggested-notification.scss"
 import PersonIcon from "@mui/icons-material/Person";
@@ -25,7 +25,8 @@ function createMapObject(center: Array<number>) {
         ],
         view: new ol.View({
             center: center,
-            zoom: 15,
+            zoom: 16,
+            extent: getAdriaExtent()
         }),
         controls: []
     });

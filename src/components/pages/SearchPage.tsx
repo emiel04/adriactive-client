@@ -120,10 +120,10 @@ function SearchPage() {
     }
 
     const renderOptionsAmountOfPeople = () => {
-        const priceRanges = [5, 10, 15, 20, 30, 40, 50, 100, 150, 200, 250, 300, 350, 400, 500];
-        const options = priceRanges.map((priceRange) => (
-            <Option key={priceRange} value={priceRange}>
-                {priceRange}
+        const peopleAmounts = [5, 10, 15, 20, 30, 40, 50, 100, 150, 200, 250, 300, 350, 400, 500];
+        const options = peopleAmounts.map((personAmount) => (
+            <Option key={personAmount} value={personAmount}>
+                {personAmount}
             </Option>
         ));
 
@@ -187,7 +187,6 @@ function SearchPage() {
 
     function renderEvents(events: TEvent[], searchTerm: string) {
         let filteredEvents = events;
-        console.log(searchTerm);
         if (searchTerm) {
             filteredEvents = events.filter((e) =>
                 e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

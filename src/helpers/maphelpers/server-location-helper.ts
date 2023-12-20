@@ -1,10 +1,15 @@
 import {Extent} from "ol/extent";
 import {TCoordinateRange, TWorldSector} from "../../components/common/TWorldSector.tsx";
 import {fromLonLat} from "ol/proj";
+import {Coordinate} from "ol/coordinate";
 
 
-export function getAdriaMiddle() {
+export function getAdriaMiddle(): Coordinate {
     return fromLonLat([12.060, 45.0528]);
+}
+
+export function getAdriaExtent(): Extent {
+    return [1337926.8372697686, 5628069.992844836, 1347099.28066399, 5631605.205403025];
 }
 
 function createCoordConverter(rectBoundingBox: Extent | undefined, serverWidth: number, serverHeight: number): (x: number, y: number) => [number, number] {

@@ -12,7 +12,7 @@ import InterestPage from "./components/pages/InterestPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 import {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
 import {WebsocketEvent} from "./components/common/websocketevent.ts";
@@ -23,6 +23,8 @@ import SearchPage from "./components/pages/SearchPage.tsx";
 function AdriActive() {
     const ws = useWebSocket();
     const navigate = useNavigate();
+    const [hasSelectedInterests, setHasSelectedInterests]
+        = useState(localStorage.getItem("selectedInterests") === "true" || false);
     useEffect(() => {
         const listenerId = ws.addUnicastListener(handleMessage);
         return () => {
@@ -30,6 +32,12 @@ function AdriActive() {
             ws.cleanUp();
         };
     }, []);
+
+    useEffect(() => {
+        if (hasSelectedInterests) {
+            localStorage.setItem("selectedInterests", "true");
+        }
+    }, [hasSelectedInterests]);
 
     const handleMessage = (error: Error, message: any) => {
         if (error) {
@@ -48,17 +56,25 @@ function AdriActive() {
     }
     return <>
         <Routes>
-            <Route path={"/profile"} element={<ProfilePage/>}></Route>
-            <Route path={"/"} element={<Navigate to={"/app/home"}/>}></Route>
-            <Route path={"/home"} element={<HomePage/>}></Route>
-            <Route path={"/search"} element={<SearchPage/>}></Route>
-            <Route path={"/map"} element={<MapPage/>}></Route>
-            <Route path={"/events"} element={<MyEventsPage/>}></Route>
-            <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
-            <Route path={"/interests"} element={<InterestPage/>}></Route>
-            <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
-            <Route path={"/events/view/:id"} element={<ViewEventPage/>}></Route>
-            <Route path={"*"} element={<NotFound/>}></Route>
+            {
+                hasSelectedInterests ?
+                    <>
+                        <Route path={"/profile"} element={<ProfilePage/>}></Route>
+                        <Route path={"/"} element={<Navigate to={"/app/home"}/>}></Route>
+                        <Route path={"/home"} element={<HomePage/>}></Route>
+                        <Route path={"/search"} element={<SearchPage/>}></Route>
+                        <Route path={"/map"} element={<MapPage/>}></Route>
+                        <Route path={"/events"} element={<MyEventsPage/>}></Route>
+                        <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
+                        <Route path={"/interests"} element={<InterestPage setHasSelectedInterests={null}/>}></Route>
+                        <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
+                        <Route path={"/events/view/:id"} element={<ViewEventPage/>}></Route>
+                        <Route path={"*"} element={<NotFound/>}></Route>
+                    </>
+                    : <Route path={"*"} element={<InterestPage
+                        setHasSelectedInterests={() => setHasSelectedInterests(true)}/>}></Route>
+            }
+
         </Routes>
         <Navbar></Navbar>
     </>

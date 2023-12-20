@@ -9,7 +9,7 @@ import VectorLayer from "ol/layer/Vector";
 import {Coordinate} from "ol/coordinate";
 import {TWorldSector} from "../common/TWorldSector.tsx";
 import {
-    convertServerSectorToClientSector,
+    convertServerSectorToClientSector, getAdriaExtent,
     getAdriaMiddle, getCoordConverter
 } from "../../helpers/maphelpers/server-location-helper.ts";
 import {drawDangerZones, drawRectangle, drawSectors, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
@@ -27,6 +27,7 @@ function createMapObject(center: Array<number>) {
         view: new ol.View({
             center: center,
             zoom: 15,
+            extent: getAdriaExtent()
         }),
         controls: []
     });
@@ -89,6 +90,9 @@ function MapPage() {
 
         const messageHandlerId = ws.addBroadcastListener(handleWebSocketMessage)
         fetchSectorsAndDraw();
+
+
+        console.log(mapObject.getView().calculateExtent())
 
         return () => {
             mapObject.setTarget();
