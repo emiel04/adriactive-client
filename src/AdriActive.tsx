@@ -14,7 +14,7 @@ import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
-import SuggestedLocationPage, {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
+import {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
 import {WebsocketEvent} from "./components/common/websocketevent.ts";
 import {TSectorLocation} from "./components/common/TWorldSector.tsx";
 import {TEvent} from "./components/common/events.tsx";
@@ -42,7 +42,7 @@ function AdriActive() {
                 suggestedLocation: suggestedLocation,
                 event: event
             }
-            navigate("/app/notification/suggested", {state: stateData})
+            navigate("/notification/suggested", {state: stateData})
         }
     }
     return <>
@@ -57,7 +57,6 @@ function AdriActive() {
             <Route path={"/interests"} element={<InterestPage/>}></Route>
             <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
             <Route path={"/events/view/:id"} element={<ViewEventPage/>}></Route>
-            <Route path="/notification/suggested" element={<SuggestedLocationPage/>}/>
             <Route path={"*"} element={<NotFound/>}></Route>
         </Routes>
         <Navbar></Navbar>
