@@ -139,6 +139,11 @@ export default function CreateEventPage() {
         return await evApiEvents.createEvent(eventData, evReq.token);
     }
 
+    async function cancelEvent() {
+        await evApiEvents.cancelEvent(eventId);
+        navigate(-2);
+    }
+
     return (
         <PrimeReactProvider>
         <form className="form-group" onSubmit={handleSubmit}>
@@ -208,6 +213,7 @@ export default function CreateEventPage() {
                     aria-required={true}
                 />
             <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
+            <Button onClick={cancelEvent}>Cancel Event</Button>
         </form>
         </PrimeReactProvider>
     );
