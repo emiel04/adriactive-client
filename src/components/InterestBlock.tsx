@@ -5,12 +5,11 @@ import Box from '@mui/joy/Box';
 
 type TInterestBlockProps = {
     interest: TInterest;
-    onClick: () => void;
+    onChange: () => void;
     isSelected: boolean;
 }
 
-export default function InterestBlock(prop: TInterestBlockProps) {
-    console.log(prop.interest)
+export default function InterestBlock({interest, onChange, isSelected}: TInterestBlockProps) {
 
     return <>
         <Box
@@ -23,7 +22,7 @@ export default function InterestBlock(prop: TInterestBlockProps) {
             }}
         >
         <Sheet variant="outlined">
-        <Checkbox overlay label={prop.interest.name}/>
+        <Checkbox overlay label={interest.name} onChange={onChange} checked={isSelected}/>
         </Sheet>
         </Box>
     </>;

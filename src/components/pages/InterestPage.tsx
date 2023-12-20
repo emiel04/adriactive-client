@@ -1,24 +1,26 @@
 import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
-import api from "../../services/api-interests.ts";
+import apiInt from "../../services/api-interests.ts";
 import {TInterest} from "../common/interest.tsx";
 import InterestBlock from "../InterestBlock.tsx";
 import Button from '@mui/joy/Button';
 import {useNavigate} from "react-router";
 import {useSearchParams} from "react-router-dom";
+import apiUser from "../../services/api-user.ts";
 
 export default function InterestPage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
+    const [selectedInterests, setSelectedInterests] = useState<TInterest[]>([]);
     const navigate = useNavigate();
     const evReq: CancelTokenSource = axios.CancelToken.source();
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const minInterestsSelected = 3;
 
     useEffect(() => {
 
-        api.getInterests(evReq.token).then(data => {
+        apiInt.getInterests(evReq.token).then(data => {
             setInterests(data);
             setIsLoading(false);
         }).catch(() => {
@@ -26,14 +28,25 @@ export default function InterestPage() {
         });
 
         return () => {
-            evReq.cancel();
         }
     }, [])
 
     useEffect(() => {
         const editing = searchParams.get('editing');
-        setIsEditing(editing === "true")
+        setIsEditing(editing === "true");
+
+        if (isEditing) {
+            preSelectInterests();
+        }
     }, [searchParams]);
+
+    function preSelectInterests() {
+        apiUser.getUserInterests(evReq.token)
+            .then(interests => {
+                setSelectedInterests(interests);
+            })
+            .catch(() => {});
+    }
 
     return <div className={"loading"}>
             {isLoading ? (
@@ -41,12 +54,24 @@ export default function InterestPage() {
             ) : <form className="form-group" onSubmit={handleSubmit}>
                     <div className="interests-page">
                         <h2>{isEditing ? 'Change Interests' : 'Select Interests'}</h2>
-                        <h3>{isEditing ? '' : 'Select at least 3 categories or skip and finish later'}</h3>
+                        {isEditing ? (
+                                <h3>Select at least 3 categories</h3>
+                            ) : <h3>Select at least 3 categories or skip and finish later</h3>}
                         <div className="interests-grid">
                             {renderInterests(interests)}
                         </div>
-                        <Button type="submit" className="skip-button"
-                                onClick={() => navigate('/app/home')}>{isEditing ? 'Save' : 'Skip'}</Button>
+
+                        {!isEditing && (
+                            <Button type="submit" className="skip-button"
+                                    onClick={() => navigate('/app/home')}>Skip</Button>
+                            )
+                        }
+
+                        {selectedInterests.length >= minInterestsSelected && (
+                            <Button type="submit"
+                                    onClick={() => navigate('/app/home')}>Save</Button>
+                            )
+                        }
                     </div>
                 </form>
             }
@@ -56,19 +81,19 @@ export default function InterestPage() {
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
         console.log(selectedInterests);
-        api.addInterests(selectedInterests, evReq.token).then(r => console.log(r));
+        apiInt.addInterests(selectedInterests, evReq.token).then(r => console.log(r));
 
         navigate('/app/home');
     }
 
-    function handleInterestClick(interestId: number) {
-        setSelectedInterests(prevSelected => {
-            if (prevSelected.includes(interestId)) {
-                return prevSelected.filter(id => id !== interestId);
-            } else {
-                return [...prevSelected, interestId];
-            }
-        });
+    function handleInterestClick(interest: TInterest) {
+        const isAlreadySelected = selectedInterests.includes(interest);
+
+        const updatedInterests = isAlreadySelected
+            ? selectedInterests.filter((selectedInterest) => selectedInterest !== interest)
+            : [...selectedInterests, interest];
+
+        setSelectedInterests(updatedInterests);
     }
 
     function renderInterests(interests: TInterest[]) {
@@ -76,8 +101,8 @@ export default function InterestPage() {
             interests.map((e) => (
                 <InterestBlock
                     key={e.id} interest={e}
-                    onClick={() => handleInterestClick(e.id)}
-                    isSelected={selectedInterests.includes(e.id)}
+                    onChange={() => handleInterestClick(e)}
+                    isSelected={selectedInterests.includes(e)}
                 ></InterestBlock> //key to order the Block by their id
             ))
         ) : (
