@@ -19,6 +19,7 @@ import {WebsocketEvent} from "./components/common/websocketevent.ts";
 import {TSectorLocation} from "./components/common/TWorldSector.tsx";
 import {TEvent} from "./components/common/events.tsx";
 import SearchPage from "./components/pages/SearchPage.tsx";
+import NotificationsPage from "./components/pages/NotificationsPage.tsx";
 
 function AdriActive() {
     const ws = useWebSocket();
@@ -65,7 +66,7 @@ function AdriActive() {
                         <Route path={"/search"} element={<SearchPage/>}></Route>
                         <Route path={"/map"} element={<MapPage/>}></Route>
                         <Route path={"/events"} element={<MyEventsPage/>}></Route>
-                        <Route path={"/notifications"} element={<p>Notifications</p>}></Route>
+                        <Route path={"/notifications"} element={<NotificationsPage/>}></Route>
                         <Route path={"/interests"} element={<InterestPage setHasSelectedInterests={null}/>}></Route>
                         <Route path={"/event/create"} element={<CreateEventPage/>}></Route>
                         <Route path={"/events/view/:id"} element={<ViewEventPage/>}></Route>
