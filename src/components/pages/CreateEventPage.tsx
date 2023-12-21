@@ -198,12 +198,14 @@ export default function CreateEventPage() {
                     aria-required={true}
                 />
 
-                <label>StartDate</label>
+                <label>When</label><br/>
                 <Calendar id="calendar-24h"
                           value={date?.toDate()}
                           onChange={(e) => setDate(dayjs(e.value))}
+                          readOnlyInput
                           showTime hourFormat="24"/>
-                <label>Hours</label>
+                <br/>
+                <label>Expected duration</label>
                 <Slider
                     aria-label="Hours"
                     step={1}
