@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import noApi from "../../services/api-notifications.ts";
 import axios, {CancelTokenSource} from "axios/index";
 import {TNotification} from "../common/notification.tsx";
+import NotificationBlock from "../NotificationBlock.tsx";
 
 function NotificationsPage() {
     const navigate = useNavigate();
@@ -28,28 +29,21 @@ function NotificationsPage() {
 
     return (
         <Sheet variant="outlined" color="neutral" sx={{ p: 4 }}>
-            <Card
-                onClick={() => navigate(`/event/view/${e.id}`)} //TODO: link notification to event
-                variant="outlined"
-                orientation="horizontal"
-                sx={{
-                    width: 320,
-                    '&:hover': { boxShadow: 'md', borderColor: 'neutral.outlinedHoverBorder' },
-                }}
-            >
-                <NotificationsActiveIcon/>
-                <CardContent>
-                    <Typography level="title-lg" id="notification-description">
-                        Event cancellation!
-                    </Typography>
-                    <Typography level="body-sm">2 minutes ago</Typography>
-                    <Chip>
-                        The event: X was canceled
-                    </Chip>
-                </CardContent>
-            </Card>
+            {renderNotifications(notifications)}
         </Sheet>
     );
+
+    function renderNotifications(notifications: TNotification[]) {
+        return notifications && notifications.length > 0 ? (
+            notifications.map(n => {
+                <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/event/view/${n.id}`)}></NotificationBlock>
+            })
+    ) : (
+            <div>
+                <p className={"error"}>No notifications found!</p>
+            </div>
+        )
+    }
 }
 
 export default NotificationsPage;
