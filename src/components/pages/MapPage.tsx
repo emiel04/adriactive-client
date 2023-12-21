@@ -1,7 +1,6 @@
 import {useEffect, useRef} from "react";
 import * as ol from "ol";
-import {OSM, Vector} from "ol/source";
-import {Tile} from "ol/layer";
+import {Vector} from "ol/source";
 import {Polygon} from "ol/geom";
 import "../../assets/css/map.css"
 import {useWebSocket} from "../context/WebSocketContext.tsx";
@@ -9,28 +8,12 @@ import VectorLayer from "ol/layer/Vector";
 import {Coordinate} from "ol/coordinate";
 import {TWorldSector} from "../common/TWorldSector.tsx";
 import {
-    convertServerSectorToClientSector,
+    convertServerSectorToClientSector, createMapObject,
     getAdriaMiddle, getCoordConverter
 } from "../../helpers/maphelpers/server-location-helper.ts";
 import {drawDangerZones, drawRectangle, drawSectors, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
 import api from "../../services/api-world.ts";
 import axios from "axios";
-
-
-function createMapObject(center: Array<number>) {
-    return new ol.Map({
-        layers: [
-            new Tile({
-                source: new OSM()
-            })
-        ],
-        view: new ol.View({
-            center: center,
-            zoom: 15,
-        }),
-        controls: []
-    });
-}
 
 function MapPage() {
     const mapDiv = useRef(null);
@@ -41,7 +24,7 @@ function MapPage() {
     const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     useEffect(() => {
         const center: Coordinate = getAdriaMiddle();
-        const mapObject = createMapObject(center);
+        const mapObject = createMapObject(center, 15);
         const adriaCancelSource = axios.CancelToken.source();
         if (mapDiv.current) {
             mapObject.setTarget(mapDiv.current);
@@ -89,6 +72,9 @@ function MapPage() {
 
         const messageHandlerId = ws.addBroadcastListener(handleWebSocketMessage)
         fetchSectorsAndDraw();
+
+
+        console.log(mapObject.getView().calculateExtent())
 
         return () => {
             mapObject.setTarget();

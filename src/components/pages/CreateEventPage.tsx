@@ -13,8 +13,8 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/TWorldSector.tsx";
 import {useSearchParams} from "react-router-dom";
 import dayjs, {Dayjs} from 'dayjs';
-import { Calendar } from 'primereact/calendar';
-import { PrimeReactProvider } from 'primereact/api';
+import {Calendar} from 'primereact/calendar';
+import {PrimeReactProvider} from 'primereact/api';
 import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
 import {EventData} from "../common/events.tsx";
@@ -75,7 +75,8 @@ export default function CreateEventPage() {
                 setDate(dayjs(event.startDateTime));
                 setHours(event.hours);
             })
-            .catch(() => {});
+            .catch(() => {
+            });
     }
 
 
@@ -128,6 +129,7 @@ export default function CreateEventPage() {
             console.log(res);
         });
     }
+
     async function editEvent(eventData: EventData) {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         if (!eventId) return;
@@ -145,63 +147,63 @@ export default function CreateEventPage() {
 
     return (
         <PrimeReactProvider>
-        <form className="form-group" onSubmit={handleSubmit}>
-            <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
-            <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
-            <label>Event Name</label>
-            <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
-                   required
-                   value={eventName}
-            />
-
-            <label>Description</label>
-            <Textarea placeholder="Type anything…" onChange={e => setDescription(e.target.value)}
-                      required
-                      value={description}
-            />
-
-            <div className="dropdowns">
-                <label>Category</label>
-                {(category || !isEditing) &&
-                <Autocomplete
-                    options={interests}
-                    value={category}
-                    onChange={(_event, newValue) => setCategory(newValue)}
-                    getOptionLabel={(option) => option.name ?? option}
-                    isOptionEqualToValue={option => option.name === category?.name}
-                    required
+            <form className="form-group" onSubmit={handleSubmit}>
+                <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
+                <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
+                <label>Event Name</label>
+                <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
+                       required
+                       value={eventName}
                 />
-                }
-                <label>Sector</label>
-                {(loadSector || !isEditing) &&
-                    <Autocomplete
+
+                <label>Description</label>
+                <Textarea placeholder="Type anything…" onChange={e => setDescription(e.target.value)}
+                          required
+                          value={description}
+                />
+
+                <div className="dropdowns">
+                    <label>Category</label>
+                    {(category || !isEditing) &&
+                      <Autocomplete
+                        options={interests}
+                        value={category}
+                        onChange={(_event, newValue) => setCategory(newValue)}
+                        getOptionLabel={(option) => option.name ?? option}
+                        isOptionEqualToValue={option => option.name === category?.name}
+                        required
+                      />
+                    }
+                    <label>Sector</label>
+                    {(loadSector || !isEditing) &&
+                      <Autocomplete
                         options={sectors}
                         value={loadSector}
                         onChange={(_event, newValue) => setLoadSector(newValue)}
                         getOptionLabel={(option) => option.name ?? option}
                         isOptionEqualToValue={option => option.name === loadSector?.name}
                         required
-                    />
-                }
+                      />
+                    }
 
-            </div>
-            <label>Number of People</label>
-            <Slider
-                aria-label="Amount of People"
-                value={numberOfPeople}
-                onChange={handleSliderNumberOfPeople}
-                step={1}
-                valueLabelDisplay="auto"
-                aria-required={true}
-            />
+                </div>
+                <label>Number of People</label>
+                <Slider
+                    aria-label="Amount of People"
+                    value={numberOfPeople}
+                    onChange={handleSliderNumberOfPeople}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    aria-required={true}
+                />
 
-            <label>StartDate</label>
-            <Calendar id="calendar-24h"
-                      value={date?.toDate()}
-                      onChange={(e) => setDate(dayjs(e.value))}
-                      showTime hourFormat="24" />
-            <label>Hours</label>
-            <Slider
+                <label>StartDate</label>
+                <Calendar id="calendar-24h"
+                          value={date?.toDate()}
+                          onChange={(e) => setDate(dayjs(e.value))}
+                          showTime hourFormat="24"/>
+                <label>Hours</label>
+                <Slider
                     aria-label="Hours"
                     step={1}
                     value={hours}
@@ -211,9 +213,9 @@ export default function CreateEventPage() {
                     valueLabelDisplay="auto"
                     aria-required={true}
                 />
-            <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
-            <Button type="submit" color={"danger"} onClick={cancelEvent}>Cancel Event</Button>
-        </form>
+                <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
+                {isEditing && <Button type="submit" color={"danger"} onClick={cancelEvent}>Cancel Event</Button>}
+            </form>
         </PrimeReactProvider>
     );
 }

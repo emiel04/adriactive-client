@@ -37,7 +37,6 @@ function App() {
                         <WebSocketProvider>
                             <AdriActive></AdriActive>
                         </WebSocketProvider>
-
                     </PrivateRoute>
                 }/>
                 <Route path="/notification/suggested" element={<SuggestedLocationPage/>}/>

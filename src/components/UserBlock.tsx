@@ -1,6 +1,5 @@
 import {TUser} from "./common/user.tsx";
 import Textarea from "@mui/joy/Textarea";
-import Button from "@mui/joy/Button";
 import toast from "react-hot-toast";
 import apiUser from "../services/api-user.ts";
 import axios, {CancelTokenSource} from "axios";
@@ -17,13 +16,13 @@ export default function UserBlock(prop: TUserBlockProps) {
     const evReq: CancelTokenSource = axios.CancelToken.source();
     const [aboutMe, setAboutMe] = useState<string>(prop.user.aboutMe);
     return <div className="user">
-        <p>{prop.user.firstName}</p><p>{prop.user.lastName}</p>
+        <h2>{prop.user.firstName}</h2><h2>{prop.user.lastName}</h2>
         {prop.isEditing ? (
             <form className="form-group" onSubmit={handleSubmit}>
             <Textarea defaultValue={prop.user.aboutMe} onChange={(e) => setAboutMe(e.target.value)}></Textarea>
-            <Button type="submit" >Save</Button>
+            <button type="submit" className={"buttons"}>Save</button>
             </form>
-        ): <p>{prop.user.aboutMe}</p>
+        ): <p className={"about-me"}>{prop.user.aboutMe}</p>
         }
 
     </div>;

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {TEvent} from "./common/events";
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -6,6 +6,10 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import getSectorName from "../helpers/sectorhelper.ts";
 import {AccessTimeFilled} from "@mui/icons-material";
 import {DATE_OPTIONS, TIME_OPTIONS} from "../helpers/datehelper.ts";
+import {Coordinate} from "ol/coordinate";
+import {createMapObject, getAdriaMiddle, getCoordConverter} from "../helpers/maphelpers/server-location-helper.ts";
+import {drawMarker, drawRectangle, getAdriaSize} from "../helpers/maphelpers/shape-drawer.ts";
+import {TCoordinate} from "./common/TWorldSector.tsx";
 
 type TViewEventBlockProps = {
     event: TEvent;
@@ -46,11 +50,42 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                     </div>
                 </div>
 
-                <canvas className={"event-details-map"}>
+                {/*<MarkerMap markerPoint={prop.event.location}></MarkerMap>*/}
+                <div className={"event-details-map"}>
 
-                </canvas>
+                </div>
             </div>
 
         </>
     );
+}
+
+type MarkerMapProps = {
+    markerPoint: TCoordinate
+}
+
+function MarkerMap({markerPoint}: MarkerMapProps) {
+    if (markerPoint === null) return <></>;
+    const mapDiv = useRef(null);
+
+    useEffect(() => {
+        const center: Coordinate = getAdriaMiddle();
+        const mapObject = createMapObject(center, 16);
+        if (mapDiv.current) {
+            mapObject.setTarget(mapDiv.current);
+        }
+        const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
+        const rectExtent = rectFeature.getGeometry()?.getExtent();
+        const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
+
+        const markerLocation = coordConverter(markerPoint.x, markerPoint.y);
+        mapObject.getView().setCenter(markerLocation);
+        const marker = drawMarker(mapObject, markerLocation);
+
+        return () => {
+            mapObject.setTarget();
+            mapObject.removeLayer(marker);
+        }
+    }, [markerPoint]);
+    return <div ref={mapDiv} className={"ol-map"}/>
 }
