@@ -8,6 +8,7 @@ export type TEvent = {
     eventType: string;
     category: TCategory;
     organiser: TUser;
+    attendees: number;
     amountOfPeople: number;
     startDateTime: number;
     sector: TSector;
