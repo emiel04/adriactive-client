@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
 import {EventData} from "../common/events.tsx";
 import Button from '@mui/joy/Button';
+import "../../assets/css/editpage.scss"
 
 
 export default function CreateEventPage() {
@@ -213,7 +214,7 @@ export default function CreateEventPage() {
                     valueLabelDisplay="auto"
                     aria-required={true}
                 />
-                <button className={"buttons"} type="submit">{isEditing ? 'Save' : 'Create'}</button>
+                <button className={"buttons button-edit"} type="submit">{isEditing ? 'Save' : 'Create'}</button>
                 {isEditing && <Button type="submit" color={"danger"} onClick={cancelEvent}>Cancel Event</Button>}
             </form>
         </PrimeReactProvider>
