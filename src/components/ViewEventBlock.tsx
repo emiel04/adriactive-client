@@ -8,7 +8,7 @@ import {AccessTimeFilled} from "@mui/icons-material";
 import {DATE_OPTIONS, TIME_OPTIONS} from "../helpers/datehelper.ts";
 import {Coordinate} from "ol/coordinate";
 import {
-    convertServerSectorsToClientSectors, convertServerSectorToClientSector,
+    convertServerSectorToClientSector,
     createMapObject,
     getAdriaMiddle,
     getCoordConverter, getCoordinateRangeMiddle,
@@ -17,7 +17,6 @@ import {
     drawMarker,
     drawRectangle,
     drawRectangleWithStartAndEndPoint,
-    drawSectors,
     getAdriaSize
 } from "../helpers/maphelpers/shape-drawer.ts";
 import {TCoordinate, TWorldSector} from "./common/TWorldSector.tsx";
