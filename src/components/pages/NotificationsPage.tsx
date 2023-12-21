@@ -5,7 +5,7 @@ import noApi from "../../services/api-notifications.ts";
 import axios, {CancelTokenSource} from "axios";
 import {TNotification} from "../common/notification.tsx";
 import NotificationBlock from "../NotificationBlock.tsx";
-
+import "../../assets/css/notifications.scss";
 function NotificationsPage() {
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState<TNotification[]>([])
@@ -23,9 +23,13 @@ function NotificationsPage() {
     }, []);
 
     return (
-        <Sheet variant="outlined" color="neutral" sx={{ p: 4 }}>
+        <div
+            id={"notification-box"}
+        >
+        <Sheet className={"sheet"} variant="outlined" color="neutral" >
             {renderNotifications(notifications)}
         </Sheet>
+        </div>
     );
 
     function renderNotifications(notifications: TNotification[]) {
