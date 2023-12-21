@@ -101,11 +101,11 @@ export default function ViewEventPage() {
             {event && <ViewEventBlock event={event}/>}
             <div className="joinButtonContainer">
                 <button type="submit" onClick={() => isJoined ? handleLeave() : handleJoin()}
-                        className="joinButton buttons">
+                        className="buttons joinButton">
                     {isJoined ? 'Leave' : 'Join'}
                 </button>
                 {isCreator && (
-                    <button onClick={() => navigate(`/app/event/create?id=${eventId}`)}>
+                    <button className={"buttons joinButton"} onClick={() => navigate(`/app/event/create?id=${eventId}`)}>
                         Edit
                     </button>
                 )}
