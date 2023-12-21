@@ -8,7 +8,7 @@ import VectorLayer from "ol/layer/Vector";
 import {Coordinate} from "ol/coordinate";
 import {TWorldSector} from "../common/TWorldSector.tsx";
 import {
-    convertServerSectorToClientSector, createMapObject,
+    convertServerSectorsToClientSectors, createMapObject,
     getAdriaMiddle, getCoordConverter
 } from "../../helpers/maphelpers/server-location-helper.ts";
 import {drawDangerZones, drawRectangle, drawSectors, getAdriaSize} from "../../helpers/maphelpers/shape-drawer.ts";
@@ -53,7 +53,7 @@ function MapPage() {
 
             api.getAdria(adriaCancelSource.token).then(data => {
                 if (!data) return;
-                const sectors = convertServerSectorToClientSector(data.sectors, coordConverter);
+                const sectors = convertServerSectorsToClientSectors(data.sectors, coordConverter);
                 updateSectors(sectors);
             });
 
@@ -65,17 +65,14 @@ function MapPage() {
                 return;
             }
             let sectors: TWorldSector[] = message.body.sectors;
-            sectors = convertServerSectorToClientSector(sectors, coordConverter);
+            sectors = convertServerSectorsToClientSectors(sectors, coordConverter);
             updateSectors(sectors);
 
         }
 
         const messageHandlerId = ws.addBroadcastListener(handleWebSocketMessage)
         fetchSectorsAndDraw();
-
-
-        console.log(mapObject.getView().calculateExtent())
-
+        
         return () => {
             mapObject.setTarget();
             ws.removeBroadcastListener(messageHandlerId);

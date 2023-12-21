@@ -52,6 +52,12 @@ $block-aspect-ratio: calc(8 / 4);
   padding-top: 1rem;
   width: clamp(50%, 60%, 80%);
   margin: 0 auto;
+
+  .ol-map {
+    border-radius: $block-border-radius;
+    overflow: hidden;
+    height: calc(100% - 1rem);
+  }
 }
 
 
@@ -63,7 +69,8 @@ $block-aspect-ratio: calc(8 / 4);
 }
 
 .joinButton {
-  padding: 0 20rem;
+  margin: 0 0.25rem 0 0.25rem;
+  padding: 0.5rem 3rem;
 }
 
 #eventDetails {

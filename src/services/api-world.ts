@@ -12,4 +12,9 @@ export default {
             return res.data
         }).catch(error => handleError(error));
     },
+    getSector: async (sectorId: number) => {
+        return axiosInstance.get(`api/sector/${sectorId}`).then(res => {
+            return res.data
+        }).catch(error => handleError(error));
+    },
 };

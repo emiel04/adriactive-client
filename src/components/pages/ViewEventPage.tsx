@@ -4,7 +4,6 @@ import axios from "axios";
 import evApi from "../../services/api-events";
 import ViewEventBlock from "../ViewEventBlock";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Button from '@mui/joy/Button';
 import "../../assets/css/view-event.scss";
 import toast from "react-hot-toast";
 import {log} from "ol/console";
@@ -45,12 +44,10 @@ export default function ViewEventPage() {
     }, [eventId]);
 
     useEffect(() => {
-        if (event){
+        if (event) {
             const adriaId = localStorage.getItem("adriaId") || "";
             setIsCreator(event.organiser.id === adriaId);
         }
-        console.log(eventId);
-
     }, [event]);
     useEffect(() => {
         const isJoined = searchParams.get('joined');
@@ -101,14 +98,14 @@ export default function ViewEventPage() {
             <h1 id="joinOrLeave">{isJoined ? 'Leave event' : 'Join event'}</h1>
             {event && <ViewEventBlock event={event}/>}
             <div className="joinButtonContainer">
-                <Button size={"lg"} type="submit" onClick={() => isJoined ? handleLeave() : handleJoin()}
-                        className="joinButton buttons">
+                <button type="submit" onClick={() => isJoined ? handleLeave() : handleJoin()}
+                        className="buttons joinButton">
                     {isJoined ? 'Leave' : 'Join'}
-                </Button>
+                </button>
                 {isCreator && (
-                    <Button onClick={() => navigate(`/app/event/create?id=${eventId}`)}>
+                    <button className={"buttons joinButton"} onClick={() => navigate(`/app/event/create?id=${eventId}`)}>
                         Edit
-                    </Button>
+                    </button>
                 )}
             </div>
         </div>

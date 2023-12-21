@@ -7,9 +7,25 @@ import getSectorName from "../helpers/sectorhelper.ts";
 import {AccessTimeFilled} from "@mui/icons-material";
 import {DATE_OPTIONS, TIME_OPTIONS} from "../helpers/datehelper.ts";
 import {Coordinate} from "ol/coordinate";
-import {createMapObject, getAdriaMiddle, getCoordConverter} from "../helpers/maphelpers/server-location-helper.ts";
-import {drawMarker, drawRectangle, getAdriaSize} from "../helpers/maphelpers/shape-drawer.ts";
-import {TCoordinate} from "./common/TWorldSector.tsx";
+import {
+    convertServerSectorToClientSector,
+    createMapObject,
+    getAdriaMiddle,
+    getCoordConverter, getCoordinateRangeMiddle,
+} from "../helpers/maphelpers/server-location-helper.ts";
+import {
+    drawMarker,
+    drawRectangle,
+    drawRectangleWithStartAndEndPoint,
+    getAdriaSize
+} from "../helpers/maphelpers/shape-drawer.ts";
+import {TCoordinate, TWorldSector} from "./common/TWorldSector.tsx";
+import worldApi from "../services/api-world.ts"
+import {Point, Polygon} from "ol/geom";
+import {Feature} from "ol";
+import VectorSource from "ol/source/Vector";
+import VectorLayer from "ol/layer/Vector";
+import {Stroke} from "ol/style";
 
 type TViewEventBlockProps = {
     event: TEvent;
@@ -17,6 +33,12 @@ type TViewEventBlockProps = {
 
 export default function EventBlock(prop: TViewEventBlockProps) {
     const [imgSrc, setImgSrc] = useState<string | undefined>(undefined);
+    const [sector, setSector] = useState<TWorldSector>();
+    useEffect(() => {
+        worldApi.getSector(prop.event.sector.id).then(res => {
+            setSector(res);
+        })
+    }, []);
 
     useEffect(() => {
         import(`../assets/img/${prop.event.category.categoryId}.png`)
@@ -29,7 +51,6 @@ export default function EventBlock(prop: TViewEventBlockProps) {
     }, [prop.event.category.categoryId]);
 
     return (<>
-
             <div className={"event-details-container"}>
                 <div>
                     <div className="imageContainer">
@@ -50,10 +71,10 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                     </div>
                 </div>
 
-                {/*<MarkerMap markerPoint={prop.event.location}></MarkerMap>*/}
-                <div className={"event-details-map"}>
-
-                </div>
+                <MarkerMap
+                    markerPoint={prop.event.location}
+                    sector={sector}></MarkerMap>
+                {/*<div className={"event-details-map"}></div>*/}
             </div>
 
         </>
@@ -61,13 +82,12 @@ export default function EventBlock(prop: TViewEventBlockProps) {
 }
 
 type MarkerMapProps = {
-    markerPoint: TCoordinate
+    markerPoint: TCoordinate | undefined | null,
+    sector: TWorldSector | undefined | null
 }
 
-function MarkerMap({markerPoint}: MarkerMapProps) {
-    if (markerPoint === null) return <></>;
+function MarkerMap({markerPoint, sector}: MarkerMapProps) {
     const mapDiv = useRef(null);
-
     useEffect(() => {
         const center: Coordinate = getAdriaMiddle();
         const mapObject = createMapObject(center, 16);
@@ -78,14 +98,36 @@ function MarkerMap({markerPoint}: MarkerMapProps) {
         const rectExtent = rectFeature.getGeometry()?.getExtent();
         const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
 
-        const markerLocation = coordConverter(markerPoint.x, markerPoint.y);
-        mapObject.getView().setCenter(markerLocation);
-        const marker = drawMarker(mapObject, markerLocation);
+        let marker: VectorLayer<VectorSource<Feature<Point>>> | null;
+        if (markerPoint) {
+            const markerLocation = coordConverter(markerPoint.x, markerPoint.y);
+            mapObject.getView().setCenter(markerLocation);
+            marker = drawMarker(mapObject, markerLocation);
+        }
+        let sectorLayer: VectorLayer<VectorSource<Feature<Polygon>>>;
+
+        if (sector && !markerPoint) {
+            const clientSector = convertServerSectorToClientSector(sector, coordConverter);
+            const start = [clientSector.coordinateRange.start.x, clientSector.coordinateRange.start.y] as Coordinate;
+            const end = [clientSector.coordinateRange.end.x, clientSector.coordinateRange.end.y] as Coordinate;
+            sectorLayer = drawRectangleWithStartAndEndPoint(mapObject, start, end, "transparent", new Stroke({
+                color: "rgba(100,0,0, 0.5)",
+                width: 2
+            }));
+            const middleOfSector = getCoordinateRangeMiddle(clientSector.coordinateRange)
+            const middle = [middleOfSector.x, middleOfSector.y] as Coordinate
+            mapObject.getView().setCenter(middle)
+        }
 
         return () => {
             mapObject.setTarget();
-            mapObject.removeLayer(marker);
+            if (marker) {
+                mapObject.removeLayer(marker);
+            }
+            if (sectorLayer) {
+                mapObject.removeLayer(sectorLayer);
+            }
         }
-    }, [markerPoint]);
+    }, [markerPoint, sector]);
     return <div ref={mapDiv} className={"ol-map"}/>
 }
