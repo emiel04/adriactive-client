@@ -65,7 +65,7 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                                 <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
                                 {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}
                             </li>
-                            <li><CheckCircleIcon/>{prop.event.amountOfPeople}</li>
+                            <li><CheckCircleIcon/>{getPeopleLeft()} spots left</li>
                             <li>{prop.event.description}</li>
                         </ul>
                     </div>
@@ -74,11 +74,14 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                 <MarkerMap
                     markerPoint={prop.event.location}
                     sector={sector}></MarkerMap>
-                {/*<div className={"event-details-map"}></div>*/}
             </div>
 
         </>
     );
+
+    function getPeopleLeft() {
+        return prop.event.amountOfPeople - prop.event.attendees;
+    }
 }
 
 type MarkerMapProps = {
