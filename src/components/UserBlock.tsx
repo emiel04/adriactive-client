@@ -16,7 +16,7 @@ export default function UserBlock(prop: TUserBlockProps) {
     const evReq: CancelTokenSource = axios.CancelToken.source();
     const [aboutMe, setAboutMe] = useState<string>(prop.user.aboutMe);
     return <div className="user">
-        <h2>{prop.user.firstName}</h2><h2>{prop.user.lastName}</h2>
+        <h2>{prop.user.firstName} {prop.user.lastName}</h2>
         {prop.isEditing ? (
             <form className="form-group" onSubmit={handleSubmit}>
             <Textarea defaultValue={prop.user.aboutMe} onChange={(e) => setAboutMe(e.target.value)}></Textarea>

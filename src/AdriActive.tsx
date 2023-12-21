@@ -1,6 +1,5 @@
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import Navbar from "./components/common/navbar";
-import HomePage from "./components/pages/HomePage";
 import "./assets/css/homepage.css";
 import "./assets/css/my-events-page.css"
 import MapPage from "./components/pages/MapPage";
@@ -84,8 +83,7 @@ function AdriActive() {
                     <>
                         <Route path={"/profile"} element={<ProfilePage/>}></Route>
                         <Route path={"/"} element={<Navigate to={"/app/home"}/>}></Route>
-                        <Route path={"/home"} element={<HomePage/>}></Route>
-                        <Route path={"/search"} element={<SearchPage/>}></Route>
+                        <Route path={"/home"} element={<SearchPage/>}></Route>
                         <Route path={"/map"} element={<MapPage/>}></Route>
                         <Route path={"/events"} element={<MyEventsPage/>}></Route>
                         <Route path={"/notifications"} element={<NotificationsPage/>}></Route>

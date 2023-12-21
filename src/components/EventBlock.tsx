@@ -41,9 +41,13 @@ export default function EventBlock(prop: TEventBlockProps) {
                     <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
                     {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}</li>
                 {!prop.simple &&
-                  <li><CheckCircleIcon/>{4} spots of {prop.event.amountOfPeople} left</li>
+                  <li><CheckCircleIcon/>{getPeopleLeft()} spots of {prop.event.amountOfPeople} left</li>
                 }
             </ul>
         </div>
     );
+    function getPeopleLeft() {
+        return prop.event.amountOfPeople - prop.event.attendees;
+    }
+
 }
