@@ -15,7 +15,7 @@ export default function NotificationBlock(prop: TNotificationBlockProps) {
     const navigate = useNavigate();
     return (
         <Card
-            onClick={() => navigate(`/app/event/view/${prop.notification.eventId}`)}
+            onClick={() => navigate(`/app/events/view/${prop.notification.eventId}`)}
             variant="outlined"
             orientation="horizontal"
             sx={{

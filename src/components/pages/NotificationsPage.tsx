@@ -31,7 +31,7 @@ function NotificationsPage() {
     function renderNotifications(notifications: TNotification[]) {
         return notifications && notifications.length > 0 ? (
             notifications.map(n => {
-                return <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/event/view/${n.eventId}`)}></NotificationBlock>
+                return <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/events/view/${n.eventId}`)}></NotificationBlock>
             })
     ) : (
             <div>
