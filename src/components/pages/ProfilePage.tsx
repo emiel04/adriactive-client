@@ -1,3 +1,4 @@
+import "../../assets/css/app.scss"
 import "../../assets/css/profilepage.scss"
 import {useEffect, useState} from "react";
 import {TInterest} from "../common/interest.tsx";
@@ -7,7 +8,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {TUser} from "../common/user.tsx";
 import {useNavigate} from "react-router";
 import UserBlock from "../UserBlock.tsx";
-import Button from "@mui/joy/Button";
 
 function ProfilePage() {
     const [interests, setInterests] = useState<TInterest[]>([]);
@@ -40,7 +40,7 @@ function ProfilePage() {
     function renderUserInterests(interests: TInterest[]) {
         return interests && interests.length > 0 ? (
             interests.map((e) => (
-                <p key={e.name}>{e.name}</p>
+                <h3 key={e.name}>{e.name}</h3>
             ))
         ) : (
             <div>
@@ -51,7 +51,8 @@ function ProfilePage() {
 
     function renderUser(user: TUser | undefined) {
         return user ? (
-                <UserBlock user={user} isEditing={isEditing} setIsEditingFalse={() => setIsEditing(false)} refreshUser={() => setIsLoading(true)}></UserBlock>
+                <UserBlock user={user} isEditing={isEditing} setIsEditingFalse={() => setIsEditing(false)}
+                           refreshUser={() => setIsLoading(true)}></UserBlock>
             )
             : (
                 <div>
@@ -68,26 +69,29 @@ function ProfilePage() {
     return <div className={"loading"}>
         {isLoading ? (
             <p>Loading...</p>
-        ) : <div className="profile-page">
+        ) : <>
             <button className="buttons edit-button" onClick={handleEditClick}>{isEditing ? 'Cancel' : 'Edit'}</button>
-            <div className="profile-info">
-                <div className="profile-picture">
-                    <AccountCircleIcon></AccountCircleIcon>
+            <div className="profile-page">
+                <div className="profile-info">
+                    <div className="profile-picture">
+                        <AccountCircleIcon></AccountCircleIcon>
+                    </div>
+                    <div className="name">
+                        {renderUser(user)}
+                    </div>
                 </div>
-                <div className="name">
-                    {renderUser(user)}
+                <div className="interests-list">
+                    <h2>Interest List</h2>
+                    <form className="list-container">
+                        {renderUserInterests(interests)}
+                    </form>
+                    <button className={"buttons"} onClick={() => navigate('/app/interests?editing=true')}>Edit interests</button>
                 </div>
             </div>
-            <div className="interests-list">
-                <h2>Interest List</h2>
-                <form className="list-container">
-                    {renderUserInterests(interests)}
-                </form>
-                <Button className={"buttons"} onClick={() => navigate('/app/interests?editing=true')}>Edit interests</Button>
-            </div>
-        </div>
+        </>
         }
     </div>
+
 }
 
 export default ProfilePage;
