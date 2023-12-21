@@ -14,7 +14,7 @@ import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
 import {useEffect, useState} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
-import {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
+import {LocationInfoProps} from "./components/pages/notifications/NotifySuggestedLocationPage.tsx";
 import {WebsocketEvent} from "./components/common/websocketevent.ts";
 import {TSectorLocation} from "./components/common/world.tsx";
 import {TEvent} from "./components/common/events.tsx";
@@ -45,17 +45,38 @@ function AdriActive() {
         if (error) {
             console.error(error);
         }
-        if (message.body.eventType === WebsocketEvent.SUGGESTLOCATION) {
-            const suggestedLocation: TSectorLocation = message.body.suggestedLocation;
-            const event: TEvent = message.body.event;
-            console.log(message.body)
-            const stateData: SuggestedLocationPageProps = {
-                suggestedLocation: suggestedLocation,
-                event: event
-            }
-            navigate("/notification/suggested", {state: stateData})
+        console.log(message.body)
+        switch (message.body.eventType) {
+            case WebsocketEvent.SUGGESTLOCATION:
+                console.log(message.body)
+                handleSuggestLocation(message.body);
+                break;
+            case WebsocketEvent.NOTIFYLOCATION:
+                console.log(message.body)
+                handleNotifyLocation(message.body)
         }
+
     }
+
+    const handleSuggestLocation = (data: any) => {
+        const suggestedLocation: TSectorLocation = data.suggestedLocation;
+        const event: TEvent = data.event;
+        const stateData: LocationInfoProps = {
+            location: suggestedLocation,
+            event: event
+        }
+        navigate("/notification/suggested", {state: stateData})
+    }
+    const handleNotifyLocation = (data: any) => {
+        const location: TSectorLocation = data.location;
+        const event: TEvent = data.event;
+        const stateData: LocationInfoProps = {
+            location: location,
+            event: event
+        }
+        navigate("/notification/location", {state: stateData})
+    }
+
     return <>
         <Routes>
             {
