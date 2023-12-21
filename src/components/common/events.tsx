@@ -1,6 +1,6 @@
 import {TCategory} from "./category.tsx";
 import {TUser} from "./user.tsx";
-import {TSector} from "./TWorldSector.tsx";
+import {TCoordinate, TSector} from "./TWorldSector.tsx";
 
 export type TEvent = {
     id: number;
@@ -12,6 +12,7 @@ export type TEvent = {
     startDateTime: number;
     sector: TSector;
     description: string;
+    location: TCoordinate | null;
 }
 
 export type EventData = {

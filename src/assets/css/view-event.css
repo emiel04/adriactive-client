@@ -46,6 +46,11 @@
   width: 60%;
   margin: 0 auto;
 }
+.event-details-container .ol-map {
+  border-radius: 12px;
+  overflow: hidden;
+  height: calc(100% - 1rem);
+}
 
 .joinButtonContainer {
   display: flex;
