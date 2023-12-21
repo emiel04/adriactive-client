@@ -45,12 +45,10 @@ export default function ViewEventPage() {
     }, [eventId]);
 
     useEffect(() => {
-        if (event){
+        if (event) {
             const adriaId = localStorage.getItem("adriaId") || "";
             setIsCreator(event.organiser.id === adriaId);
         }
-        console.log(eventId);
-
     }, [event]);
     useEffect(() => {
         const isJoined = searchParams.get('joined');

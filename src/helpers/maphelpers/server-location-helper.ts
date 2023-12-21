@@ -1,5 +1,5 @@
 import {Extent} from "ol/extent";
-import {TCoordinateRange, TWorldSector} from "../../components/common/TWorldSector.tsx";
+import {TCoordinate, TCoordinateRange, TWorldSector} from "../../components/common/TWorldSector.tsx";
 import {fromLonLat} from "ol/proj";
 import {Coordinate} from "ol/coordinate";
 import * as ol from "ol";
@@ -13,6 +13,13 @@ export function getAdriaMiddle(): Coordinate {
 
 export function getAdriaExtent(): Extent {
     return [1337926.8372697686, 5628069.992844836, 1347099.28066399, 5631605.205403025];
+}
+
+export function getCoordinateRangeMiddle(coordinateRange: TCoordinateRange): TCoordinate {
+    const middleX = (coordinateRange.start.x + coordinateRange.end.x) / 2;
+    const middleY = (coordinateRange.start.y + coordinateRange.end.y) / 2;
+
+    return {x: middleX, y: middleY};
 }
 
 function createCoordConverter(rectBoundingBox: Extent | undefined, serverWidth: number, serverHeight: number): (x: number, y: number) => [number, number] {
@@ -35,15 +42,19 @@ export function getCoordConverter(rectExtent: Extent) {
     return createCoordConverter(rectExtent, 100, 100);
 }
 
-export function convertServerSectorToClientSector(sectors: TWorldSector[], coordConverter: (x: number, y: number) => [number, number]): TWorldSector[] {
-    return sectors.map(serverSector => ({
+export function convertServerSectorToClientSector(serverSector: TWorldSector, coordConverter: (x: number, y: number) => [number, number]): TWorldSector {
+    return {
         name: serverSector.name,
         coordinateRange: convertCoordinateRange(serverSector.coordinateRange, coordConverter),
         dangerousAreas: serverSector.dangerousAreas.map(serverArea => ({
             reason: serverArea.reason,
             coordinateRange: convertCoordinateRange(serverArea.coordinateRange, coordConverter),
         })),
-    }));
+    };
+}
+
+export function convertServerSectorsToClientSectors(sectors: TWorldSector[], coordConverter: (x: number, y: number) => [number, number]): TWorldSector[] {
+    return sectors.map(serverSector => convertServerSectorToClientSector(serverSector, coordConverter));
 }
 
 export function convertCoordinateRange(coordinateRange: TCoordinateRange, coordConverter: (x: number, y: number) => [number, number]): TCoordinateRange {
