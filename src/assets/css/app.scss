@@ -9,7 +9,7 @@ $navbar-height: 5rem;
 $navbar-padding: 1rem;
 
 #root {
-  height: calc(100dvh - calc($navbar-height + 2 * $navbar-padding));
+  height: calc(100dvh - calc($navbar-height));
   overflow: auto;
 }
 

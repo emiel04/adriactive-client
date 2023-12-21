@@ -5,6 +5,7 @@ import Typography from "@mui/joy/Typography";
 import Chip from "@mui/joy/Chip";
 import Card from "@mui/joy/Card";
 import {useNavigate} from "react-router-dom";
+import "../assets/css/notifications.scss";
 
 
 type TNotificationBlockProps = {
@@ -18,12 +19,9 @@ export default function NotificationBlock(prop: TNotificationBlockProps) {
             onClick={() => navigate(`/app/events/view/${prop.notification.eventId}`)}
             variant="outlined"
             orientation="horizontal"
-            sx={{
-                width: 320,
-                '&:hover': { boxShadow: 'md', borderColor: 'neutral.outlinedHoverBorder' },
-            }}
+            className={"card"}
         >
-            <NotificationsActiveIcon/>
+            <NotificationsActiveIcon className={"bell-icon"} />
             <CardContent>
                 <Typography level="title-lg" id="notification-description">
                     {prop.notification.title}
