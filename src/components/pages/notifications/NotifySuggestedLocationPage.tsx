@@ -12,7 +12,6 @@ export type LocationInfoProps = {
     event: TEvent
 }
 
-
 async function setLocation(eventId: number, coord: TCoordinate) {
     return await evApi.setEventLocation(eventId, coord);
 }
@@ -29,7 +28,7 @@ export default function NotifySuggestedLocationPage() {
     if (!state) {
         window.location.href = ("/")
     }
-    
+
     const suggestedLocation: TSectorLocation = state.location;
     const event: TEvent = state.event;
 
@@ -59,7 +58,7 @@ export default function NotifySuggestedLocationPage() {
     return (
         <div className="location-popup">
             <h2>A location has been suggested for your event coming up soon!</h2>
-            <EventLocationInfo event={event} location={suggestedLocation.coordinate}/>
+            <EventLocationInfo event={event} location={suggestedLocation.coordinate} dangerousArea={null}/>
             <form className="form-group" onSubmit={e => e.preventDefault()}>
                 <Button type="submit" onClick={(event) => handleSubmit(event, true)}>Accept Location</Button>
                 <Button type="submit" color={"danger"} onClick={(event) => handleSubmit(event, false)}>Cancel

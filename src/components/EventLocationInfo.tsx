@@ -1,23 +1,37 @@
 import {useEffect, useRef, useState} from "react";
 import {Coordinate} from "ol/coordinate";
-import {createMapObject, getAdriaMiddle, getCoordConverter} from "../helpers/maphelpers/server-location-helper.ts";
-import {drawMarker, drawRectangle, getAdriaSize} from "../helpers/maphelpers/shape-drawer.ts";
+import {
+    convertCoordinateRange,
+    createMapObject,
+    getAdriaMiddle,
+    getCoordConverter, getCoordinateRangeMiddle,
+} from "../helpers/maphelpers/server-location-helper.ts";
+import {
+    drawMarker,
+    drawRectangle,
+    drawRectangleWithStartAndEndPoint,
+    getAdriaSize
+} from "../helpers/maphelpers/shape-drawer.ts";
 import {TEvent} from "./common/events.tsx";
-import {TCoordinate} from "./common/world.tsx";
+import {TCoordinate, TDangerousArea} from "./common/world.tsx";
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import getSectorName from "../helpers/sectorhelper.ts";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import {Feature} from "ol";
+import {Point, Polygon} from "ol/geom";
 
 interface EventLocationInfoProps {
     event: TEvent;
-    location: TCoordinate
+    location: TCoordinate | null | undefined;
+    dangerousArea: TDangerousArea | null | undefined;
 }
 
-export function EventLocationInfo({event, location}: EventLocationInfoProps) {
+export function EventLocationInfo({event, location, dangerousArea}: EventLocationInfoProps) {
     const mapDiv = useRef(null);
     const [imgSrc, setImgSrc] = useState<string | undefined>(undefined);
-    console.log(location)
 
     function getImage() {
         import(`../assets/img/${event.category.categoryId}.png`)
@@ -38,16 +52,35 @@ export function EventLocationInfo({event, location}: EventLocationInfoProps) {
         const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
         const rectExtent = rectFeature.getGeometry()?.getExtent();
         const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
+        let marker: VectorLayer<VectorSource<Feature<Point>>>;
+        if (location) {
+            const markerLocation = coordConverter(location.x, location.y);
+            mapObject.getView().setCenter(markerLocation);
+            marker = drawMarker(mapObject, markerLocation);
+        }
 
-        const markerLocation = coordConverter(location.x, location.y);
-        mapObject.getView().setCenter(markerLocation);
-        const marker = drawMarker(mapObject, markerLocation);
+        let dangerousAreaLayer: VectorLayer<VectorSource<Feature<Polygon>>>;
+        console.log(dangerousArea)
+        if (dangerousArea) {
+            const clientBounds = convertCoordinateRange(dangerousArea.coordinateRange, coordConverter);
+            const start = [clientBounds.start.x, clientBounds.start.y] as Coordinate;
+            const end = [clientBounds.end.x, clientBounds.end.y] as Coordinate;
+            dangerousAreaLayer = drawRectangleWithStartAndEndPoint(mapObject, start, end, "rgba(100,0,0, 0.5)");
+            const middleOfSector = getCoordinateRangeMiddle(clientBounds)
+            const middle = [middleOfSector.x, middleOfSector.y] as Coordinate
+            mapObject.getView().setCenter(middle)
+        }
 
         getImage();
 
         return () => {
             mapObject.setTarget();
-            mapObject.removeLayer(marker);
+            if (marker) {
+                mapObject.removeLayer(marker);
+            }
+            if (dangerousAreaLayer) {
+                mapObject.removeLayer(dangerousAreaLayer);
+            }
         }
     }, [location]);
 

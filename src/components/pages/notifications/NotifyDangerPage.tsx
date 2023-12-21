@@ -1,23 +1,25 @@
 import Button from '@mui/joy/Button';
-import {TCoordinate} from "../../common/world.tsx";
+import {TDangerousArea} from "../../common/world.tsx";
 import React, {useEffect} from "react";
 import {useLocation, useNavigate} from "react-router";
 import {TEvent} from "../../common/events.tsx";
 import "../../../assets/css/suggested-notification.scss"
 import {EventLocationInfo} from "../../EventLocationInfo.tsx";
-import toast from "react-hot-toast";
 
+export type NotifyDangerPageProps = {
+    event: TEvent,
+    dangerousArea: TDangerousArea
+}
 
-export default function NotifyLocationPage() {
+export default function NotifyDangerPage() {
     const navigate = useNavigate()
-    const {state} = useLocation()
+    const {state} = useLocation();
 
     if (!state) {
         window.location.href = ("/")
     }
-    const location: TCoordinate = state.location;
     const event: TEvent = state.event;
-
+    const dangerousArea = state.dangerousArea;
     useEffect(() => {
         const $root = document.querySelector("#root");
         if (!$root) return;
@@ -27,22 +29,17 @@ export default function NotifyLocationPage() {
         }
     }, []);
 
-    async function handleSubmit(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, accepted: boolean) {
+    async function handleSubmit(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
         e.preventDefault();
-        if (!accepted) {
-            toast("We notified the event creator you aren't going to make it!")
-        }
         navigate("/");
     }
 
     return (
         <div className="location-popup">
-            <h2>A location has been chosen for your event coming up soon!</h2>
-            <EventLocationInfo event={event} location={location} dangerousArea={null}/>
+            <h2>Watch out! The weather suddenly changed! Try go get to a safe location fast!</h2>
+            <EventLocationInfo event={event} location={null} dangerousArea={dangerousArea}/>
             <form className="form-group" onSubmit={e => e.preventDefault()}>
-                <Button type="submit" onClick={(event) => handleSubmit(event, true)}>Okay!</Button>
-                <Button type="submit" color={"danger"} onClick={(event) => handleSubmit(event, false)}>I'm not going to
-                    make it!</Button>
+                <Button type="submit" onClick={(event) => handleSubmit(event)}>Okay!</Button>
             </form>
         </div>
     );
