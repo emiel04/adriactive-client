@@ -12,7 +12,7 @@ import InterestPage from "./components/pages/InterestPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import CreateEventPage from "./components/pages/CreateEventPage.tsx";
 import {useWebSocket} from "./components/context/WebSocketContext.tsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 import {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
 import {WebsocketEvent} from "./components/common/websocketevent.ts";

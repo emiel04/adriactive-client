@@ -1,13 +1,8 @@
 import Sheet from '@mui/joy/Sheet';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Chip from '@mui/joy/Chip';
-import Typography from '@mui/joy/Typography';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import noApi from "../../services/api-notifications.ts";
-import axios, {CancelTokenSource} from "axios/index";
+import axios, {CancelTokenSource} from "axios";
 import {TNotification} from "../common/notification.tsx";
 import NotificationBlock from "../NotificationBlock.tsx";
 
@@ -36,7 +31,7 @@ function NotificationsPage() {
     function renderNotifications(notifications: TNotification[]) {
         return notifications && notifications.length > 0 ? (
             notifications.map(n => {
-                <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/event/view/${n.id}`)}></NotificationBlock>
+                return <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/event/view/${n.eventId}`)}></NotificationBlock>
             })
     ) : (
             <div>
