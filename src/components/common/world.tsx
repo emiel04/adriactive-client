@@ -13,7 +13,7 @@ export type TDangerousArea = {
     coordinateRange: TCoordinateRange;
 };
 
-export type TWorldSector = {
+export type World = {
     name: string;
     coordinateRange: TCoordinateRange;
     dangerousAreas: TDangerousArea[];

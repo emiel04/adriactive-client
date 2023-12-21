@@ -9,7 +9,7 @@ import evApiEvents from "../../services/api-events.ts";
 import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import {useNavigate} from "react-router";
-import {TSector} from "../common/TWorldSector.tsx";
+import {TSector} from "../common/world.tsx";
 import {useSearchParams} from "react-router-dom";
 import dayjs, {Dayjs} from 'dayjs';
 import {Calendar} from 'primereact/calendar';

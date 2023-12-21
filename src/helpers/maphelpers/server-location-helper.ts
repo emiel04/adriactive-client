@@ -1,5 +1,5 @@
 import {Extent} from "ol/extent";
-import {TCoordinate, TCoordinateRange, TWorldSector} from "../../components/common/TWorldSector.tsx";
+import {TCoordinate, TCoordinateRange, World} from "../../components/common/world.tsx";
 import {fromLonLat} from "ol/proj";
 import {Coordinate} from "ol/coordinate";
 import * as ol from "ol";
@@ -42,7 +42,7 @@ export function getCoordConverter(rectExtent: Extent) {
     return createCoordConverter(rectExtent, 100, 100);
 }
 
-export function convertServerSectorToClientSector(serverSector: TWorldSector, coordConverter: (x: number, y: number) => [number, number]): TWorldSector {
+export function convertServerSectorToClientSector(serverSector: World, coordConverter: (x: number, y: number) => [number, number]): World {
     return {
         name: serverSector.name,
         coordinateRange: convertCoordinateRange(serverSector.coordinateRange, coordConverter),
@@ -53,7 +53,7 @@ export function convertServerSectorToClientSector(serverSector: TWorldSector, co
     };
 }
 
-export function convertServerSectorsToClientSectors(sectors: TWorldSector[], coordConverter: (x: number, y: number) => [number, number]): TWorldSector[] {
+export function convertServerSectorsToClientSectors(sectors: World[], coordConverter: (x: number, y: number) => [number, number]): World[] {
     return sectors.map(serverSector => convertServerSectorToClientSector(serverSector, coordConverter));
 }
 

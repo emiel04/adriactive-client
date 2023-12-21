@@ -16,7 +16,7 @@ import {useEffect, useState} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 import {SuggestedLocationPageProps} from "./components/pages/SuggestedLocationPage.tsx";
 import {WebsocketEvent} from "./components/common/websocketevent.ts";
-import {TSectorLocation} from "./components/common/TWorldSector.tsx";
+import {TSectorLocation} from "./components/common/world.tsx";
 import {TEvent} from "./components/common/events.tsx";
 import SearchPage from "./components/pages/SearchPage.tsx";
 import "./assets/css/primereact/themes/lara/lara-light/teal/theme.scss"

@@ -1,6 +1,6 @@
 import {TCategory} from "./category.tsx";
 import {TUser} from "./user.tsx";
-import {TCoordinate, TSector} from "./TWorldSector.tsx";
+import {TCoordinate, TSector} from "./world.tsx";
 
 export type TEvent = {
     id: number;

@@ -1,5 +1,5 @@
 import Button from '@mui/joy/Button';
-import {TCoordinate, TSectorLocation} from "../common/TWorldSector.tsx";
+import {TCoordinate, TSectorLocation} from "../common/world.tsx";
 import {Coordinate} from "ol/coordinate";
 import {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router";

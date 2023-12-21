@@ -1,6 +1,6 @@
 import {CancelToken} from "axios";
 import axiosInstance, {handleError} from "../helpers/axioshelper";
-import {TCoordinate} from "../components/common/TWorldSector.tsx";
+import {TCoordinate} from "../components/common/world.tsx";
 
 export default {
     getEvents: (cancelToken: CancelToken) => {

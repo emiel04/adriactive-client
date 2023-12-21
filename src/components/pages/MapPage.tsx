@@ -6,7 +6,7 @@ import "../../assets/css/map.css"
 import {useWebSocket} from "../context/WebSocketContext.tsx";
 import VectorLayer from "ol/layer/Vector";
 import {Coordinate} from "ol/coordinate";
-import {TWorldSector} from "../common/TWorldSector.tsx";
+import {World} from "../common/world.tsx";
 import {
     convertServerSectorsToClientSectors, createMapObject,
     getAdriaMiddle, getCoordConverter
@@ -33,7 +33,7 @@ function MapPage() {
         const rectExtent = rectFeature.getGeometry()?.getExtent();
         const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
 
-        function updateSectors(sectors: TWorldSector[]) {
+        function updateSectors(sectors: World[]) {
             //remove existing layers
             dangerZoneLayers.forEach(dangerzone => {
                 mapObject.removeLayer(dangerzone);
@@ -64,7 +64,7 @@ function MapPage() {
                 console.error(error);
                 return;
             }
-            let sectors: TWorldSector[] = message.body.sectors;
+            let sectors: World[] = message.body.sectors;
             sectors = convertServerSectorsToClientSectors(sectors, coordConverter);
             updateSectors(sectors);
 
@@ -72,7 +72,7 @@ function MapPage() {
 
         const messageHandlerId = ws.addBroadcastListener(handleWebSocketMessage)
         fetchSectorsAndDraw();
-        
+
         return () => {
             mapObject.setTarget();
             ws.removeBroadcastListener(messageHandlerId);

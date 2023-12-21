@@ -19,7 +19,7 @@ import {
     drawRectangleWithStartAndEndPoint,
     getAdriaSize
 } from "../helpers/maphelpers/shape-drawer.ts";
-import {TCoordinate, TWorldSector} from "./common/TWorldSector.tsx";
+import {TCoordinate, World} from "./common/world.tsx";
 import worldApi from "../services/api-world.ts"
 import {Point, Polygon} from "ol/geom";
 import {Feature} from "ol";
@@ -33,7 +33,7 @@ type TViewEventBlockProps = {
 
 export default function EventBlock(prop: TViewEventBlockProps) {
     const [imgSrc, setImgSrc] = useState<string | undefined>(undefined);
-    const [sector, setSector] = useState<TWorldSector>();
+    const [sector, setSector] = useState<World>();
     useEffect(() => {
         worldApi.getSector(prop.event.sector.id).then(res => {
             setSector(res);
@@ -83,7 +83,7 @@ export default function EventBlock(prop: TViewEventBlockProps) {
 
 type MarkerMapProps = {
     markerPoint: TCoordinate | undefined | null,
-    sector: TWorldSector | undefined | null
+    sector: World | undefined | null
 }
 
 function MarkerMap({markerPoint, sector}: MarkerMapProps) {

@@ -1,5 +1,5 @@
 import * as ol from "ol";
-import {TWorldSector} from "../../components/common/TWorldSector.tsx";
+import {World} from "../../components/common/world.tsx";
 import VectorLayer from "ol/layer/Vector";
 import {Vector} from "ol/source";
 import {Circle, Point, Polygon} from "ol/geom";
@@ -10,7 +10,7 @@ import {Feature} from "ol";
 import VectorSource from "ol/source/Vector";
 import marker from "../../assets/img/marker-icon.png"
 
-export function drawSectors(map: ol.Map, sectors: TWorldSector[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
+export function drawSectors(map: ol.Map, sectors: World[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
     const sectorLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     sectors.forEach(sector => {
         const start = [sector.coordinateRange.start.x, sector.coordinateRange.start.y] as Coordinate;
@@ -24,7 +24,7 @@ export function drawSectors(map: ol.Map, sectors: TWorldSector[]): VectorLayer<V
     return sectorLayers;
 }
 
-export function drawDangerZones(map: ol.Map, sectors: TWorldSector[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
+export function drawDangerZones(map: ol.Map, sectors: World[]): VectorLayer<Vector<ol.Feature<Polygon>>>[] {
     const dangerZoneLayers: VectorLayer<Vector<ol.Feature<Polygon>>>[] = [];
     sectors.forEach(sector => {
         sector.dangerousAreas.forEach(area => {
