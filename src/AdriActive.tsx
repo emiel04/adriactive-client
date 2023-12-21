@@ -19,6 +19,7 @@ import {WebsocketEvent} from "./components/common/websocketevent.ts";
 import {TSectorLocation} from "./components/common/TWorldSector.tsx";
 import {TEvent} from "./components/common/events.tsx";
 import SearchPage from "./components/pages/SearchPage.tsx";
+import "./assets/css/primereact/themes/lara/lara-light/teal/theme.scss"
 
 function AdriActive() {
     const ws = useWebSocket();
