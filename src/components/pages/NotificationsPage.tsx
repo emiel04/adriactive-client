@@ -5,13 +5,25 @@ import Chip from '@mui/joy/Chip';
 import Typography from '@mui/joy/Typography';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import noApi from "../../services/api-notifications.ts";
+import axios, {CancelTokenSource} from "axios/index";
+import {TNotification} from "../common/notification.tsx";
 
 function NotificationsPage() {
     const navigate = useNavigate();
+    const [notifications, setNotifications] = useState<TNotification[]>([])
 
     useEffect(() => {
+        const evReq: CancelTokenSource = axios.CancelToken.source();
+        noApi.getNotifications(evReq.token).then(data => {
+            setNotifications(data);
+        }).catch(() => {
+        });
 
+        return () => {
+            evReq.cancel();
+        }
     }, []);
 
     return (
