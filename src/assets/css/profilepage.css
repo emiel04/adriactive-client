@@ -1,29 +1,42 @@
 .profile-page {
-  height: 20rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 50%;
-  width: 80%;
+  gap: 50rem;
 }
 
+.profile-picture {
+  margin-top: 5rem;
+}
 .profile-picture svg {
   width: 10rem;
   height: auto;
 }
 
 .edit-button {
-  left: 20%;
-  top: 10%;
+  left: 2%;
   position: absolute;
 }
 
 .profile-info {
+  margin-left: 5%;
   float: left;
 }
 
 .interests-list {
   float: right;
+}
+
+.list-container {
+  margin: 0.5rem;
+}
+
+.list-container p {
+  margin: 0.1rem;
+}
+
+.about-me {
+  width: 13rem;
 }
 
 /*# sourceMappingURL=profilepage.css.map */
