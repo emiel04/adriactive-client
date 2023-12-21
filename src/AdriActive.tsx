@@ -15,11 +15,13 @@ import {useEffect, useState} from "react";
 import ViewEventPage from "./components/pages/ViewEventPage.tsx";
 import {LocationInfoProps} from "./components/pages/notifications/NotifySuggestedLocationPage.tsx";
 import {WebsocketEvent} from "./components/common/websocketevent.ts";
-import {TSectorLocation} from "./components/common/world.tsx";
+import {TDangerousArea, TSectorLocation} from "./components/common/world.tsx";
 import {TEvent} from "./components/common/events.tsx";
 import SearchPage from "./components/pages/SearchPage.tsx";
 import "./assets/css/primereact/themes/lara/lara-light/teal/theme.scss"
 import NotificationsPage from "./components/pages/NotificationsPage.tsx";
+import {NotifyCancelPageProps} from "./components/pages/notifications/NotifyCancelPage.tsx";
+import {NotifyDangerPageProps} from "./components/pages/notifications/NotifyDangerPage.tsx";
 
 function AdriActive() {
     const ws = useWebSocket();
@@ -40,20 +42,46 @@ function AdriActive() {
         }
     }, [hasSelectedInterests]);
 
+
     const handleMessage = (error: Error, message: any) => {
         if (error) {
             console.error(error);
         }
-        console.log(message.body)
+
         switch (message.body.eventType) {
             case WebsocketEvent.SUGGESTLOCATION:
-                console.log(message.body)
                 handleSuggestLocation(message.body);
                 break;
             case WebsocketEvent.NOTIFYLOCATION:
-                console.log(message.body)
                 handleNotifyLocation(message.body)
+                break;
+            case WebsocketEvent.CANCELEDEVENT:
+                handleCancelEvent(message.body)
+                break;
+            case WebsocketEvent.DANGEREVENT:
+                handleDangerEvent(message.body);
+                break;
         }
+
+    }
+
+    function handleCancelEvent(data: any) {
+        const event: TEvent = data.event;
+        const stateData: NotifyCancelPageProps = {
+            event: event
+        }
+        navigate("/notification/canceled", {state: stateData})
+
+    }
+
+    function handleDangerEvent(data: any) {
+        const event: TEvent = data.event;
+        const dangerousArea: TDangerousArea = data.dangerousArea;
+        const stateData: NotifyDangerPageProps = {
+            event: event,
+            dangerousArea: dangerousArea
+        }
+        navigate("/notification/danger", {state: stateData})
 
     }
 
