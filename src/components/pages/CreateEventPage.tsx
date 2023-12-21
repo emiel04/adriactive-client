@@ -2,7 +2,6 @@ import Autocomplete from '@mui/joy/Autocomplete';
 import Slider from '@mui/joy/Slider';
 import Input from '@mui/joy/Input';
 import Textarea from '@mui/joy/Textarea';
-import Button from '@mui/joy/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import evApiInterests from "../../services/api-interests.ts";
 import evApiSectors from "../../services/api-world.ts";
@@ -18,6 +17,7 @@ import {PrimeReactProvider} from 'primereact/api';
 import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
 import {EventData} from "../common/events.tsx";
+import Button from '@mui/joy/Button';
 
 
 export default function CreateEventPage() {
@@ -213,7 +213,7 @@ export default function CreateEventPage() {
                     valueLabelDisplay="auto"
                     aria-required={true}
                 />
-                <Button type="submit">{isEditing ? 'Save' : 'Create'}</Button>
+                <button className={"buttons"} type="submit">{isEditing ? 'Save' : 'Create'}</button>
                 {isEditing && <Button type="submit" color={"danger"} onClick={cancelEvent}>Cancel Event</Button>}
             </form>
         </PrimeReactProvider>

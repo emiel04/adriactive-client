@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import apiInt from "../../services/api-interests.ts";
 import InterestBlock from "../InterestBlock.tsx";
-import Button from '@mui/joy/Button';
 import {useNavigate} from "react-router";
 import {useSearchParams} from "react-router-dom";
 import apiUser from "../../services/api-user.ts";
@@ -62,20 +61,20 @@ export default function InterestPage({setHasSelectedInterests}: InterestPageProp
                 </div>
 
                 {!isEditing && (
-                    <Button className="skip-button"
+                    <button className="buttons skip-button"
                             onClick={() => {
                                 toast.success('Skipped adding interest, add these in the future!');
                                 if (setHasSelectedInterests) {
                                     setHasSelectedInterests();
                                 }
                                 navigate('/app/home')
-                            }}>Skip</Button>
+                            }}>Skip</button>
                 )
                 }
 
                 {selectedInterests.length >= minInterestsSelected && (
-                    <Button type="submit"
-                    >Save</Button>
+                    <button type="submit" className={"buttons"}
+                    >Save</button>
                 )
                 }
             </div>
