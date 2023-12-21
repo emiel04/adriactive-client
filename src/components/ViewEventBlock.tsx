@@ -112,7 +112,7 @@ function MarkerMap({markerPoint, sector}: MarkerMapProps) {
             const end = [clientSector.coordinateRange.end.x, clientSector.coordinateRange.end.y] as Coordinate;
             sectorLayer = drawRectangleWithStartAndEndPoint(mapObject, start, end, "transparent", new Stroke({
                 color: "rgba(100,0,0, 0.5)",
-                width: 1
+                width: 2
             }));
             const middleOfSector = getCoordinateRangeMiddle(clientSector.coordinateRange)
             const middle = [middleOfSector.x, middleOfSector.y] as Coordinate
