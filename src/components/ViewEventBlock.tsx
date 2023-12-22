@@ -28,7 +28,7 @@ import VectorLayer from "ol/layer/Vector";
 import {Stroke} from "ol/style";
 
 type TViewEventBlockProps = {
-    event: TEvent;
+    readonly event: TEvent;
 };
 
 export default function EventBlock(prop: TViewEventBlockProps) {
@@ -50,33 +50,30 @@ export default function EventBlock(prop: TViewEventBlockProps) {
             });
     }, [prop.event.category.categoryId]);
 
-    return (<>
-            <div className={"event-details-container"}>
-                <div>
-                    <div className="imageContainer">
-                        <img src={imgSrc} alt={`Category: ${prop.event.name}`} className="imgViewEvent"/>
-                    </div>
-                    <div className="event-details" id={prop.event.id.toString()}>
-                        <h2>{prop.event.name}</h2>
-                        <ul>
-                            <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
-                            <li><LocationOnIcon/>{getSectorName(prop.event.sector.id)}</li>
-                            <li>
-                                <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
-                                {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}
-                            </li>
-                            <li><CheckCircleIcon/>{getPeopleLeft()} spots left</li>
-                            <li>{prop.event.description}</li>
-                        </ul>
-                    </div>
+    return (<div className={"event-details-container"}>
+            <div>
+                <div className="imageContainer">
+                    <img src={imgSrc} alt={`Category: ${prop.event.name}`} className="imgViewEvent"/>
                 </div>
-
-                <MarkerMap
-                    markerPoint={prop.event.location}
-                    sector={sector}></MarkerMap>
+                <div className="event-details" id={prop.event.id.toString()}>
+                    <h2>{prop.event.name}</h2>
+                    <ul>
+                        <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
+                        <li><LocationOnIcon/>{getSectorName(prop.event.sector.id)}</li>
+                        <li>
+                            <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
+                            {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}
+                        </li>
+                        <li><CheckCircleIcon/>{getPeopleLeft()} spots left</li>
+                        <li>{prop.event.description}</li>
+                    </ul>
+                </div>
             </div>
 
-        </>
+            <MarkerMap
+                markerPoint={prop.event.location}
+                sector={sector}></MarkerMap>
+        </div>
     );
 
     function getPeopleLeft() {
@@ -85,8 +82,8 @@ export default function EventBlock(prop: TViewEventBlockProps) {
 }
 
 type MarkerMapProps = {
-    markerPoint: TCoordinate | undefined | null,
-    sector: World | undefined | null
+    readonly markerPoint: TCoordinate | undefined | null,
+    readonly sector: World | undefined | null
 }
 
 function MarkerMap({markerPoint, sector}: MarkerMapProps) {
@@ -99,7 +96,7 @@ function MarkerMap({markerPoint, sector}: MarkerMapProps) {
         }
         const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
         const rectExtent = rectFeature.getGeometry()?.getExtent();
-        const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
+        const coordConverter = getCoordConverter(rectExtent ?? [0, 0, 0, 0])
 
         let marker: VectorLayer<VectorSource<Feature<Point>>> | null;
         if (markerPoint) {

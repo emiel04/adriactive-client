@@ -4,7 +4,6 @@ import "./assets/css/homepage.css";
 import "./assets/css/my-events-page.css"
 import MapPage from "./components/pages/MapPage";
 import MyEventsPage from "./components/pages/MyEventsPage.tsx";
-import "./assets/css/interestspage.scss";
 import NotFound from "./components/common/404.tsx";
 import "./assets/css/events.css";
 import InterestPage from "./components/pages/InterestPage.tsx";

@@ -6,10 +6,10 @@ import axios, {CancelTokenSource} from "axios";
 import {useState} from "react";
 
 type TUserBlockProps = {
-    user: TUser;
-    isEditing: boolean;
-    setIsEditingFalse: () => void;
-    refreshUser: () => void;
+    readonly user: TUser;
+    readonly isEditing: boolean;
+    readonly setIsEditingFalse: () => void;
+    readonly refreshUser: () => void;
 }
 
 export default function UserBlock(prop: TUserBlockProps) {

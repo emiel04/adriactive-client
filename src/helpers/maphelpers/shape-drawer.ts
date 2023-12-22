@@ -62,7 +62,7 @@ export function drawRectangle(mapObject: ol.Map, center: Coordinate, width: numb
 
     const rectangleStyle = new Style({
         fill: new Fill({
-            color: color || 'rgba(0, 0, 255, 0.5)',
+            color: color ?? 'rgba(0, 0, 255, 0.5)',
         }),
     });
     rectangleFeature.setStyle(rectangleStyle);
@@ -101,7 +101,7 @@ export function drawRectangleWithStartAndEndPoint(
 
     const rectangleStyle = new Style({
         fill: new Fill({
-            color: color || 'rgba(0, 0, 255, 0.5)',
+            color: color ?? 'rgba(0, 0, 255, 0.5)',
         })
     });
     if (stroke) {
@@ -125,7 +125,7 @@ export function drawCircle(mapObject: ol.Map, center: Coordinate, radius: number
 
     const circleStyle = new Style({
         fill: new Fill({
-            color: color || 'rgba(255, 0, 0, 0.4)'
+            color: color ?? 'rgba(255, 0, 0, 0.4)'
         })
     })
     circleFeature.setStyle(circleStyle);

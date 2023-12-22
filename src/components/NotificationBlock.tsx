@@ -9,9 +9,9 @@ import "../assets/css/notifications.scss";
 
 
 type TNotificationBlockProps = {
-    notification: TNotification;
-    onClick: () => void;
-    onMouseEnter: () => void;
+    readonly notification: TNotification;
+    readonly onClick: () => void;
+    readonly onMouseEnter: () => void;
 };
 export default function NotificationBlock(prop: TNotificationBlockProps) {
     const navigate = useNavigate();

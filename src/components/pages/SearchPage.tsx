@@ -93,7 +93,6 @@ function SearchPage() {
     };
 
     const filterCategories = (e: any) => {
-        e.target.selected;
         setSelectedCategory(e.target.innerText);
 
         renderEvents(events, searchTerm);
@@ -132,7 +131,6 @@ function SearchPage() {
     };
 
     const filterAmountOfPeople = (e: any) => {
-        e.target.selected;
         setSelectedAmountOfPeople(e.target.innerText);
 
         renderEvents(events, searchTerm);

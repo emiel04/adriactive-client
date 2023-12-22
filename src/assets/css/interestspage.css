@@ -13,6 +13,17 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
+.interests-page .interests-grid .box-interest {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 50%;
+}
+.interests-page .interests-grid .box-interest > div {
+  padding: 2rem;
+  border-radius: 1rem;
+  display: flex;
+}
 .interests-page .interests-grid .interest-checkbox {
   display: flex;
   align-items: center;

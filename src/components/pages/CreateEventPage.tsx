@@ -55,7 +55,7 @@ export default function CreateEventPage() {
 
     useEffect(() => {
         const editing = searchParams.get('id');
-        const id = parseInt(editing || "") || 0;
+        const id = parseInt(editing ?? "") || 0;
         setEventId(id)
         setIsEditing(!!eventId)
 
@@ -96,9 +96,9 @@ export default function CreateEventPage() {
             "name": eventName,
             "description": description,
             "amountOfPeople": numberOfPeople,
-            "categoryId": category?.categoryId || 0,
-            "sectorId": loadSector?.id || 0,
-            "startDateTime": date?.valueOf() || 0,
+            "categoryId": category?.categoryId ?? 0,
+            "sectorId": loadSector?.id ?? 0,
+            "startDateTime": date?.valueOf() ?? 0,
             "hours": hours,
         };
         if (isEditing) {
@@ -151,20 +151,20 @@ export default function CreateEventPage() {
             <form className="form-group" onSubmit={handleSubmit}>
                 <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
                 <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
-                <label>Event Name</label>
+                <label>Event Name
                 <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
                        required
                        value={eventName}
                 />
-
-                <label>Description</label>
+                </label>
+                <label>Description
                 <Textarea placeholder="Type anything…" onChange={e => setDescription(e.target.value)}
                           required
                           value={description}
                 />
-
+                </label>
                 <div className="dropdowns">
-                    <label>Category</label>
+                    <label>Category
                     {(category || !isEditing) &&
                       <Autocomplete
                         options={interests}
@@ -175,7 +175,8 @@ export default function CreateEventPage() {
                         required
                       />
                     }
-                    <label>Sector</label>
+                    </label>
+                    <label>Sector
                     {(loadSector || !isEditing) &&
                       <Autocomplete
                         options={sectors}
@@ -186,9 +187,10 @@ export default function CreateEventPage() {
                         required
                       />
                     }
+                    </label>
 
                 </div>
-                <label>Number of People</label>
+                <label>Number of People
                 <Slider
                     aria-label="Amount of People"
                     value={numberOfPeople}
@@ -197,15 +199,16 @@ export default function CreateEventPage() {
                     valueLabelDisplay="auto"
                     aria-required={true}
                 />
-
-                <label>When</label><br/>
+                </label>
+                <label>When<br/>
                 <Calendar id="calendar-24h"
                           value={date?.toDate()}
                           onChange={(e) => setDate(dayjs(e.value))}
                           readOnlyInput
                           showTime hourFormat="24"/>
                 <br/>
-                <label>Expected duration</label>
+                </label>
+                <label>Expected duration
                 <Slider
                     aria-label="Hours"
                     step={1}
@@ -216,6 +219,7 @@ export default function CreateEventPage() {
                     valueLabelDisplay="auto"
                     aria-required={true}
                 />
+                </label>
                 <button className={"buttons button-edit"} type="submit">{isEditing ? 'Save' : 'Create'}</button>
                 {isEditing && <Button type="submit" color={"danger"} onClick={cancelEvent}>Cancel Event</Button>}
             </form>

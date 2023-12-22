@@ -9,9 +9,9 @@ import {DATE_OPTIONS, TIME_OPTIONS} from "../helpers/datehelper.ts";
 
 
 type TEventBlockProps = {
-    simple?: boolean
-    event: TEvent;
-    onClick: () => void;
+    readonly simple?: boolean
+    readonly event: TEvent;
+    readonly onClick: () => void;
 };
 
 export default function EventBlock(prop: TEventBlockProps) {
