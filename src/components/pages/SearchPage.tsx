@@ -173,37 +173,32 @@ function SearchPage() {
 
     function renderEvents(events: TEvent[], searchTerm: string) {
         let filteredEvents = events;
+
         if (searchTerm) {
-            filteredEvents = events.filter((e) =>
-                e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                e.organiser.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                e.organiser.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            ;
+            filteredEvents = filteredEvents.filter(
+                (e) =>
+                    e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    e.organiser.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    e.organiser.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+            );
         }
 
         if (selectedCategory && selectedCategory !== "Select a Category") {
             filteredEvents = filteredEvents.filter((event) => {
                 return event.category.name === selectedCategory;
             });
-        } else if (selectedCategory === "Select a Category") {
-            filteredEvents = events;
         }
 
         if (selectedSector && selectedSector !== "Select a Sector") {
             filteredEvents = filteredEvents.filter((event) => {
                 return event.sector.name === selectedSector;
             });
-        } else if (selectedSector === "Select a Sector") {
-            filteredEvents = events;
         }
 
         if (selectedAmountOfPeople && selectedAmountOfPeople !== "Select the max Amount Of People") {
             filteredEvents = filteredEvents.filter((event) => {
                 return event.amountOfPeople <= parseInt(selectedAmountOfPeople);
             });
-        } else if (selectedAmountOfPeople === "Select the max Amount Of People") {
-            filteredEvents = events;
         }
 
         if (!filteredEvents || filteredEvents.length === 0) {
