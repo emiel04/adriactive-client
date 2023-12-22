@@ -27,9 +27,21 @@ $navbar-padding: 1rem;
   transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
   height: calc($navbar-height);
 
+  .navbar-end {
+    margin-left: auto;
+    scale: 2;
+
+    a {
+      padding: 0;
+      border-radius: 100%;
+      min-width: 0;
+    }
+  }
+
   ul {
     display: flex;
     align-items: center;
+    width: 100%;
   }
 
   li {

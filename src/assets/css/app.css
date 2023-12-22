@@ -22,9 +22,19 @@ body {
   transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   height: 5rem;
 }
+.navbar .navbar-end {
+  margin-left: auto;
+  scale: 2;
+}
+.navbar .navbar-end a {
+  padding: 0;
+  border-radius: 100%;
+  min-width: 0;
+}
 .navbar ul {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .navbar li {
   display: inline-block;
