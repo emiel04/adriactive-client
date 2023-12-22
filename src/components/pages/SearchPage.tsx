@@ -104,7 +104,7 @@ function SearchPage() {
     }
 
     const renderOptionsAmountOfPeople = () => {
-        const peopleAmounts = [5, 10, 15, 20, 30, 40, 50, 100, 150, 200, 250, 300, 350, 400, 500];
+        const peopleAmounts = ['5', '10', '15', '20', '30', '40', '50', '100', '150', '200', '250', '300', '350', '400', '500'];
         const options = peopleAmounts.map((personAmount) => (
             <Option key={personAmount} value={personAmount}>
                 {personAmount}
