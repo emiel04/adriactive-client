@@ -7,9 +7,10 @@ import {useSearchParams} from "react-router-dom";
 import apiUser from "../../services/api-user.ts";
 import {TCategory} from "../common/category.tsx";
 import toast from "react-hot-toast";
+import "../../assets/css/interestspage.scss";
 
 interface InterestPageProps {
-    setHasSelectedInterests: (() => void) | null
+    readonly setHasSelectedInterests: (() => void) | null
 }
 
 export default function InterestPage({setHasSelectedInterests}: InterestPageProps) {

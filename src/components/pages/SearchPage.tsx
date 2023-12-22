@@ -8,24 +8,9 @@ import EventBlock from "../EventBlock.tsx";
 import {TEvent} from "../common/events.tsx";
 import "../../assets/css/search.scss";
 import Input from '@mui/joy/Input';
-import {styled} from '@mui/joy/styles';
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import {TCategory} from "../common/category.tsx";
-import Button from "@mui/joy/Button";
-
-const CustomInput = styled(Input)({
-    marginTop: '0.5rem',
-    marginLeft: '2rem',
-    marginRight: '3rem',
-    width: "35rem",
-}) as typeof Button;
-
-const CustomSelect = styled(Select)({
-    marginTop: '0.5rem',
-    marginRight: '3rem',
-    width: "15rem",
-}) as typeof Select;
 
 function SearchPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -74,7 +59,7 @@ function SearchPage() {
     }, []);
 
     const handleInputChange = (
-        event: React.ChangeEvent<HTMLButtonElement>
+        event: React.ChangeEvent<HTMLInputElement>
     ) => {
         setSearchTerm(event.target.value);
         renderEvents(events, searchTerm);
@@ -93,7 +78,6 @@ function SearchPage() {
     };
 
     const filterCategories = (e: any) => {
-        e.target.selected;
         setSelectedCategory(e.target.innerText);
 
         renderEvents(events, searchTerm);
@@ -132,7 +116,6 @@ function SearchPage() {
     };
 
     const filterAmountOfPeople = (e: any) => {
-        e.target.selected;
         setSelectedAmountOfPeople(e.target.innerText);
 
         renderEvents(events, searchTerm);
@@ -141,37 +124,40 @@ function SearchPage() {
     return (
         <>
             <div id={"filterBar"}>
-                <CustomInput
+                <Input
                     placeholder="Search for an event..."
-                    id="searchBar"
+                    className={"searchBar"}
                     value={searchTerm}
                     onChange={handleInputChange}
                 >
-                </CustomInput>
-                <CustomSelect
+                </Input>
+                <Select
                     placeholder="Category"
                     variant="outlined"
+                    className={"select-field"}
                     value={selectedCategory}
                     onChange={filterCategories}
                 >
                     {renderOptionsCategories()}
-                </CustomSelect>
-                <CustomSelect
+                </Select>
+                <Select
                     placeholder="Sector"
                     variant="outlined"
+                    className={"select-field"}
                     value={selectedSector}
                     onChange={filterSectors}
                 >
                     {renderOptionsSectors()}
-                </CustomSelect>
-                <CustomSelect
+                </Select>
+                <Select
                     placeholder="Amount of People"
                     variant="outlined"
+                    className={"select-field"}
                     value={selectedAmountOfPeople}
                     onChange={filterAmountOfPeople}
                 >
                     {renderOptionsAmountOfPeople()}
-                </CustomSelect>
+                </Select>
             </div>
             <div className={"homepage"}>
                 <div className={"events"}>

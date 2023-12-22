@@ -15,6 +15,18 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 
+    .box-interest {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 50%;
+      & > div {
+        padding: 2rem;
+        border-radius: 1rem;
+        display: flex;
+      }
+    }
+
     .interest-checkbox {
       display: flex;
       align-items: center;

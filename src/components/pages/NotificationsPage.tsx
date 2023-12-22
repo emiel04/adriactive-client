@@ -14,11 +14,11 @@ function NotificationsPage() {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         noApi.getNotifications(evReq.token).then(data => {
             setNotifications(data);
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e)
         });
 
         return () => {
-            evReq.cancel();
         }
     }, []);
 
@@ -32,10 +32,16 @@ function NotificationsPage() {
         </div>
     );
 
+    function setToRead(notificationId: number) {
+        const evReq: CancelTokenSource = axios.CancelToken.source();
+        noApi.setToRead(notificationId, evReq.token).then(r => console.log(r));
+    }
+
     function renderNotifications(notifications: TNotification[]) {
         return notifications && notifications.length > 0 ? (
             notifications.map(n => {
-                return <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/events/view/${n.eventId}`)}></NotificationBlock>
+                return <NotificationBlock key={n.id} notification={n} onClick={() => navigate(`/app/events/view/${n.eventId}`)}
+                                          onMouseEnter={() => setToRead(n.id)}></NotificationBlock>
             })
     ) : (
             <div>

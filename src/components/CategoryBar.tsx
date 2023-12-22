@@ -3,7 +3,12 @@ import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import axios, {CancelTokenSource} from "axios";
 import catApi from "../services/api-catergory";
 
-export default function CategoryBar({filters, setFilters} : {filters: Set<number> ,setFilters:  Dispatch<SetStateAction<Set<number>>>}) {
+
+interface CategoryBarProps {
+    readonly filters: Set<number>;
+    readonly setFilters: Dispatch<SetStateAction<Set<number>>>;
+}
+export default function CategoryBar({ filters, setFilters }: CategoryBarProps) {
 
     const [categories, setCategories] = useState<TCategory[]>([]);
     const [loading, setLoading] = useState<boolean>(true);

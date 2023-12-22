@@ -4,4 +4,5 @@ export type TNotification ={
     title: string;
     startTime: number;
     description: string;
+    read: boolean;
 }

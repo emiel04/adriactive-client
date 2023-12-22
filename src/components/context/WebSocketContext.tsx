@@ -1,4 +1,4 @@
-import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
+import {createContext, PropsWithChildren, useContext, useEffect, useMemo, useState} from "react";
 import EventBus from "@vertx/eventbus-bridge-client.js";
 import URI from "../../api";
 import {v4 as uuidv4} from "uuid";
@@ -22,7 +22,7 @@ type ListenerItem = {
     listener: Listener
 };
 
-export function WebSocketProvider({children}: PropsWithChildren) {
+export function WebSocketProvider({children}: Readonly<PropsWithChildren>) {
     const [eb, setEb] = useState<EventBus.EventBus>();
     const [broadcastListeners, setBroadcastListeners] = useState<ListenerItem[]>([]);
     const [unicastListeners, setUnicastListeners] = useState<ListenerItem[]>([]);
@@ -129,15 +129,15 @@ export function WebSocketProvider({children}: PropsWithChildren) {
 
     return (
         <WebSocketContext.Provider
-            value={{
+            value={useMemo(() => ({
                 eb,
-                addBroadcastListener: addBroadcastListener,
-                removeBroadcastListener: removeBroadcastListener,
-                addUnicastListener: addUnicastListener,
-                removeUnicastListener: removeUnicastListener,
-                sendToServer: sendToServer,
-                cleanUp: cleanUp
-            }}>
+                    addBroadcastListener: addBroadcastListener,
+                    removeBroadcastListener: removeBroadcastListener,
+                    addUnicastListener: addUnicastListener,
+                    removeUnicastListener: removeUnicastListener,
+                    sendToServer: sendToServer,
+                    cleanUp: cleanUp
+            }), [])}>
             {children}
         </WebSocketContext.Provider>
     );

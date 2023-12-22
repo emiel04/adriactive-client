@@ -24,9 +24,9 @@ import {Feature} from "ol";
 import {Point, Polygon} from "ol/geom";
 
 interface EventLocationInfoProps {
-    event: TEvent;
-    location: TCoordinate | null | undefined;
-    dangerousArea: TDangerousArea | null | undefined;
+    readonly event: TEvent;
+    readonly location: TCoordinate | null | undefined;
+    readonly dangerousArea: TDangerousArea | null | undefined;
 }
 
 export function EventLocationInfo({event, location, dangerousArea}: EventLocationInfoProps) {
@@ -51,7 +51,7 @@ export function EventLocationInfo({event, location, dangerousArea}: EventLocatio
         }
         const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
         const rectExtent = rectFeature.getGeometry()?.getExtent();
-        const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
+        const coordConverter = getCoordConverter(rectExtent ?? [0, 0, 0, 0])
         let marker: VectorLayer<VectorSource<Feature<Point>>>;
         if (location) {
             const markerLocation = coordConverter(location.x, location.y);

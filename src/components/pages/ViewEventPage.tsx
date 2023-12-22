@@ -45,7 +45,7 @@ export default function ViewEventPage() {
 
     useEffect(() => {
         if (event) {
-            const adriaId = localStorage.getItem("adriaId") || "";
+            const adriaId = localStorage.getItem("adriaId") ?? "";
             setIsCreator(event.organiser.id === adriaId);
         }
     }, [event]);

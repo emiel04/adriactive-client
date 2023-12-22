@@ -31,7 +31,7 @@ function MapPage() {
         }
         const rectFeature = drawRectangle(mapObject, center, getAdriaSize(), getAdriaSize(), "transparent")
         const rectExtent = rectFeature.getGeometry()?.getExtent();
-        const coordConverter = getCoordConverter(rectExtent || [0, 0, 0, 0])
+        const coordConverter = getCoordConverter(rectExtent ?? [0, 0, 0, 0])
 
         function updateSectors(sectors: World[]) {
             //remove existing layers
