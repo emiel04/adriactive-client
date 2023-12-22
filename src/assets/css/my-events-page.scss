@@ -3,33 +3,33 @@
 
 #my-events {
   display: grid;
-  grid-template-columns: 75% 25%;
-  gap: 3rem;
+  grid-template-columns: 70% 30%;
   $gap: 2rem;
   box-sizing: border-box;
-  width: 95%;
   margin: 0 auto;
+  width: 100%;
   height: 90vh;
+  overflow-y: hidden;
 
   .horizontal {
     display: flex;
     gap: $gap;
     overflow-x: scroll;
     padding-bottom: 1rem;
-
   }
 
 
   h2 {
     font-size: 1.75rem;
-    padding: 1.5rem 0 1.5rem;
+    padding: 1rem $gap 1rem;
   }
 
   .event-type-header {
-    margin-left: 2rem;
   }
 
   #joined-events {
+    height: 90vh;
+
     .event {
       flex: 0 0 18%;
 
@@ -44,27 +44,45 @@
   }
 
   #created-events {
-    max-height: 50%;
     box-sizing: border-box;
-    padding: 0 $gap;
+    height: 90vh;
+    overflow: auto;
 
     h2 {
       position: sticky;
       top: 0;
       background: var.$white-color;
+      padding-left: $gap;
     }
 
     div.event-container {
       display: flex;
       flex-direction: column;
       gap: $gap;
-
+      padding: 0 $gap;
     }
 
     .event {
       &:last-child {
         margin-bottom: $gap;
       }
+    }
+  }
+
+  .create-event-button {
+    position: absolute;
+    bottom: $gap;
+    right: 0;
+    margin-right: $gap;
+    outline: 2px solid var.$primary-color;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

@@ -6,6 +6,7 @@ import EventBlock from "../EventBlock.tsx";
 import {useNavigate} from "react-router";
 import "../../assets/css/my-events-page.css"
 import "../../assets/css/events.css"
+import AddIcon from '@mui/icons-material/Add';
 
 function MyEventsPage() {
     const [ongoingEvents, setOngoingEvents] = useState<TEvent[]>([]);
@@ -55,7 +56,7 @@ function MyEventsPage() {
     }, [])
 
 
-    return <div className={"loading"}>
+    return <>
         {isLoading ? (
                 <p>Loading...</p>
             ) :
@@ -66,12 +67,13 @@ function MyEventsPage() {
                             <h2>Ongoing Events</h2>
                         </div>
                         <div className={"horizontal"}>
-                            <div>
-                                {isNoOngoing ? (
+                            {isNoOngoing ? (
+                                <div>
                                     <p className={"error"}>There are no ongoing events!</p>
-                                ) : null}
-                                {renderEvents(ongoingEvents)}
-                            </div>
+                                </div>
+                            ) : null}
+                            {renderEvents(ongoingEvents)}
+
                         </div>
 
                     </div>
@@ -80,29 +82,33 @@ function MyEventsPage() {
                             <h2>Upcoming Events</h2>
                         </div>
                         <div className={"horizontal"}>
-                            <div>
-                                {isNoUpcoming ? (
+                            {isNoUpcoming ? (
+                                <div>
                                     <p className={"error"}>There are no upcoming events!</p>
-                                ) : null}
-                            </div>
+                                </div>
+                            ) : null}
                             {renderEvents(upcomingEvents)}
                         </div>
                     </div>
                 </div>
                 <div id={"created-events"}>
                     <h2>Created Events</h2>
+                    <button className={"buttons create-event-button"}
+                            onClick={() => navigate('/app/event/create')}>
+                        <AddIcon></AddIcon> <span>Create Event</span>
+
+                    </button>
                     <div className={"event-container"}>
-                        <div>
-                            {isNoCreated ? (
+                        {isNoCreated ? (
+                            <div>
                                 <p className={"error"}>You have not created an event yet!</p>
-                            ) : null}
-                        </div>
+                            </div>
+                        ) : null}
                         {renderEvents(createdEvents)}
                     </div>
-                    <button className={"buttons"} onClick={() => navigate('/app/event/create')}>Create Event</button>
                 </div>
             </div>}
-    </div>
+    </>
 
     function renderEvents(events: TEvent[]) {
         return <>
