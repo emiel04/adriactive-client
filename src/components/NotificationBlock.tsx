@@ -11,12 +11,14 @@ import "../assets/css/notifications.scss";
 type TNotificationBlockProps = {
     notification: TNotification;
     onClick: () => void;
+    onMouseEnter: () => void;
 };
 export default function NotificationBlock(prop: TNotificationBlockProps) {
     const navigate = useNavigate();
     return (
         <Card
             onClick={() => navigate(`/app/events/view/${prop.notification.eventId}`)}
+            onMouseEnter={prop.onMouseEnter}
             variant="outlined"
             orientation="horizontal"
             className={"card"}
