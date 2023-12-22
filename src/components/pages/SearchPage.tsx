@@ -111,7 +111,7 @@ function SearchPage() {
             </Option>
         ));
 
-        options.unshift(<Option key="all" value={""}>Select the max Amount Of People</Option>);
+        options.unshift(<Option key="all" value={""}>Select the Max Amount of People</Option>);
         return options;
     };
 
