@@ -60,7 +60,6 @@ export function EventLocationInfo({event, location, dangerousArea}: EventLocatio
         }
 
         let dangerousAreaLayer: VectorLayer<VectorSource<Feature<Polygon>>>;
-        console.log(dangerousArea)
         if (dangerousArea) {
             const clientBounds = convertCoordinateRange(dangerousArea.coordinateRange, coordConverter);
             const start = [clientBounds.start.x, clientBounds.start.y] as Coordinate;
