@@ -23,7 +23,7 @@ export default function NotificationBlock(prop: TNotificationBlockProps) {
             orientation="horizontal"
             className={"card"}
         >
-            <NotificationsActiveIcon className={"bell-icon"} />
+            <NotificationsActiveIcon className={"bell-icon"}/>
             <CardContent>
                 <Typography level="title-lg" id="notification-description">
                     {prop.notification.title}
@@ -38,7 +38,7 @@ export default function NotificationBlock(prop: TNotificationBlockProps) {
 
     function dateToTimeAgo(startTime: number): string {
         const currentDate = new Date();
-        const notificationDate = new Date(startTime * 1000);
+        const notificationDate = new Date(startTime);
         const timeDifference = currentDate.getTime() - notificationDate.getTime();
         const seconds = Math.floor(timeDifference / 1000);
         const minutes = Math.floor(seconds / 60);
