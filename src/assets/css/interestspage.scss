@@ -13,13 +13,15 @@
   .interests-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 1rem;
+    justify-items: center;
 
     .box-interest {
       display: flex;
       flex-direction: column;
       gap: 2rem;
       width: 50%;
+
       & > div {
         padding: 2rem;
         border-radius: 1rem;

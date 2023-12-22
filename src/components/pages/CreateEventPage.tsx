@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 import {TCategory} from "../common/category.tsx";
 import {EventData} from "../common/events.tsx";
 import Button from '@mui/joy/Button';
-import "../../assets/css/editpage.scss"
+import "../../assets/css/editeventpage.scss"
 
 dayjs.extend(utc);
 export default function CreateEventPage() {
@@ -31,20 +31,22 @@ export default function CreateEventPage() {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<TCategory | null>(null);
     const [loadSector, setLoadSector] = useState<TSector | null>(null);
-    const [numberOfPeople, setNumberOfPeople] = useState<number>(0);
+    const [numberOfPeople, setNumberOfPeople] = useState<number>(10);
     const [searchParams] = useSearchParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [date, setDate] = useState<Dayjs | null>(dayjs());
-    const [hours, setHours] = useState<number>(0);
+    const [hours, setHours] = useState<number>(2);
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApiInterests.getInterests(evReq.token).then(data => {
-            setInterests(data);
+            setInterests(data)
+            setCategory(data[0])
         }).catch(() => {
         });
 
         evApiSectors.getSectors(evReq.token).then(data => {
             setSectors(data);
+            setLoadSector(data[0]);
         }).catch(() => {
         });
 
@@ -148,8 +150,9 @@ export default function CreateEventPage() {
 
     return (
         <PrimeReactProvider>
-            <form className="form-group" onSubmit={handleSubmit}>
-                <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
+            <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
+
+            <form className="edit-event-form" onSubmit={handleSubmit}>
                 <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
                 <label>Event Name
                     <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
