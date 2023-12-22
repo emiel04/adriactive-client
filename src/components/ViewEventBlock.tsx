@@ -61,8 +61,8 @@ export default function EventBlock(prop: TViewEventBlockProps) {
                         <li><PersonIcon/>{prop.event.organiser.firstName} {prop.event.organiser.lastName}</li>
                         <li><LocationOnIcon/>{getSectorName(prop.event.sector.id)}</li>
                         <li>
-                            <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
-                            {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}
+                            <AccessTimeFilled/>{new Date(prop.event.startDateTime).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
+                            {new Date(prop.event.startDateTime).toLocaleTimeString(undefined, TIME_OPTIONS)}
                         </li>
                         <li><CheckCircleIcon/>{getPeopleLeft()} spots left</li>
                         <li>{prop.event.description}</li>

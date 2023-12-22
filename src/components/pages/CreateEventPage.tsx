@@ -12,6 +12,7 @@ import {useNavigate} from "react-router";
 import {TSector} from "../common/world.tsx";
 import {useSearchParams} from "react-router-dom";
 import dayjs, {Dayjs} from 'dayjs';
+import utc from "dayjs/plugin/utc"
 import {Calendar} from 'primereact/calendar';
 import {PrimeReactProvider} from 'primereact/api';
 import toast from "react-hot-toast";
@@ -20,7 +21,7 @@ import {EventData} from "../common/events.tsx";
 import Button from '@mui/joy/Button';
 import "../../assets/css/editpage.scss"
 
-
+dayjs.extend(utc);
 export default function CreateEventPage() {
     const [interests, setInterests] = useState<TCategory[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
@@ -35,7 +36,6 @@ export default function CreateEventPage() {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [date, setDate] = useState<Dayjs | null>(dayjs());
     const [hours, setHours] = useState<number>(0);
-
     useEffect(() => {
         const evReq: CancelTokenSource = axios.CancelToken.source();
         evApiInterests.getInterests(evReq.token).then(data => {
@@ -98,7 +98,7 @@ export default function CreateEventPage() {
             "amountOfPeople": numberOfPeople,
             "categoryId": category?.categoryId ?? 0,
             "sectorId": loadSector?.id ?? 0,
-            "startDateTime": date?.valueOf() ?? 0,
+            "startDateTime": date?.utc().valueOf() ?? 0,
             "hours": hours,
         };
         if (isEditing) {
@@ -152,73 +152,73 @@ export default function CreateEventPage() {
                 <ArrowBackIosIcon onClick={() => navigate(-1)}></ArrowBackIosIcon>
                 <h1>{isEditing ? 'Edit Event' : 'Create Event'}</h1>
                 <label>Event Name
-                <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
-                       required
-                       value={eventName}
-                />
+                    <Input placeholder="Type in here…" onChange={e => setEventName(e.target.value)}
+                           required
+                           value={eventName}
+                    />
                 </label>
                 <label>Description
-                <Textarea placeholder="Type anything…" onChange={e => setDescription(e.target.value)}
-                          required
-                          value={description}
-                />
+                    <Textarea placeholder="Type anything…" onChange={e => setDescription(e.target.value)}
+                              required
+                              value={description}
+                    />
                 </label>
                 <div className="dropdowns">
                     <label>Category
-                    {(category || !isEditing) &&
-                      <Autocomplete
-                        options={interests}
-                        value={category}
-                        onChange={(_event, newValue) => setCategory(newValue)}
-                        getOptionLabel={(option) => option.name ?? option}
-                        isOptionEqualToValue={option => option.name === category?.name}
-                        required
-                      />
-                    }
+                        {(category || !isEditing) &&
+                          <Autocomplete
+                            options={interests}
+                            value={category}
+                            onChange={(_event, newValue) => setCategory(newValue)}
+                            getOptionLabel={(option) => option.name ?? option}
+                            isOptionEqualToValue={option => option.name === category?.name}
+                            required
+                          />
+                        }
                     </label>
                     <label>Sector
-                    {(loadSector || !isEditing) &&
-                      <Autocomplete
-                        options={sectors}
-                        value={loadSector}
-                        onChange={(_event, newValue) => setLoadSector(newValue)}
-                        getOptionLabel={(option) => option.name ?? option}
-                        isOptionEqualToValue={option => option.name === loadSector?.name}
-                        required
-                      />
-                    }
+                        {(loadSector || !isEditing) &&
+                          <Autocomplete
+                            options={sectors}
+                            value={loadSector}
+                            onChange={(_event, newValue) => setLoadSector(newValue)}
+                            getOptionLabel={(option) => option.name ?? option}
+                            isOptionEqualToValue={option => option.name === loadSector?.name}
+                            required
+                          />
+                        }
                     </label>
 
                 </div>
                 <label>Number of People
-                <Slider
-                    aria-label="Amount of People"
-                    value={numberOfPeople}
-                    onChange={handleSliderNumberOfPeople}
-                    step={1}
-                    valueLabelDisplay="auto"
-                    aria-required={true}
-                />
+                    <Slider
+                        aria-label="Amount of People"
+                        value={numberOfPeople}
+                        onChange={handleSliderNumberOfPeople}
+                        step={1}
+                        valueLabelDisplay="auto"
+                        aria-required={true}
+                    />
                 </label>
                 <label>When<br/>
-                <Calendar id="calendar-24h"
-                          value={date?.toDate()}
-                          onChange={(e) => setDate(dayjs(e.value))}
-                          readOnlyInput
-                          showTime hourFormat="24"/>
-                <br/>
+                    <Calendar id="calendar-24h"
+                              value={date?.toDate()}
+                              onChange={(e) => setDate(dayjs(e.value))}
+                              readOnlyInput
+                              showTime hourFormat="24"/>
+                    <br/>
                 </label>
                 <label>Expected duration
-                <Slider
-                    aria-label="Hours"
-                    step={1}
-                    value={hours}
-                    onChange={handleSliderHours}
-                    min={0}
-                    max={48}
-                    valueLabelDisplay="auto"
-                    aria-required={true}
-                />
+                    <Slider
+                        aria-label="Hours"
+                        step={1}
+                        value={hours}
+                        onChange={handleSliderHours}
+                        min={0}
+                        max={48}
+                        valueLabelDisplay="auto"
+                        aria-required={true}
+                    />
                 </label>
                 <button className={"buttons button-edit"} type="submit">{isEditing ? 'Save' : 'Create'}</button>
                 {isEditing && <Button type="submit" color={"danger"} onClick={cancelEvent}>Cancel Event</Button>}

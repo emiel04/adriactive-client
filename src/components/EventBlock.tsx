@@ -38,14 +38,15 @@ export default function EventBlock(prop: TEventBlockProps) {
                 }
                 <li><LocationOnIcon/>{prop.event.sector.name}</li>
                 <li>
-                    <AccessTimeFilled/>{new Date(prop.event.startDateTime * 1000).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
-                    {new Date(prop.event.startDateTime * 1000).toLocaleTimeString(undefined, TIME_OPTIONS)}</li>
+                    <AccessTimeFilled/>{new Date(prop.event.startDateTime).toLocaleDateString(undefined, DATE_OPTIONS)}{' | '}
+                    {new Date(prop.event.startDateTime).toLocaleTimeString(undefined, TIME_OPTIONS)}</li>
                 {!prop.simple &&
                   <li><CheckCircleIcon/>{getPeopleLeft()} spots of {prop.event.amountOfPeople} left</li>
                 }
             </ul>
         </div>
     );
+
     function getPeopleLeft() {
         return prop.event.amountOfPeople - prop.event.attendees;
     }
