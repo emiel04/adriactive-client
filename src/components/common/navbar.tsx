@@ -1,5 +1,6 @@
 import {NavLink} from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Badge from '@mui/joy/Badge';
 
 export default function Navbar() {
     return <nav className={"navbar"}>
@@ -24,11 +25,13 @@ export default function Navbar() {
             Events
             </NavLink>
         </li>
+            <Badge badgeContent={1} variant="solid">
         <li>
             <NavLink to={"/app/notifications"} className={({isActive}) => isActive ? "active" : ""}>
             Notifications
             </NavLink>
         </li>
+            </Badge>
         </ul>
     </nav>;
 }
