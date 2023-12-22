@@ -17,6 +17,7 @@ export default function NotifyCancelPage() {
     if (!state) {
         window.location.href = ("/")
     }
+    navigator.vibrate([200]);
 
     const event: TEvent = state.event;
 

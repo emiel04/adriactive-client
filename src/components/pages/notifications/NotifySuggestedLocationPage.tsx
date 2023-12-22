@@ -37,6 +37,7 @@ export default function NotifySuggestedLocationPage() {
         const $root = document.querySelector("#root");
         if (!$root) return;
         $root.classList.add("full-dvh");
+        navigator.vibrate([200]);
         return () => {
             $root.classList.remove("full-dvh");
         }

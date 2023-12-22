@@ -18,6 +18,8 @@ export default function NotifyDangerPage() {
     if (!state) {
         window.location.href = ("/")
     }
+    navigator.vibrate([200, 100, 200, 100, 200, 100, 200, 100, 200, 100, 200]);
+
     const event: TEvent = state.event;
     const dangerousArea = state.dangerousArea;
     useEffect(() => {

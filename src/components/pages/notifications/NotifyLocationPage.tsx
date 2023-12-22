@@ -17,6 +17,7 @@ export default function NotifyLocationPage() {
     }
     const location: TCoordinate = state.location;
     const event: TEvent = state.event;
+    navigator.vibrate([200]);
 
     useEffect(() => {
         const $root = document.querySelector("#root");
